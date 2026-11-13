@@ -21,7 +21,7 @@ function copy(text,box){
   try{if(box){box.focus();box.select();if(document.execCommand("copy")){ok();return}}}catch(e){}
   fail();
 }
-var TG_URL="https://t.me/"+encodeURIComponent(TG), WA_NUM=WA.replace(/\D/g,"");
+var TG_URL=C.telegramLink||("https://t.me/"+encodeURIComponent(TG)), WA_NUM=WA.replace(/\D/g,"");
 function waUrl(msg){return "https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(msg)}
 
 /* Ethiopian calendar date */

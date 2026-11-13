@@ -2,7 +2,8 @@
 window.SELAM = {
   supabaseUrl: 'https://amutaslmrjasowwrhyjw.supabase.co',
   supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFtdXRhc2xtcmphc293d3JoeWp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQzMzk5ODAsImV4cCI6MjEwOTkxNTk4MH0.JsHyhVTeREHvgZsJqmoDU9B7D9NLhQvTaRCMFCKTyD0',
-  telegram: 'Born_confus_ed',     // Telegram username for orders (without @)
+  telegram: 'selamarket251',      // Telegram name shown on the site (without @)
+  telegramLink: 'https://t.me/selamarket251?direct', // where Telegram buttons go: the channel's Direct Messages
   channel: 'selamarket251',       // public Telegram channel for new items
   whatsapp: '+1 647 573 0925',    // WhatsApp number for orders
   turnstileSiteKey: '0x4AAAAAAF_IrXTL1j43oI2w',           // Cloudflare Turnstile site key for the sign-in bot check; leave '' to keep it off
