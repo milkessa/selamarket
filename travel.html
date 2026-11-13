@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Selam Market Traveler Board</title>
+<meta name="description" content="Post your trip between Canada, the USA and Ethiopia, or find a traveler to carry something for you.">
+<meta name="theme-color" content="#0B6B57">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Selam Market">
+<meta property="og:title" content="Send with a traveler · Selam Market">
+<meta property="og:description" content="Find someone flying between Canada, the USA and Ethiopia, or post your own trip.">
+<meta property="og:url" content="https://selammarket.ca/travel.html">
+<meta property="og:image" content="https://selammarket.ca/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Noto+Sans+Ethiopic:wght@400;700&display=swap">
+<style>
+/* Traveler account page: same Selam identity. One column on phones; posting and lists side by side on desktop. */
+:root{
+  --bg:#F6F5F1; --surface:#FFFFFF; --sunk:#EEECE6; --line:#DEDAD0;
+  --ink:#1B1F1A; --muted:#5E625A;
+  --accent:#0B6B57; --accent-ink:#FFFFFF; --accent-soft:#DCEEE7;
+  --gold:#D49A1F; --gold-soft:#F6E8C8; --red:#B3343F; --red-soft:#F7E1E3;
+  --display:"Bricolage Grotesque","Noto Sans Ethiopic",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Ethiopic","Nyala",sans-serif;
+  --r:12px; color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#121512; --surface:#1B201C; --sunk:#161a17; --line:#2E352F;
+  --ink:#ECEEE8; --muted:#A3A99F;
+  --accent:#43C3A0; --accent-ink:#062019; --accent-soft:#163A30;
+  --gold:#E6B24A; --gold-soft:#3A2F17; --red:#E4707A; --red-soft:#3D1F22; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+[hidden]{display:none!important}
+h1,h2,h3{font-family:var(--display);line-height:1.2;margin:0;font-weight:800}
+:lang(am) h1,:lang(am) h2,:lang(am) h3{font-family:"Noto Sans Ethiopic",var(--body);font-weight:700}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.tibeb{height:9px;background:repeating-linear-gradient(90deg,var(--accent) 0 12px,var(--gold) 12px 16px,var(--red) 16px 20px,var(--gold) 20px 24px,var(--accent) 24px 36px,var(--gold) 36px 38px)}
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;padding-bottom:10px}
+.brand{text-decoration:none;color:var(--ink);min-width:0}
+.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em;white-space:nowrap;line-height:1.1;color:var(--ink)}
+.logo .lg-am{font-family:"Noto Sans Ethiopic",var(--body);font-weight:700;color:var(--accent);letter-spacing:0;position:relative;padding-bottom:2px;background:repeating-linear-gradient(90deg,var(--accent) 0 8px,var(--gold) 8px 11px,var(--red) 11px 14px,var(--gold) 14px 17px) left bottom/100% 3px no-repeat}
+.brand small{margin-top:3px}
+.brand small{display:block;color:var(--muted);font-size:12.5px}
+.lang{display:flex;flex:none;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--bg)}
+.lang button{border:0;background:transparent;padding:7px 10px;font-size:13px;cursor:pointer;min-height:36px;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+main{padding-top:20px;padding-bottom:48px}
+.hero{border-radius:var(--r);background:var(--accent);color:var(--accent-ink);padding:22px 20px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:0;right:0;bottom:0;width:40%;opacity:.15;background:linear-gradient(45deg,transparent 46%,var(--accent-ink) 46%,var(--accent-ink) 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,var(--accent-ink) 46%,var(--accent-ink) 54%,transparent 54%);background-size:26px 26px}
+.hero>*{position:relative}
+.hero h1{font-size:clamp(24px,6vw,36px)}
+.hero p{margin:10px 0 0;max-width:62ch;opacity:.92}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0}
+.panel h2{font-size:20px}
+.sub{color:var(--muted);margin:6px 0 14px;font-size:14.5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:11px 16px;min-height:44px;font-weight:700;cursor:pointer;text-decoration:none;font-size:15px;text-align:center}
+.btn.pri{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.danger{background:var(--red);color:#fff}
+.btn.wa{background:#1F8F4E;color:#fff}
+.btn.sm{padding:7px 12px;min-height:38px;font-size:14px}
+.btn:disabled{opacity:.6;cursor:wait}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+label{display:block;font-size:13.5px;font-weight:700}
+label>input,label>select,label>textarea{display:block;margin-top:5px}
+.hint{display:block;font-weight:400;color:var(--muted);font-size:12.5px;margin-top:3px}
+input,select,textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;min-height:44px;font-weight:400;font-size:16px}
+textarea{min-height:90px;resize:vertical}
+.fields{display:grid;gap:12px}
+.tabs{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.tabs button{flex:1;border:0;background:var(--surface);padding:10px;min-height:44px;cursor:pointer;font-weight:600;color:var(--muted)}
+.tabs button[aria-pressed="true"]{background:var(--accent-soft);color:var(--ink)}
+.auth{max-width:440px;margin:0 auto}
+.msg{font-size:14px;padding:10px 12px;border-radius:10px;margin:0}
+.msg.err{background:var(--red-soft);color:var(--red)}
+.msg.ok{background:var(--accent-soft)}
+.hello{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:16px}
+.hello h2{font-size:22px}
+.layout{display:grid;gap:16px}
+.col{display:grid;gap:16px;min-width:0;align-content:start}
+.leg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:8px}
+.kind{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kind label{display:flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-weight:700;background:var(--bg);text-align:center;padding:4px}
+.kind input{position:absolute;opacity:0;pointer-events:none}
+.kind label:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.kind label:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.list{display:grid;gap:10px}
+.card{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg);min-width:0}
+.route{font-weight:800;font-size:16px;overflow-wrap:anywhere}
+.route i{font-style:normal;color:var(--gold);margin:0 6px}
+.meta{color:var(--muted);font-size:13px}
+.quote{margin:8px 0 0;padding:8px 10px;border-left:3px solid var(--gold);background:var(--surface);border-radius:0 8px 8px 0;font-size:14.5px;overflow-wrap:anywhere;white-space:pre-line}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px}
+.pill.open,.pill.accepted{background:var(--accent-soft);color:var(--accent)}
+.pill.pending{background:var(--gold-soft);color:var(--ink)}
+.pill.closed,.pill.expired{background:var(--sunk);color:var(--muted)}
+.pill.removed,.pill.declined{background:var(--red-soft);color:var(--red)}
+.card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.card .ctl{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.contact{margin-top:10px;padding:10px;border-radius:10px;background:var(--accent-soft)}
+.contact b{display:block;margin-bottom:6px}
+.empty{color:var(--muted);text-align:center;padding:18px 8px;font-size:14.5px}
+.divider{display:flex;align-items:center;color:var(--muted);font-size:13px;margin:4px 0}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.divider span{padding:0 10px}
+.keep{border-left:5px solid var(--gold);margin-bottom:16px}
+.safety{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--gold);border-radius:var(--r);padding:16px}
+.safety ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:14px}
+.safety li{margin-bottom:6px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:60;max-width:calc(100% - 32px);text-align:center}
+footer{border-top:1px solid var(--line);background:var(--surface)}
+footer .wrap{padding-top:14px;padding-bottom:18px;color:var(--muted);font-size:13.5px}
+@media (max-width:420px){.brand b{font-size:17px}.bar .row{gap:6px;flex-wrap:nowrap}.bar .btn.sm{padding:6px 10px;min-height:36px;font-size:13px}.lang button{padding:7px 8px}}
+@media (min-width:640px){.fields.cols{grid-template-columns:1fr 1fr}.fields .full{grid-column:1/-1}.hero{padding:28px 28px}}
+@media (min-width:900px){.layout{grid-template-columns:minmax(0,420px) minmax(0,1fr);align-items:start}}
+</style>
+</head>
+<body>
+<header>
+  <div class="tibeb" aria-hidden="true"></div>
+  <div class="wrap bar">
+    <a class="brand" href="./" aria-label="Selam Market"><b class="logo"><span class="lg-am" lang="am">ሰላም</span> Market</b><small data-t="portal"></small></a>
+    <div class="row">
+      <button class="btn ghost sm" id="logout" type="button" data-t="sign_out" hidden></button>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" lang="en">EN</button>
+        <button type="button" data-lang="am" lang="am">አማ</button>
+        <button type="button" data-lang="om" lang="om">Oro</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <h1 data-t="title"></h1>
+    <p data-t="intro"></p>
+  </div>
+
+  <!-- Sign up / sign in -->
+  <section id="authView" class="auth" hidden>
+    <div class="panel fields">
+      <div><h2 data-t="quick_t"></h2><p class="sub" style="margin-bottom:0" data-t="quick_s"></p></div>
+      <button class="btn pri" type="button" id="quickBtn" data-t="quick_btn"></button>
+      <p id="quickMsg" class="msg" hidden></p>
+      <div class="divider"><span data-t="or_email"></span></div>
+      <form id="authForm" class="fields" novalidate>
+        <p class="hint" style="margin:0" data-t="email_s"></p>
+        <label><span data-t="email"></span><input id="email" type="email" inputmode="email" autocomplete="email"></label>
+        <p id="authMsg" class="msg" hidden></p>
+        <button class="btn ghost" type="submit" id="authBtn" data-t="email_btn"></button>
+      </form>
+      <div id="capAuth"></div>
+      <p class="hint" id="privNote" style="margin:0"></p>
+    </div>
+  </section>
+
+  <!-- Member details -->
+  <section id="profileView" hidden>
+    <form id="profileForm" class="panel fields cols" novalidate style="max-width:720px;margin:0 auto">
+      <div class="full"><h2 data-t="profile_t"></h2><p class="sub" style="margin-bottom:0" data-t="profile_s"></p></div>
+      <label><span data-t="f_name"></span><input id="mname" autocomplete="name"></label>
+      <label><span data-t="f_city"></span><input id="mcity" list="allCities" autocomplete="address-level2"></label>
+      <label><span data-t="f_wa"></span><input id="mwa" type="tel" inputmode="tel" placeholder="+1 416 555 0101" autocomplete="tel"></label>
+      <label><span data-t="f_tg"></span><input id="mtg" placeholder="@username"></label>
+      <p id="profileMsg" class="msg full" hidden></p>
+      <div class="row full"><button class="btn pri" type="submit" id="profileBtn" data-t="save"></button><button class="btn ghost" type="button" id="profileCancel" data-t="cancel" hidden></button></div>
+    </form>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashView" hidden>
+    <form id="keepForm" class="panel keep" novalidate hidden>
+      <b data-t="keep_t"></b>
+      <p class="sub" style="margin:4px 0 10px" data-t="keep_s"></p>
+      <div class="row"><input id="keepEmail" type="email" inputmode="email" autocomplete="email" style="flex:1;min-width:200px" aria-label="Email"><button class="btn pri sm" type="submit" id="keepBtn" data-t="keep_btn"></button></div>
+      <p id="keepMsg" class="msg" hidden style="margin-top:8px"></p>
+    </form>
+    <div class="hello">
+      <h2 id="hello"></h2>
+      <div class="row">
+        <button class="btn pri sm" type="button" data-new="trip" data-t="new_trip"></button>
+        <button class="btn ghost sm" type="button" data-new="send" data-t="new_send"></button>
+        <a class="btn ghost sm" href="./#travelers" data-t="view_board"></a>
+        <button class="btn ghost sm" type="button" id="editProfile" data-t="edit_profile"></button>
+      </div>
+    </div>
+    <div class="layout">
+      <div class="col">
+        <!-- contact someone -->
+        <form id="contactForm" class="panel fields" novalidate hidden>
+          <h2 id="ctTitle"></h2>
+          <div class="card" id="ctPost"></div>
+          <p class="sub" style="margin:0" id="ctSub"></p>
+          <label><span data-t="ct_msg"></span><textarea id="ctMsg" maxlength="500"></textarea></label>
+          <p id="ctErr" class="msg" hidden></p>
+          <div class="row"><button class="btn pri" type="submit" id="ctBtn" data-t="ct_send"></button><button class="btn ghost" type="button" data-cancel data-t="cancel"></button></div>
+        </form>
+        <!-- new post -->
+        <form id="postForm" class="panel fields" novalidate hidden>
+          <h2 id="pfTitle"></h2>
+          <div class="kind" role="radiogroup">
+            <label><input type="radio" name="kind" value="trip" checked><span data-t="k_trip"></span></label>
+            <label><input type="radio" name="kind" value="send"><span data-t="k_send"></span></label>
+          </div>
+          <b style="font-size:13.5px" data-t="pf_from"></b>
+          <div class="leg"><label><span data-t="pf_country"></span><select id="fromC"></select></label><label><span data-t="pf_city"></span><input id="fromCity" list="fromList"></label></div>
+          <b style="font-size:13.5px" data-t="pf_to"></b>
+          <div class="leg"><label><span data-t="pf_country"></span><select id="toC"></select></label><label><span data-t="pf_city"></span><input id="toCity" list="toList"></label></div>
+          <div class="leg" style="grid-template-columns:1fr 1fr">
+            <label><span id="pfDateL"></span><input id="pdate" type="date"></label>
+            <label><span id="pfKgL"></span><input id="pkg" type="number" inputmode="decimal" min="0.5" max="100" step="0.5"></label>
+          </div>
+          <label><span id="pfDetL"></span><textarea id="pdet" maxlength="600"></textarea></label>
+          <p class="hint" data-t="pf_rule"></p>
+          <p id="pfErr" class="msg" hidden></p>
+          <div class="row"><button class="btn pri" type="submit" id="pfBtn" data-t="pf_post"></button><button class="btn ghost" type="button" data-cancel data-t="cancel"></button></div>
+        </form>
+        <aside class="safety">
+          <b data-t="safe_t"></b>
+          <ul><li data-t="safe1"></li><li data-t="safe2"></li><li data-t="safe3"></li><li data-t="safe4"></li></ul>
+        </aside>
+      </div>
+      <div class="col">
+        <section class="panel"><h2 data-t="rec_t"></h2><div class="list" id="recList" style="margin-top:12px"></div></section>
+        <section class="panel"><h2 data-t="mine_t"></h2><div class="list" id="mineList" style="margin-top:12px"></div></section>
+        <section class="panel"><h2 data-t="sent_t"></h2><div class="list" id="sentList" style="margin-top:12px"></div></section>
+      </div>
+    </div>
+  </section>
+  <datalist id="allCities"></datalist><datalist id="fromList"></datalist><datalist id="toList"></datalist>
+</main>
+
+<footer><div class="wrap"><a href="./#travelers" data-t="back_board"></a> · <a href="./#privacy" data-t="privacy"></a> · <span id="help"></span></div></footer>
+
+<script src="config.js"></script>
+<script src="captcha.js"></script>
+<script src="stats.js"></script>
+<script src="i18n.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+(function(){
+var C=window.SELAM, I=window.SELAM_I18N;
+var S={
+en:{portal:"Traveler board",keep_sent:"Check your email and tap the link to confirm.",keep_btn:"Save my email",keep_s:"Right now only this phone knows you. Add your email so you can sign in anywhere and never lose your posts.",keep_t:"Keep access on any phone",err_captcha:"Wait a moment for the security check, then try again.",err_quick:"Couldn't start. Check your connection and try again.",link_sent:"Check your email and tap the link to sign in.",email_btn:"Email me a sign-in link",email_s:"We email you a sign-in link, no password. Use it to get back in on any phone.",or_email:"or use your email",quick_btn:"Start without an account",quick_s:"No sign-up needed. Add your name, city and WhatsApp, then post. This phone remembers you.",quick_t:"Start in seconds",ct_sample_t:"This is a sample post",ct_sample:"It shows how the board works, so there is no one to contact. Post your own trip or request, or find a real traveler on the board.",one_request:"1 request",ct_need:"Write a short note so they know what you need.",title:"Send with a traveler",intro:"Post your trip or what you need to send, and connect with people going the same way. Your phone number is shared only with people you accept.",
+email:"Email",
+err_email:"Enter a valid email address.",
+priv_note:"By continuing, you agree to our {link}.",priv_link:"privacy policy",
+profile_t:"Your details",profile_s:"Only your first name and city show on the board. Your WhatsApp and Telegram are shared only when you accept someone, or they accept you.",
+f_name:"Full name",f_city:"City where you live",f_wa:"WhatsApp number (with country code)",f_tg:"Telegram username (optional)",save:"Save",saved:"Saved",cancel:"Cancel",sign_out:"Sign out",
+need_profile:"Add your name, city and WhatsApp number.",hi:"Hi {n}",new_trip:"Post a trip",new_send:"Post a send request",view_board:"View the board",edit_profile:"Edit my details",
+pf_trip_t:"Post your trip",pf_send_t:"Post a send request",k_trip:"I'm traveling",k_send:"I need to send",pf_from:"From",pf_to:"To",pf_country:"Country",pf_city:"City",
+pf_date_trip:"Flight date",pf_date_send:"Needed by",pf_kg_trip:"Space you have (kg)",pf_kg_send:"Approximate weight (kg)",pf_det_trip:"What can you carry? (optional)",pf_det_send:"What do you need to send?",
+pf_rule:"Only post things that can be carried legally. Travelers: never carry a sealed package you haven't checked.",pf_post:"Post on the board",pf_posted:"Posted on the board",pf_req:"Fill in the route and date.",pf_same:"Choose two different places.",
+ct_t:"Contact {n}",ct_s:"{n} sees your first name, your city and this note. If they accept, you both see each other's WhatsApp.",ct_msg:"Your note",
+ct_ph_trip:"Hi, I'd like to send a small package with you. It weighs about ... kg and contains ...",ct_ph_send:"Hi, I'm traveling on that route and could carry your item.",
+ct_send:"Send request",ct_sent:"Request sent. You'll see the answer under Requests I sent.",ct_gone:"This post is no longer open.",
+rec_t:"Requests for your posts",rec_empty:"No requests yet. When someone contacts you, it shows here.",accept:"Accept",decline:"Decline",
+mine_t:"My posts",mine_empty:"You haven't posted yet.",sent_t:"Requests I sent",sent_empty:"You haven't contacted anyone yet. Find someone on the board.",
+withdraw:"Withdraw",close_post:"Close post",reopen:"Reopen",del:"Delete",del_confirm:"Delete this post?",keep:"Keep",
+st_open:"On the board",st_closed:"Closed",st_removed:"Removed by Selam Market",st_expired:"Date passed",
+rs_pending:"Waiting for an answer",rs_accepted:"Accepted",rs_declined:"Declined",
+n_requests:"{n} requests",contact_now:"You're connected. Talk to {n}:",wa_btn:"WhatsApp {n}",
+wa_msg:"Hi {n}, we connected on Selam Market about {r} on {d}.",
+e_past:"The date has already passed.",e_limit:"You can have up to 5 open posts. Close one first.",e_own:"This is your own post.",e_dup:"You already contacted this person about this post.",e_many:"Too many requests today. Try again tomorrow.",
+err_save:"Not saved. Check your connection and try again.",back_board:"Back to the board",privacy:"Privacy policy",help:"Questions? Message us on Telegram: @{tg}",loading:"Loading…"},
+am:{portal:"የተጓዦች ሰሌዳ",keep_sent:"ኢሜይልዎን ይመልከቱና ለማረጋገጥ ሊንኩን ይጫኑ።",keep_btn:"ኢሜይሌን አስቀምጥ",keep_s:"አሁን የሚያውቅዎ ይህ ስልክ ብቻ ነው። በየትኛውም ቦታ ለመግባትና ልጥፎችዎን እንዳያጡ ኢሜይልዎን ያክሉ።",keep_t:"በማንኛውም ስልክ መግባት እንዲችሉ",err_captcha:"የደህንነት ፍተሻው እስኪጨርስ ትንሽ ይጠብቁ፣ ከዚያ እንደገና ይሞክሩ።",err_quick:"መጀመር አልተቻለም። ኢንተርኔትዎን አረጋግጠው እንደገና ይሞክሩ።",link_sent:"ኢሜይልዎን ይመልከቱና ለመግባት ሊንኩን ይጫኑ።",email_btn:"የመግቢያ ሊንክ በኢሜይል ላኩልኝ",email_s:"ያለ የይለፍ ቃል የመግቢያ ሊንክ በኢሜይል እንልክልዎታለን። በማንኛውም ስልክ ለመመለስ ይጠቀሙበት።",or_email:"ወይም በኢሜይልዎ",quick_btn:"ያለ አካውንት ይጀምሩ",quick_s:"መመዝገብ አያስፈልግም። ስምዎን፣ ከተማዎንና ዋትስአፕዎን ያስገቡ፣ ከዚያ ይለጥፉ። ይህ ስልክ ያስታውስዎታል።",quick_t:"በሰከንዶች ይጀምሩ",ct_sample_t:"ይህ የናሙና ልጥፍ ነው",ct_sample:"ሰሌዳው እንዴት እንደሚሠራ ያሳያል፤ ስለዚህ የሚገኝ ሰው የለም። የራስዎን ጉዞ ወይም ጥያቄ ይለጥፉ፣ ወይም በሰሌዳው ላይ እውነተኛ ተጓዥ ይፈልጉ።",one_request:"1 ጥያቄ",ct_need:"የሚፈልጉትን እንዲያውቁ አጭር ማስታወሻ ይጻፉ።",title:"በተጓዥ ይላኩ",intro:"ጉዞዎን ወይም የሚልኩትን ይለጥፉና በተመሳሳይ መንገድ ከሚሄዱ ሰዎች ጋር ይገናኙ። ስልክ ቁጥርዎ የሚጋራው ከተቀበሏቸው ሰዎች ጋር ብቻ ነው።",
+email:"ኢሜይል",
+err_email:"ትክክለኛ ኢሜይል ያስገቡ።",
+priv_note:"በመቀጠል {link} ይቀበላሉ።",priv_link:"የግላዊነት ፖሊሲያችንን",
+profile_t:"የእርስዎ መረጃ",profile_s:"በሰሌዳው ላይ የሚታየው የመጀመሪያ ስምዎና ከተማዎ ብቻ ነው። ዋትስአፕና ቴሌግራምዎ የሚጋሩት አንድን ሰው ሲቀበሉ ወይም እርስዎን ሲቀበሉ ብቻ ነው።",
+f_name:"ሙሉ ስም",f_city:"የሚኖሩበት ከተማ",f_wa:"የዋትስአፕ ቁጥር (ከአገር ኮድ ጋር)",f_tg:"የቴሌግራም ስም (አማራጭ)",save:"አስቀምጥ",saved:"ተቀምጧል",cancel:"ተወው",sign_out:"ውጣ",
+need_profile:"ስምዎን፣ ከተማዎንና የዋትስአፕ ቁጥርዎን ያስገቡ።",hi:"ሰላም {n}",new_trip:"ጉዞ ይለጥፉ",new_send:"የመላኪያ ጥያቄ ይለጥፉ",view_board:"ሰሌዳውን ይመልከቱ",edit_profile:"መረጃዬን አስተካክል",
+pf_trip_t:"ጉዞዎን ይለጥፉ",pf_send_t:"የመላኪያ ጥያቄ ይለጥፉ",k_trip:"እጓዛለሁ",k_send:"መላክ እፈልጋለሁ",pf_from:"ከ",pf_to:"ወደ",pf_country:"አገር",pf_city:"ከተማ",
+pf_date_trip:"የበረራ ቀን",pf_date_send:"እስከ መቼ",pf_kg_trip:"ያለዎት ቦታ (ኪ.ግ)",pf_kg_send:"ግምታዊ ክብደት (ኪ.ግ)",pf_det_trip:"ምን መያዝ ይችላሉ? (አማራጭ)",pf_det_send:"ምን መላክ ይፈልጋሉ?",
+pf_rule:"በሕግ ሊያዙ የሚችሉ ነገሮችን ብቻ ይለጥፉ። ተጓዦች፦ ያልፈተሹትን የታሸገ እሽግ በጭራሽ አይያዙ።",pf_post:"በሰሌዳው ላይ ይለጥፉ",pf_posted:"በሰሌዳው ላይ ተለጥፏል",pf_req:"መስመሩንና ቀኑን ይሙሉ።",pf_same:"ሁለት የተለያዩ ቦታዎችን ይምረጡ።",
+ct_t:"{n}ን ያግኙ",ct_s:"{n} የመጀመሪያ ስምዎን፣ ከተማዎንና ይህን ማስታወሻ ያያል። ከተቀበለ ሁለታችሁም የእርስ በርስ ዋትስአፕ ታያላችሁ።",ct_msg:"ማስታወሻዎ",
+ct_ph_trip:"ሰላም፣ ከእርስዎ ጋር ትንሽ እሽግ መላክ እፈልጋለሁ። ክብደቱ ... ኪ.ግ ገደማ ሲሆን ውስጡ ... ነው።",ct_ph_send:"ሰላም፣ በዚያ መስመር እጓዛለሁ፤ እቃዎን መያዝ እችላለሁ።",
+ct_send:"ጥያቄውን ይላኩ",ct_sent:"ጥያቄው ተልኳል። መልሱን 'የላክኋቸው ጥያቄዎች' ስር ያያሉ።",ct_gone:"ይህ ልጥፍ ከአሁን በኋላ ክፍት አይደለም።",
+rec_t:"ለልጥፎችዎ የመጡ ጥያቄዎች",rec_empty:"እስካሁን ጥያቄ የለም። አንድ ሰው ሲያገኝዎ እዚህ ይታያል።",accept:"ተቀበል",decline:"አትቀበል",
+mine_t:"ልጥፎቼ",mine_empty:"እስካሁን አልለጠፉም።",sent_t:"የላክኋቸው ጥያቄዎች",sent_empty:"እስካሁን ማንንም አላገኙም። በሰሌዳው ላይ ሰው ይፈልጉ።",
+withdraw:"ጥያቄውን ሰርዝ",close_post:"ልጥፉን ዝጋ",reopen:"እንደገና ክፈት",del:"አጥፋ",del_confirm:"ይህ ልጥፍ ይጥፋ?",keep:"ይቆይ",
+st_open:"በሰሌዳው ላይ",st_closed:"ተዘግቷል",st_removed:"በሰላም ማርኬት ተወግዷል",st_expired:"ቀኑ አልፏል",
+rs_pending:"መልስ በመጠበቅ ላይ",rs_accepted:"ተቀባይነት አግኝቷል",rs_declined:"አልተቀበለም",
+n_requests:"{n} ጥያቄዎች",contact_now:"ተገናኝታችኋል። ከ{n} ጋር ይነጋገሩ፦",wa_btn:"ዋትስአፕ {n}",
+wa_msg:"ሰላም {n}፣ በሰላም ማርኬት ስለ {r} ({d}) ተገናኝተናል።",
+e_past:"ቀኑ አልፏል።",e_limit:"እስከ 5 ክፍት ልጥፎች ብቻ ሊኖርዎት ይችላል። መጀመሪያ አንዱን ይዝጉ።",e_own:"ይህ የራስዎ ልጥፍ ነው።",e_dup:"ስለዚህ ልጥፍ ይህን ሰው አስቀድመው አግኝተዋል።",e_many:"ዛሬ ብዙ ጥያቄዎች ልከዋል። ነገ እንደገና ይሞክሩ።",
+err_save:"አልተቀመጠም። ኢንተርኔትዎን አረጋግጠው እንደገና ይሞክሩ።",back_board:"ወደ ሰሌዳው ተመለስ",privacy:"የግላዊነት ፖሊሲ",help:"ጥያቄ አለዎት? በቴሌግራም ያግኙን፦ @{tg}",loading:"በመጫን ላይ…"},
+om:{portal:"Gabatee imaltootaa",keep_sent:"Imeelii kee ilaaliitii mirkaneessuuf liinkii tuqi.",keep_btn:"Imeelii koo olkaa'i",keep_s:"Amma bilbila kana qofatu si beeka. Bakka kamittuu seenuuf fi maxxansa kee akka hin dhabneef imeelii kee dabali.",keep_t:"Bilbila kamiin iyyuu seenuuf",err_captcha:"Qorannoon nageenyaa hamma xumuramutti xiqqoo eegiitii irra deebi'i yaali.",err_quick:"Jalqabuu hin dandeenye. Interneetii kee mirkaneessiitii irra deebi'i yaali.",link_sent:"Imeelii kee ilaaliitii seenuuf liinkii tuqi.",email_btn:"Liinkii seensaa naaf ergi",email_s:"Jecha icciitii malee liinkii seensaa imeeliidhaan siif ergina. Bilbila kamiin iyyuu deebi'uuf itti fayyadami.",or_email:"ykn imeelii keetiin",quick_btn:"Herrega malee jalqabi",quick_s:"Galmaa'uun hin barbaachisu. Maqaa, magaalaa fi WhatsApp kee galchiitii maxxansi. Bilbilli kun si yaadata.",quick_t:"Sekondii muraasaan jalqabi",ct_sample_t:"Kun maxxansa fakkeenyaati",ct_sample:"Akkaataa gabateen itti hojjetu agarsiisa, kanaaf namni qunnamamu hin jiru. Imala ykn gaaffii kee maxxansi, ykn gabatee irratti imaltuu dhugaa barbaadi.",one_request:"Gaaffii 1",ct_need:"Waan barbaaddu akka beekaniif yaadannoo gabaabaa barreessi.",title:"Imaltuun ergi",intro:"Imala kee ykn waan erguu barbaaddu maxxansiitii namoota karaa wal fakkaataa deeman waliin wal qunnami. Lakkoofsi bilbila keetii namoota ati fudhatte qofaaf qoodama.",
+email:"Imeelii",
+err_email:"Imeelii sirrii galchi.",
+priv_note:"Itti fufuudhaan {link} keenya ni fudhatta.",priv_link:"imaammata dhuunfaa",
+profile_t:"Odeeffannoo kee",profile_s:"Gabatee irratti maqaa kee jalqabaa fi magaalaa kee qofatu mul'ata. WhatsApp fi Telegram kee kan qoodamu yeroo ati nama fudhattu ykn inni si fudhatu qofa.",
+f_name:"Maqaa guutuu",f_city:"Magaalaa itti jiraattu",f_wa:"Lakkoofsa WhatsApp (koodii biyyaa waliin)",f_tg:"Maqaa Telegram (dirqama miti)",save:"Olkaa'i",saved:"Olkaa'ameera",cancel:"Dhiisi",sign_out:"Ba'i",
+need_profile:"Maqaa, magaalaa fi lakkoofsa WhatsApp kee galchi.",hi:"Akkam {n}",new_trip:"Imala maxxansi",new_send:"Gaaffii erguu maxxansi",view_board:"Gabatee ilaali",edit_profile:"Odeeffannoo koo sirreessi",
+pf_trip_t:"Imala kee maxxansi",pf_send_t:"Gaaffii erguu maxxansi",k_trip:"Nan imala",k_send:"Erguu barbaada",pf_from:"Irraa",pf_to:"Gara",pf_country:"Biyya",pf_city:"Magaalaa",
+pf_date_trip:"Guyyaa balalii",pf_date_send:"Hanga yoom",pf_kg_trip:"Bakka qabdu (kg)",pf_kg_send:"Ulfaatina tilmaamaa (kg)",pf_det_trip:"Maal fudhachuu dandeessa? (dirqama miti)",pf_det_send:"Maal erguu barbaadda?",
+pf_rule:"Waan seeraan fudhatamuu danda'u qofa maxxansi. Imaltoota: paakeejii cufame kan hin sakatta'in gonkumaa hin fudhatinaa.",pf_post:"Gabatee irratti maxxansi",pf_posted:"Gabatee irratti maxxanfameera",pf_req:"Karaa fi guyyaa guuti.",pf_same:"Bakkeewwan lama adda ta'an filadhu.",
+ct_t:"{n} qunnami",ct_s:"{n} maqaa kee jalqabaa, magaalaa kee fi yaadannoo kana arga. Yoo fudhate, lachuu WhatsApp walii argitu.",ct_msg:"Yaadannoo kee",
+ct_ph_trip:"Akkam, paakeejii xiqqaa si waliin erguu barbaada. Ulfaatinni isaa gara ... kg, keessi isaa ... dha.",ct_ph_send:"Akkam, karaa sanaan nan imala, meeshaa kee fudhachuu nan danda'a.",
+ct_send:"Gaaffii ergi",ct_sent:"Gaaffiin ergameera. Deebii isaa 'Gaaffii ani erge' jala argita.",ct_gone:"Maxxansi kun amma banaa miti.",
+rec_t:"Gaaffii maxxansa keetiif dhufan",rec_empty:"Hanga ammaatti gaaffiin hin jiru. Yeroo namni si qunnamu asitti mul'ata.",accept:"Fudhadhu",decline:"Didi",
+mine_t:"Maxxansa koo",mine_empty:"Hanga ammaatti hin maxxansine.",sent_t:"Gaaffii ani erge",sent_empty:"Hanga ammaatti nama hin qunnamne. Gabatee irratti nama barbaadi.",
+withdraw:"Gaaffii haqi",close_post:"Maxxansa cufi",reopen:"Irra deebiin bani",del:"Haqi",del_confirm:"Maxxansi kun haa haqamu?",keep:"Haa turu",
+st_open:"Gabatee irra jira",st_closed:"Cufameera",st_removed:"Selam Market'n haqameera",st_expired:"Guyyaan darbeera",
+rs_pending:"Deebii eegaa jira",rs_accepted:"Fudhatameera",rs_declined:"Didameera",
+n_requests:"Gaaffii {n}",contact_now:"Walqunnamtaniittu. {n} waliin haasa'i:",wa_btn:"WhatsApp {n}",
+wa_msg:"Akkam {n}, waa'ee {r} ({d}) Selam Market irratti walqunnamne.",
+e_past:"Guyyaan darbeera.",e_limit:"Maxxansa banaa hanga 5 qofa qabaachuu dandeessa. Dursa tokko cufi.",e_own:"Kun maxxansa keeti.",e_dup:"Waa'ee maxxansa kanaa nama kana duraan qunnamteetta.",e_many:"Har'a gaaffii baay'ee ergiteetta. Boru irra deebi'i yaali.",
+err_save:"Hin olkaa'amne. Interneetii kee mirkaneessiitii irra deebi'i yaali.",back_board:"Gara gabateetti deebi'i",privacy:"Imaammata dhuunfaa",help:"Gaaffii qabdaa? Telegram irratti nu qunnamaa: @{tg}",loading:"Fe'amaa jira…"}};
+
+var CITIES={CA:["Toronto","Ottawa","Montreal","Calgary","Edmonton","Vancouver","Winnipeg","Hamilton","Mississauga","Brampton"],
+  US:["Washington DC","Silver Spring","Alexandria","Seattle","Minneapolis","St. Paul","Dallas","Houston","Atlanta","Los Angeles","Denver","Columbus","Las Vegas","Boston","New York"],
+  ET:["Addis Ababa","Adama","Bishoftu","Bahir Dar","Hawassa","Dire Dawa","Harar","Mekelle","Gondar","Jimma","Dessie","Nekemte","Shashemene"]};
+var OM_MONTHS=["Amajjii","Guraandhala","Bitootessa","Ebla","Caamsaa","Waxabajjii","Adoolessa","Hagayya","Fulbaana","Onkoloolessa","Sadaasa","Muddee"];
+
+function $(s){return document.querySelector(s)}
+function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+var lang=store("sm-lang")||"en";if(!S[lang])lang="en";
+function t(k,v){var s=S[lang][k]!=null?S[lang][k]:(I.T[lang]&&I.T[lang][k]!=null?I.T[lang][k]:(S.en[k]!=null?S.en[k]:(I.T.en[k]||"")));if(v)for(var x in v)s=s.split("{"+x+"}").join(v[x]);return s}
+function toast(m){var d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d)},2800)}
+function msg(el,text,kind){el.hidden=!text;el.className="msg "+(kind||"err")+(el.classList.contains("full")?" full":"");el.textContent=text||""}
+function fmtDate(iso){var p=String(iso).split("-"),d=new Date(+p[0],+p[1]-1,+p[2]);
+  if(lang==="om")return OM_MONTHS[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear();
+  try{return d.toLocaleDateString(lang==="am"?"am-ET":"en-CA",{month:"short",day:"numeric",year:"numeric"})}catch(e){return iso}}
+function today(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+function routeTxt(p){return p.from_city+" → "+p.to_city}
+function routeHtml(p){return esc(p.from_city)+"<i>→</i>"+esc(p.to_city)}
+function dbErr(e){var m=(e&&e.message)||"";
+  if(/already passed/.test(m))return t("e_past");if(/5 open posts/.test(m))return t("e_limit");if(/own post/.test(m))return t("e_own");
+  if(/no longer open/.test(m))return t("ct_gone");if(/sample post/.test(m))return t("ct_sample");if(/duplicate key/.test(m))return t("e_dup");if(/Too many requests/.test(m))return t("e_many");
+  return t("err_save")+(m?" ("+m+")":"")}
+
+var sb=window.supabase.createClient(C.supabaseUrl,C.supabaseAnonKey);
+var mode="up", me=null, member=null, myPosts=[], reqs=[], confirmDel=null, contactPost=null;
+
+/* ---------- next action (survives sign-in and email confirmation) ---------- */
+function readHash(){var h=location.hash.slice(1),m=/^contact-(\d+)$/.exec(h);
+  if(m)return {a:"contact",id:+m[1]};if(h==="new-trip")return {a:"new",kind:"trip"};if(h==="new-send")return {a:"new",kind:"send"};return null}
+var nextAction=readHash()||store("sm-travel-next");
+if(readHash())store("sm-travel-next",nextAction);
+
+/* ---------- language ---------- */
+function fillCountries(){["fromC","toC"].forEach(function(id){var el=$("#"+id),v=el.value;
+  el.innerHTML=["CA","US","ET"].map(function(c){return '<option value="'+c+'">'+esc(t("c_"+c))+"</option>"}).join("");el.value=v||(id==="fromC"?"CA":"ET")});
+  $("#allCities").innerHTML=CITIES.CA.concat(CITIES.US,CITIES.ET).map(function(c){return "<option value=\""+esc(c)+"\">"}).join("");syncCityLists()}
+function syncCityLists(){$("#fromList").innerHTML=CITIES[$("#fromC").value].map(function(c){return "<option value=\""+esc(c)+"\">"}).join("");
+  $("#toList").innerHTML=CITIES[$("#toC").value].map(function(c){return "<option value=\""+esc(c)+"\">"}).join("")}
+function applyLang(){
+  document.documentElement.lang=lang;
+  $$("[data-t]").forEach(function(el){el.textContent=t(el.getAttribute("data-t"))});
+  $$("[data-lang]").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
+  $("#help").textContent=t("help",{tg:C.telegram});
+  var pl=t("priv_note").split("{link}");$("#privNote").innerHTML=esc(pl[0])+'<a href="./#privacy" target="_blank" rel="noopener">'+esc(t("priv_link"))+"</a>"+esc(pl[1]||"");
+  window.SelamCaptcha.mount($("#capAuth"),lang);fillCountries();syncKind();
+  if(member){$("#hello").textContent=t("hi",{n:member.name.split(" ")[0]});renderAll()}
+  if(contactPost)renderContact();
+}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lang]");if(b){lang=b.getAttribute("data-lang");store("sm-lang",lang);applyLang()}});
+function show(view){["authView","profileView","dashView"].forEach(function(v){$("#"+v).hidden=v!==view});
+  var anon=!!(me&&me.is_anonymous);$("#logout").hidden=view==="authView"||anon;$("#keepForm").hidden=!(view==="dashView"&&anon)}
+
+/* ---------- sign-in: instant start, or an emailed link (no passwords) ---------- */
+var CAP=window.SelamCaptcha;
+function withCaptcha(btn,box,run){btn.disabled=true;msg(box);
+  CAP.token($("#capAuth")).then(function(tok){
+    if(tok===null){btn.disabled=false;msg(box,t("err_captcha"));return}
+    run(tok).then(function(r){btn.disabled=false;CAP.reset($("#capAuth"));return r},function(){btn.disabled=false;CAP.reset($("#capAuth"));msg(box,t("err_quick"))})})}
+$("#quickBtn").addEventListener("click",function(){var box=$("#quickMsg");
+  withCaptcha($("#quickBtn"),box,function(tok){return sb.auth.signInAnonymously({options:{captchaToken:tok}}).then(function(r){
+    if(r.error){msg(box,t("err_quick")+" ("+r.error.message+")");return}start()})})});
+$("#authForm").addEventListener("submit",function(e){e.preventDefault();
+  var email=$("#email").value.trim(),box=$("#authMsg");
+  if(!/^\S+@\S+\.\S+$/.test(email)){msg(box,t("err_email"));return}
+  withCaptcha($("#authBtn"),box,function(tok){return sb.auth.signInWithOtp({email:email,options:{emailRedirectTo:location.origin+location.pathname,captchaToken:tok}}).then(function(r){
+    if(r.error){msg(box,t("err_quick")+" ("+r.error.message+")");return}msg(box,t("link_sent"),"ok")})})});
+$("#keepForm").addEventListener("submit",function(e){e.preventDefault();
+  var email=$("#keepEmail").value.trim(),box=$("#keepMsg");
+  if(!/^\S+@\S+\.\S+$/.test(email)){msg(box,t("err_email"));return}
+  $("#keepBtn").disabled=true;msg(box);
+  sb.auth.updateUser({email:email},{emailRedirectTo:location.origin+location.pathname}).then(function(r){$("#keepBtn").disabled=false;
+    if(r.error){msg(box,t("err_quick")+" ("+r.error.message+")");return}msg(box,t("keep_sent"),"ok")})});
+$("#logout").onclick=function(){store("sm-travel-next",null);sb.auth.signOut().then(function(){location.href="./#travelers"})};
+
+/* ---------- profile ---------- */
+function openProfile(edit){show("profileView");$("#profileCancel").hidden=!edit;
+  if(member){$("#mname").value=member.name;$("#mcity").value=member.city;$("#mwa").value=member.whatsapp;$("#mtg").value=member.telegram||""}}
+$("#profileCancel").onclick=function(){show("dashView")};
+$("#editProfile").onclick=function(){openProfile(true)};
+$("#profileForm").addEventListener("submit",function(e){e.preventDefault();var box=$("#profileMsg");
+  var row={name:$("#mname").value.trim(),city:$("#mcity").value.trim(),whatsapp:$("#mwa").value.trim(),telegram:$("#mtg").value.trim().replace(/^@/,"")||null};
+  if(!row.name||!row.city||row.whatsapp.replace(/\D/g,"").length<7){msg(box,t("need_profile"));return}
+  $("#profileBtn").disabled=true;msg(box);
+  var q=member?sb.from("members").update(row).eq("user_id",me.id):sb.from("members").insert(Object.assign({user_id:me.id},row));
+  q.then(function(r){$("#profileBtn").disabled=false;if(r.error){msg(box,dbErr(r.error));return}toast(t("saved"));loadMember()})});
+
+/* ---------- new post ---------- */
+function syncKind(){var k=(document.querySelector('input[name="kind"]:checked')||{}).value||"trip",trip=k==="trip";
+  $("#pfTitle").textContent=t(trip?"pf_trip_t":"pf_send_t");$("#pfDateL").textContent=t(trip?"pf_date_trip":"pf_date_send");
+  $("#pfKgL").textContent=t(trip?"pf_kg_trip":"pf_kg_send");$("#pfDetL").textContent=t(trip?"pf_det_trip":"pf_det_send")}
+$$('input[name="kind"]').forEach(function(r){r.addEventListener("change",syncKind)});
+$("#fromC").addEventListener("change",syncCityLists);$("#toC").addEventListener("change",syncCityLists);
+function openPost(kind){$("#contactForm").hidden=true;contactPost=null;$("#postForm").hidden=false;msg($("#pfErr"));
+  document.querySelector('input[name="kind"][value="'+kind+'"]').checked=true;syncKind();$("#pdate").min=today();
+  $("#postForm").scrollIntoView({behavior:"smooth",block:"start"})}
+$$("[data-new]").forEach(function(b){b.addEventListener("click",function(){openPost(b.getAttribute("data-new"))})});
+$$("[data-cancel]").forEach(function(b){b.addEventListener("click",function(){b.closest("form").hidden=true;contactPost=null;store("sm-travel-next",null);if(location.hash)history.replaceState(null,"",location.pathname)})});
+$("#postForm").addEventListener("submit",function(e){e.preventDefault();var box=$("#pfErr");
+  var kind=document.querySelector('input[name="kind"]:checked').value;
+  var row={kind:kind,from_country:$("#fromC").value,from_city:$("#fromCity").value.trim(),to_country:$("#toC").value,to_city:$("#toCity").value.trim(),
+    travel_date:$("#pdate").value,weight_kg:parseFloat($("#pkg").value)||null,details:$("#pdet").value.trim()||null};
+  if(!row.from_city||!row.to_city||!row.travel_date){msg(box,t("pf_req"));return}
+  if(row.from_country===row.to_country&&row.from_city.toLowerCase()===row.to_city.toLowerCase()){msg(box,t("pf_same"));return}
+  if(row.travel_date<today()){msg(box,t("e_past"));return}
+  $("#pfBtn").disabled=true;msg(box);
+  sb.from("travel_posts").insert(Object.assign({user_id:me.id},row)).then(function(r){$("#pfBtn").disabled=false;
+    if(r.error){msg(box,dbErr(r.error));return}
+    toast(t("pf_posted"));$("#postForm").reset();$("#postForm").hidden=true;store("sm-travel-next",null);if(location.hash)history.replaceState(null,"",location.pathname);fillCountries();syncKind();loadAll()})});
+
+/* ---------- contact someone ---------- */
+function openContact(id){$("#postForm").hidden=true;$("#contactForm").hidden=false;msg($("#ctErr"));$("#ctPost").innerHTML='<span class="meta">'+esc(t("loading"))+"</span>";
+  sb.from("board_posts").select("*").eq("id",id).maybeSingle().then(function(r){
+    contactPost=r.data||{gone:true,id:id};renderContact();$("#contactForm").scrollIntoView({behavior:"smooth",block:"start"})})}
+function renderContact(){var p=contactPost;
+  if(p.gone){$("#ctTitle").textContent=t("ct_gone");$("#ctPost").innerHTML='<a href="./#travelers">'+esc(t("back_board"))+"</a>";$("#ctSub").hidden=true;$("#ctMsg").closest("label").hidden=true;$("#ctBtn").hidden=true;return}
+  if(p.is_sample){$("#ctTitle").textContent=t("ct_sample_t");$("#ctPost").innerHTML='<p style="margin:0">'+esc(t("ct_sample"))+'</p><div class="row" style="margin-top:10px"><a class="btn pri sm" href="#new-trip">'+esc(t("new_trip"))+'</a><a class="btn ghost sm" href="./#travelers">'+esc(t("view_board"))+"</a></div>";
+    $("#ctSub").hidden=true;$("#ctMsg").closest("label").hidden=true;$("#ctBtn").hidden=true;return}
+  var trip=p.kind==="trip";$("#ctSub").hidden=false;$("#ctMsg").closest("label").hidden=false;$("#ctBtn").hidden=false;
+  $("#ctTitle").textContent=t("ct_t",{n:p.first_name});$("#ctSub").textContent=t("ct_s",{n:p.first_name});
+  $("#ctPost").innerHTML='<div class="route">'+routeHtml(p)+'</div><div class="meta">'+esc(t(trip?"bp_on":"bp_by",{d:fmtDate(p.travel_date)}))+(p.weight_kg?" · "+esc(t(trip?"bp_space":"bp_weight",{k:+p.weight_kg})):"")+"</div>"+
+    (p.details?'<p class="quote">'+esc(p.details)+"</p>":"")+'<div class="meta" style="margin-top:6px">'+esc(t("bp_who",{n:p.first_name,c:p.member_city}))+"</div>";
+  $("#ctMsg").placeholder=t(trip?"ct_ph_trip":"ct_ph_send")}
+$("#contactForm").addEventListener("submit",function(e){e.preventDefault();var box=$("#ctErr"),text=$("#ctMsg").value.trim();
+  if(!contactPost||contactPost.gone)return;
+  if(text.length<5){$("#ctMsg").focus();msg(box,t("ct_need"));return}
+  $("#ctBtn").disabled=true;msg(box);
+  sb.from("contact_requests").insert({post_id:contactPost.id,requester_id:me.id,message:text}).then(function(r){$("#ctBtn").disabled=false;
+    if(r.error){msg(box,dbErr(r.error));return}
+    toast(t("ct_sent"));$("#contactForm").reset();$("#contactForm").hidden=true;contactPost=null;store("sm-travel-next",null);if(location.hash)history.replaceState(null,"",location.pathname);loadAll()})});
+
+/* ---------- lists ---------- */
+function waLink(num,text){return "https://wa.me/"+String(num||"").replace(/\D/g,"")+"?text="+encodeURIComponent(text)}
+function contactBox(r){var first=(r.other_full_name||r.other_name||"").split(" ")[0];
+  var text=t("wa_msg",{n:first,r:routeTxt(r),d:fmtDate(r.travel_date)});
+  return '<div class="contact"><b>'+esc(t("contact_now",{n:r.other_full_name||r.other_name}))+'</b><div class="row">'+
+    '<a class="btn wa sm" target="_blank" rel="noopener" href="'+waLink(r.other_whatsapp,text)+'">'+esc(t("wa_btn",{n:first}))+"</a>"+
+    (r.other_telegram?'<a class="btn ghost sm" target="_blank" rel="noopener" href="https://t.me/'+encodeURIComponent(r.other_telegram)+'">Telegram @'+esc(r.other_telegram)+"</a>":"")+
+    '</div><div class="meta" style="margin-top:6px;-webkit-user-select:all;user-select:all">'+esc(r.other_whatsapp)+"</div></div>"}
+function postState(p){if(p.status==="removed")return "removed";if(p.status==="closed")return "closed";if(p.travel_date<today())return "expired";return "open"}
+function renderAll(){
+  var rec=reqs.filter(function(r){return r.direction==="received"}),sent=reqs.filter(function(r){return r.direction==="sent"});
+  $("#recList").innerHTML=rec.length?rec.map(function(r){
+    return '<article class="card"><div class="top"><div><div class="route">'+routeHtml(r)+'</div><div class="meta">'+esc(fmtDate(r.travel_date))+" · "+esc(r.other_name)+", "+esc(r.other_city)+'</div></div><span class="pill '+r.status+'">'+esc(t("rs_"+r.status))+"</span></div>"+
+      (r.message?'<p class="quote">'+esc(r.message)+"</p>":"")+
+      (r.status==="pending"?'<div class="ctl"><button type="button" class="btn pri sm" data-ans="accepted" data-id="'+r.id+'">'+esc(t("accept"))+'</button><button type="button" class="btn ghost sm" data-ans="declined" data-id="'+r.id+'">'+esc(t("decline"))+"</button></div>":"")+
+      (r.status==="accepted"?contactBox(r):"")+"</article>"}).join(""):'<p class="empty">'+esc(t("rec_empty"))+"</p>";
+  $("#mineList").innerHTML=myPosts.length?myPosts.map(function(p){var st=postState(p),n=rec.filter(function(r){return r.post_id===p.id}).length,trip=p.kind==="trip";
+    return '<article class="card"><div class="top"><div><div class="route">'+routeHtml(p)+'</div><div class="meta">'+esc(t(trip?"bp_trip":"bp_send"))+" · "+esc(fmtDate(p.travel_date))+(n?" · "+esc(t(n===1?"one_request":"n_requests",{n:n})):"")+'</div></div><span class="pill '+st+'">'+esc(t("st_"+st))+"</span></div>"+
+      (p.details?'<p class="quote">'+esc(p.details)+"</p>":"")+
+      '<div class="ctl">'+(confirmDel===p.id?'<span style="align-self:center">'+esc(t("del_confirm"))+'</span><button type="button" class="btn danger sm" data-delyes="'+p.id+'">'+esc(t("del"))+'</button><button type="button" class="btn ghost sm" data-delno>'+esc(t("keep"))+"</button>":
+        (st==="open"?'<button type="button" class="btn ghost sm" data-close="'+p.id+'">'+esc(t("close_post"))+"</button>":"")+
+        (st==="closed"?'<button type="button" class="btn ghost sm" data-reopen="'+p.id+'">'+esc(t("reopen"))+"</button>":"")+
+        '<button type="button" class="btn ghost sm" data-del="'+p.id+'">'+esc(t("del"))+"</button>")+"</div></article>"}).join(""):'<p class="empty">'+esc(t("mine_empty"))+"</p>";
+  $("#sentList").innerHTML=sent.length?sent.map(function(r){
+    return '<article class="card"><div class="top"><div><div class="route">'+routeHtml(r)+'</div><div class="meta">'+esc(fmtDate(r.travel_date))+" · "+esc(r.other_name)+", "+esc(r.other_city)+'</div></div><span class="pill '+r.status+'">'+esc(t("rs_"+r.status))+"</span></div>"+
+      (r.message?'<p class="quote">'+esc(r.message)+"</p>":"")+
+      (r.status==="accepted"?contactBox(r):"")+
+      (r.status==="pending"?'<div class="ctl"><button type="button" class="btn ghost sm" data-withdraw="'+r.id+'">'+esc(t("withdraw"))+"</button></div>":"")+"</article>"}).join(""):'<p class="empty">'+esc(t("sent_empty"))+' <a href="./#travelers">'+esc(t("view_board"))+"</a></p>";
+}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("button");if(!b||!me)return;
+  function done(r){if(r&&r.error){toast(dbErr(r.error));return}loadAll()}
+  if(b.hasAttribute("data-ans")){b.disabled=true;sb.from("contact_requests").update({status:b.getAttribute("data-ans")}).eq("id",b.getAttribute("data-id")).then(done)}
+  if(b.hasAttribute("data-close"))sb.from("travel_posts").update({status:"closed"}).eq("id",b.getAttribute("data-close")).then(done);
+  if(b.hasAttribute("data-reopen"))sb.from("travel_posts").update({status:"open"}).eq("id",b.getAttribute("data-reopen")).then(done);
+  if(b.hasAttribute("data-del")){confirmDel=+b.getAttribute("data-del");renderAll()}
+  if(b.hasAttribute("data-delno")){confirmDel=null;renderAll()}
+  if(b.hasAttribute("data-delyes")){confirmDel=null;sb.from("travel_posts").delete().eq("id",b.getAttribute("data-delyes")).then(done)}
+  if(b.hasAttribute("data-withdraw"))sb.from("contact_requests").delete().eq("id",b.getAttribute("data-withdraw")).then(done)});
+
+/* ---------- load ---------- */
+function loadAll(){return Promise.all([
+  sb.from("travel_posts").select("*").eq("user_id",me.id).order("travel_date",{ascending:true}),
+  sb.from("my_requests").select("*").order("created_at",{ascending:false})
+]).then(function(rs){myPosts=rs[0].data||[];reqs=rs[1].data||[];renderAll()})}
+function runNext(){var n=nextAction;nextAction=null;if(!n)return;if(n.a==="contact")openContact(n.id);if(n.a==="new")openPost(n.kind)}
+function loadMember(){return sb.from("members").select("*").eq("user_id",me.id).maybeSingle().then(function(r){
+  member=r.data;if(!member){openProfile(false);return}
+  show("dashView");$("#hello").textContent=t("hi",{n:member.name.split(" ")[0]});
+  $("#recList").innerHTML=$("#mineList").innerHTML=$("#sentList").innerHTML='<p class="empty">'+esc(t("loading"))+"</p>";
+  loadAll();runNext()})}
+function start(){sb.auth.getUser().then(function(r){me=r.data&&r.data.user;if(!me){show("authView");return}loadMember()})}
+window.addEventListener("hashchange",function(){var n=readHash();if(n&&member){nextAction=n;runNext()}});
+
+applyLang();
+sb.auth.getSession().then(function(r){if(r.data.session)start();else show("authView")});
+})();
+</script>
+</body>
+</html>

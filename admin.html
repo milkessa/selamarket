@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<title>Selam Market Admin</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600&family=Noto+Sans+Ethiopic:wght@700&display=swap">
+<style>
+:root{
+  --bg:#F5F6F8; --surface:#FFFFFF; --sunk:#ECEEF2; --line:#DADEE5;
+  --ink:#16213A; --muted:#5B6478;
+  --accent:#0B7A63; --accent-ink:#FFFFFF; --accent-soft:#DDF1EB;
+  --ochre:#D99A1E; --berry:#B23A48; --warn:#9A6400;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#0F1524; --surface:#172036; --sunk:#111a2c; --line:#2A3550;
+  --ink:#E8ECF4; --muted:#9AA4BA;
+  --accent:#3CC4A2; --accent-ink:#06261E; --accent-soft:#163A35;
+  --ochre:#E8B04A; --berry:#E36B79; --warn:#E3B05A; color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+[hidden]{display:none!important}
+h1,h2{font-family:var(--display);margin:0;line-height:1.15}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tibeb{height:8px;background:repeating-linear-gradient(90deg,var(--accent) 0 10px,var(--ochre) 10px 14px,var(--berry) 14px 18px,var(--ochre) 18px 22px,var(--accent) 22px 32px)}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;padding-block:12px;flex-wrap:wrap}
+.bar h1{font-size:20px;flex:1}
+.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em;white-space:nowrap;line-height:1.1;color:var(--ink)}
+.logo .lg-am{font-family:"Noto Sans Ethiopic",var(--body);font-weight:700;color:var(--accent);letter-spacing:0;position:relative;padding-bottom:2px;background:repeating-linear-gradient(90deg,var(--accent) 0 8px,var(--ochre) 8px 11px,var(--berry) 11px 14px,var(--ochre) 14px 17px) left bottom/100% 3px no-repeat}
+
+.bar h1 .adm{color:var(--muted);font-family:var(--body);font-weight:500;font-size:14px;margin-left:8px}
+main{padding-block:24px 64px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;min-width:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:8px;padding:9px 14px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn.pri{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.danger{background:var(--berry);color:#fff}
+.btn.sm{padding:6px 10px;font-size:13px}
+.btn:disabled{opacity:.6;cursor:wait}
+label{display:grid;gap:5px;font-size:13px;font-weight:600}
+input,select,textarea{border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:9px 11px;font-weight:400;font-size:14.5px;width:100%}
+textarea{min-height:70px;resize:vertical}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.full{grid-column:1/-1}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.login{max-width:380px;margin:40px auto;display:grid;gap:14px}
+.msg{font-size:13.5px;padding:10px 12px;border-radius:8px}
+.msg.err{background:color-mix(in srgb,var(--berry) 14%,transparent);color:var(--berry)}
+.msg.ok{background:var(--accent-soft)}
+.layout{display:grid;grid-template-columns:380px 1fr;gap:20px;align-items:start}
+.stats{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:13.5px;margin-bottom:12px;font-variant-numeric:tabular-nums}
+.stats b{color:var(--ink)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.filters select,.filters input{width:auto;flex:1;min-width:140px}
+.items{display:grid;gap:10px}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px}
+.item.sold{opacity:.6}
+.thumb{width:64px;height:64px;border-radius:8px;background:var(--sunk);object-fit:cover;display:grid;place-items:center;color:var(--muted);font-size:11px}
+.item h3{margin:0;font-size:14.5px;font-weight:600}
+.item .meta{color:var(--muted);font-size:12.5px}
+.item .price{font-weight:700;font-variant-numeric:tabular-nums}
+.item .ctl{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.item select{width:auto;padding:5px 8px;font-size:13px}
+.pill{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:6px}
+.pill.available{background:var(--accent-soft);color:var(--accent)}
+.pill.reserved{background:color-mix(in srgb,var(--ochre) 18%,transparent);color:var(--warn)}
+.pill.sold{background:var(--sunk);color:var(--muted)}
+.preview{width:100%;max-width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:var(--sunk)}
+.confirm{grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13.5px;padding-top:8px;border-top:1px solid var(--line)}
+.empty{color:var(--muted);text-align:center;padding:28px 8px}
+.atabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.atabs button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer;font-weight:600;color:var(--muted)}
+.atabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.atabs .n{display:inline-block;min-width:20px;padding:0 6px;margin-left:6px;border-radius:999px;background:var(--ochre);color:#1b1b1b;font-size:12px}
+.rev{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:8px}
+.rev.withimg{grid-template-columns:96px minmax(0,1fr)}
+.rev img{width:96px;height:96px;object-fit:cover;border-radius:8px;background:var(--sunk)}
+.rev h3{margin:0;font-size:15.5px}
+.rev dl{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:0;font-size:13.5px}
+.rev dt{color:var(--muted)}
+.rev dd{margin:0;overflow-wrap:anywhere}
+.rev .acts{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.rev .acts input{flex:1;min-width:180px;width:auto}
+.btn.ok{background:var(--accent);color:var(--accent-ink)}
+.pill.smp{background:var(--ink);color:var(--bg)}
+.pill.pending{background:color-mix(in srgb,var(--ochre) 18%,transparent);color:var(--warn)}
+.pill.approved{background:var(--accent-soft);color:var(--accent)}
+.pill.rejected,.pill.suspended{background:color-mix(in srgb,var(--berry) 14%,transparent);color:var(--berry)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:14px;z-index:20}
+@media (max-width:820px){.layout{grid-template-columns:1fr}}
+@media (max-width:480px){.fields{grid-template-columns:1fr}.item{grid-template-columns:56px 1fr}.item .ctl{grid-column:1/-1;justify-content:flex-start}.thumb{width:56px;height:56px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="tibeb" aria-hidden="true"></div>
+  <div class="wrap bar">
+    <h1><span class="logo"><span class="lg-am" lang="am">ሰላም</span> Market</span><span class="adm">Admin</span></h1>
+    <a class="btn ghost sm" href="./" target="_blank" rel="noopener">View shop</a>
+    <button class="btn ghost sm" id="logout" hidden>Sign out</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- Sign in -->
+  <form id="loginForm" class="panel login" hidden novalidate>
+    <h2 style="font-size:22px">Sign in</h2>
+    <label>Email<input id="email" type="email" autocomplete="username" required></label>
+    <label>Password<input id="password" type="password" autocomplete="current-password" required></label>
+    <div id="loginMsg" hidden></div>
+    <div id="capAuth"></div>
+    <button class="btn pri" type="submit" id="loginBtn">Sign in</button>
+  </form>
+
+  <!-- Dashboard -->
+  <div class="atabs" id="atabs" hidden>
+    <button type="button" data-tab="dash" aria-pressed="true">My shop items</button>
+    <button type="button" data-tab="sellersView" aria-pressed="false">Sellers<span class="n" id="nSellers" hidden></span></button>
+    <button type="button" data-tab="spView" aria-pressed="false">Seller products<span class="n" id="nSp" hidden></span></button>
+    <button type="button" data-tab="gpView" aria-pressed="false">Gift partners<span class="n" id="nGp" hidden></span></button>
+    <button type="button" data-tab="giftsView" aria-pressed="false">Gifts</button>
+    <button type="button" data-tab="boardView" aria-pressed="false">Traveler board</button>
+  </div>
+  <div id="dash" class="layout" hidden>
+    <form id="itemForm" class="panel" novalidate>
+      <h2 id="formTitle" style="font-size:19px;margin-bottom:14px">Add an item</h2>
+      <div class="fields">
+        <label class="full">Item name<input id="f-name" required placeholder="Nike Air Max sneakers, EU 42"></label>
+        <label>Price (birr)<input id="f-price" type="number" min="0" step="1" required placeholder="9500"></label>
+        <label>Category<select id="f-cat"></select></label>
+        <label>Condition<select id="f-cond"></select></label>
+        <label>Pickup area<select id="f-area"></select></label>
+        <label class="full">Description<textarea id="f-desc" placeholder="Size, colour, details buyers will ask about"></textarea></label>
+        <label class="full">Photo<input id="f-photo" type="file" accept="image/*"></label>
+        <img id="f-preview" class="preview full" alt="" hidden>
+        <label class="full">Status<select id="f-status">
+          <option value="available">Available</option><option value="reserved">Reserved</option><option value="sold">Sold</option>
+        </select></label>
+      </div>
+      <div id="formMsg" hidden style="margin-top:12px"></div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn pri" type="submit" id="saveBtn">Add item</button>
+        <button class="btn ghost" type="button" id="cancelEdit" hidden>Cancel editing</button>
+      </div>
+    </form>
+
+    <section style="min-width:0">
+      <div class="stats" id="stats"></div>
+      <div class="filters">
+        <input id="search" type="search" placeholder="Search your items" aria-label="Search your items">
+        <select id="statusFilter" aria-label="Filter by status">
+          <option value="all">All statuses</option><option value="available">Available</option><option value="reserved">Reserved</option><option value="sold">Sold</option>
+        </select>
+      </div>
+      <div class="items" id="items"><p class="empty">Loading…</p></div>
+    </section>
+  </div>
+
+  <section id="sellersView" hidden>
+    <div class="filters">
+      <select id="sellerFilter" aria-label="Filter sellers"><option value="pending">Waiting for approval</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="suspended">Suspended</option><option value="all">All sellers</option></select>
+    </div>
+    <div class="items" id="sellers"></div>
+  </section>
+
+  <section id="spView" hidden>
+    <div class="filters">
+      <select id="spFilter" aria-label="Filter seller products"><option value="pending">Waiting for approval</option><option value="approved">Live</option><option value="rejected">Rejected</option><option value="sold">Sold</option><option value="all">All products</option></select>
+    </div>
+    <div class="items" id="sp"></div>
+  </section>
+
+  <section id="gpView" hidden>
+    <div class="filters">
+      <select id="gpFilter" aria-label="Filter gift partners"><option value="pending">Waiting for approval</option><option value="approved">Approved</option><option value="rejected">Rejected</option><option value="suspended">Suspended</option><option value="all">All gift partners</option></select>
+    </div>
+    <div class="items" id="gp"></div>
+  </section>
+
+  <section id="boardView" hidden>
+    <div class="filters">
+      <select id="boardFilter" aria-label="Filter board posts"><option value="live">On the board now</option><option value="closed">Closed by the poster</option><option value="removed">Removed by you</option><option value="all">All posts</option></select>
+    </div>
+    <p style="color:var(--muted);font-size:13.5px;margin:0 0 12px">Posts go live as soon as members post them. Remove anything that looks like a scam or breaks the rules. Contact details stay private between members until they accept each other.</p>
+    <div class="items" id="board"></div>
+  </section>
+
+  <section id="giftsView" class="layout" hidden>
+    <form id="giftForm" class="panel" novalidate>
+      <h2 id="gTitle" style="font-size:19px;margin-bottom:6px">Add a gift package</h2>
+      <p style="margin:0 0 14px;color:var(--muted);font-size:13.5px">Priced in Canadian dollars for customers in Canada and the USA. A package shows on the site only when it has a price and is switched on.</p>
+      <div class="fields">
+        <label class="full">Package name<input id="g-name" placeholder="Genna holiday package"></label>
+        <label>Price (CAD)<input id="g-price" type="number" min="0" step="0.01" placeholder="95"></label>
+        <label>Occasion<select id="g-occ"></select></label>
+        <label class="full">What's inside<textarea id="g-desc" placeholder="Live chicken, a dozen eggs, butter, onions, berbere and cooking oil"></textarea></label>
+        <label class="full">Photo<input id="g-photo" type="file" accept="image/*"></label>
+        <img id="g-preview" class="preview full" alt="" hidden>
+        <label>Order on the page<input id="g-sort" type="number" step="1" value="0"></label>
+        <label>Show on the site<select id="g-active"><option value="false">Hidden</option><option value="true">Live</option></select></label>
+      </div>
+      <div id="gMsg" hidden style="margin-top:12px"></div>
+      <div class="row" style="margin-top:14px">
+        <button class="btn pri" type="submit" id="gSave">Add package</button>
+        <button class="btn ghost" type="button" id="gCancel" hidden>Cancel editing</button>
+      </div>
+    </form>
+    <section style="min-width:0"><div class="items" id="giftList"><p class="empty">Loading…</p></div></section>
+  </section>
+</main>
+
+<script src="config.js"></script>
+<script src="captcha.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const C=window.SELAM, sb=window.supabase.createClient(C.supabaseUrl,C.supabaseAnonKey);
+const $=s=>document.querySelector(s);
+const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const birr=n=>Math.round(n).toLocaleString()+' Br';
+let items=[], editing=null, pendingPhoto=null, confirmId=null;
+
+$('#f-cat').innerHTML=C.categories.map(c=>`<option>${c}</option>`).join('');
+$('#f-cond').innerHTML=C.conditions.map(c=>`<option>${c}</option>`).join('');
+$('#f-area').innerHTML=C.pickupAreas.map(c=>`<option>${c}</option>`).join('');
+
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2400)}
+function show(el,text,kind){el.hidden=!text;el.className='msg '+(kind||'err');el.textContent=text||''}
+
+/* auth */
+async function init(){
+  window.SelamCaptcha.mount($('#capAuth'),'en');
+  const {data:{session}}=await sb.auth.getSession();
+  // an instant traveler-board session on this phone is not an admin login
+  session&&!session.user.is_anonymous?enter():($('#loginForm').hidden=false);
+}
+$('#loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();show($('#loginMsg'));$('#loginBtn').disabled=true;
+  const tok=await window.SelamCaptcha.token($('#capAuth'));
+  if(tok===null){$('#loginBtn').disabled=false;show($('#loginMsg'),'Wait a moment for the security check, then try again.');return}
+  const {error}=await sb.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#password').value,options:{captchaToken:tok}});
+  window.SelamCaptcha.reset($('#capAuth'));
+  $('#loginBtn').disabled=false;
+  if(error){show($('#loginMsg'),'Sign-in failed. Check your email and password.');return}
+  enter();
+});
+async function enter(){
+  const {data:ok,error}=await sb.rpc('is_admin');
+  if(error||!ok){await sb.auth.signOut();$('#loginForm').hidden=false;$('#dash').hidden=true;
+    show($('#loginMsg'),'This account is not set up as an admin. Run the admin line from schema.sql in Supabase for this email.');return}
+  $('#loginForm').hidden=true;$('#dash').hidden=false;$('#atabs').hidden=false;$('#logout').hidden=false;load();loadCounts();
+}
+$('#logout').onclick=async()=>{await sb.auth.signOut();location.reload()};
+
+/* list */
+async function load(){
+  const {data,error}=await sb.from('items').select('*').order('created_at',{ascending:false});
+  if(error){$('#items').innerHTML='<p class="empty">Items could not load. Refresh the page to try again.</p>';return}
+  items=data;render();
+}
+function render(){
+  const n=s=>items.filter(i=>i.status===s).length;
+  const value=items.filter(i=>i.status!=='sold').reduce((a,i)=>a+ +i.price_etb,0);
+  $('#stats').innerHTML=`<span><b>${n('available')}</b> available</span><span><b>${n('reserved')}</b> reserved</span><span><b>${n('sold')}</b> sold</span><span>Unsold value <b>${birr(value)}</b></span>`;
+  const q=$('#search').value.toLowerCase(), sf=$('#statusFilter').value;
+  const list=items.filter(i=>(sf==='all'||i.status===sf)&&(i.name+' '+i.category+' '+(i.description||'')).toLowerCase().includes(q));
+  if(!items.length){$('#items').innerHTML='<p class="empty">No items yet. Add your first item with the form.</p>';return}
+  $('#items').innerHTML=list.length?list.map(i=>`<article class="item ${i.status==='sold'?'sold':''}">
+    ${i.photo_url?`<img class="thumb" src="${esc(i.photo_url)}" alt="">`:'<div class="thumb">No photo</div>'}
+    <div style="min-width:0"><h3>${esc(i.name)}${i.is_sample?'<span class="pill smp">Sample</span>':''}<span class="pill ${i.status}">${i.status[0].toUpperCase()+i.status.slice(1)}</span></h3>
+      <div class="meta">${esc(i.category)} · ${esc(i.condition)} · ${esc(i.pickup_area)} · #${i.id}</div>
+      <div class="price">${birr(i.price_etb)}</div></div>
+    <div class="ctl">
+      <select data-status="${i.id}" aria-label="Status of ${esc(i.name)}">
+        ${['available','reserved','sold'].map(s=>`<option value="${s}" ${s===i.status?'selected':''}>${s[0].toUpperCase()+s.slice(1)}</option>`).join('')}
+      </select>
+      ${i.status!=='sold'?`<button class="btn ghost sm" data-link="${i.id}">Copy link</button>`:''}
+      <button class="btn ghost sm" data-edit="${i.id}">Edit</button>
+      <button class="btn ghost sm" data-del="${i.id}">Delete</button>
+    </div>
+    ${confirmId===i.id?`<div class="confirm">Delete this item permanently? <button class="btn danger sm" data-delyes="${i.id}">Delete</button><button class="btn ghost sm" data-delno>Keep it</button></div>`:''}
+  </article>`).join(''):'<p class="empty">No items match that filter.</p>';
+}
+$('#search').addEventListener('input',render);
+$('#statusFilter').addEventListener('change',render);
+
+$('#items').addEventListener('change',async e=>{
+  const sel=e.target.closest('[data-status]');if(!sel)return;
+  const {error}=await sb.from('items').update({status:sel.value}).eq('id',sel.dataset.status);
+  if(error){toast('Status not saved. Try again.');load();return}
+  items.find(i=>i.id==sel.dataset.status).status=sel.value;render();toast('Marked '+sel.value);
+});
+$('#items').addEventListener('click',async e=>{
+  const lk=e.target.closest('[data-link]');if(lk){const url=location.origin+location.pathname.replace(/admin\.html$/,'')+'#item-'+lk.dataset.link;
+    try{await navigator.clipboard.writeText(url);toast('Link copied: '+url)}catch{toast(url)}return}
+  const ed=e.target.closest('[data-edit]');if(ed)startEdit(+ed.dataset.edit);
+  const d=e.target.closest('[data-del]');if(d){confirmId=+d.dataset.del;render()}
+  if(e.target.closest('[data-delno]')){confirmId=null;render()}
+  const y=e.target.closest('[data-delyes]');if(y){
+    const item=items.find(i=>i.id==y.dataset.delyes);
+    const {error}=await sb.from('items').delete().eq('id',item.id);
+    if(error){toast('Delete failed. Try again.');return}
+    if(item.photo_url){const path=item.photo_url.split('/item-photos/')[1];if(path)await sb.storage.from('item-photos').remove([path])}
+    confirmId=null;if(editing===item.id)resetForm();toast('Item deleted');load();
+  }
+});
+
+/* form */
+function startEdit(id){
+  const i=items.find(x=>x.id===id);editing=id;pendingPhoto=null;
+  $('#formTitle').textContent='Edit item #'+id;$('#saveBtn').textContent='Save changes';$('#cancelEdit').hidden=false;
+  $('#f-name').value=i.name;$('#f-price').value=i.price_etb;$('#f-cat').value=i.category;$('#f-cond').value=i.condition;
+  $('#f-area').value=i.pickup_area;$('#f-desc').value=i.description||'';$('#f-status').value=i.status;$('#f-photo').value='';
+  $('#f-preview').hidden=!i.photo_url;$('#f-preview').src=i.photo_url||'';
+  show($('#formMsg'));$('#itemForm').scrollIntoView({behavior:'smooth'});
+}
+function resetForm(){
+  editing=null;pendingPhoto=null;$('#itemForm').reset();$('#f-preview').hidden=true;$('#f-preview').removeAttribute('src');
+  $('#formTitle').textContent='Add an item';$('#saveBtn').textContent='Add item';$('#cancelEdit').hidden=true;
+}
+$('#cancelEdit').onclick=()=>{resetForm();show($('#formMsg'))};
+
+// Shrink photos before upload so they load fast on mobile data in Ethiopia
+function shrink(file,max=1200){return new Promise((res,rej)=>{
+  const img=new Image(),url=URL.createObjectURL(file);
+  img.onload=()=>{const k=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement('canvas');
+    c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    URL.revokeObjectURL(url);c.toBlob(b=>b?res(b):rej(new Error('shrink')),'image/jpeg',0.82)};
+  img.onerror=()=>rej(new Error('read'));img.src=url;})}
+$('#f-photo').addEventListener('change',async e=>{
+  const f=e.target.files[0];if(!f)return;
+  try{pendingPhoto=await shrink(f);$('#f-preview').src=URL.createObjectURL(pendingPhoto);$('#f-preview').hidden=false}
+  catch{pendingPhoto=null;show($('#formMsg'),'That photo could not be read. Try a JPG or PNG.')}
+});
+
+$('#itemForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const name=$('#f-name').value.trim(), price=parseFloat($('#f-price').value);
+  if(!name){show($('#formMsg'),'Add an item name.');return}
+  if(!(price>=0)){show($('#formMsg'),'Add a price in birr.');return}
+  $('#saveBtn').disabled=true;show($('#formMsg'));
+  const row={name,price_etb:price,category:$('#f-cat').value,condition:$('#f-cond').value,pickup_area:$('#f-area').value,
+    description:$('#f-desc').value.trim()||null,status:$('#f-status').value};
+  try{
+    if(pendingPhoto){
+      const path=`${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`;
+      const up=await sb.storage.from('item-photos').upload(path,pendingPhoto,{contentType:'image/jpeg'});
+      if(up.error)throw new Error('The photo did not upload. Try again or save without a photo.');
+      row.photo_url=sb.storage.from('item-photos').getPublicUrl(path).data.publicUrl;
+    }
+    const q=editing?sb.from('items').update(row).eq('id',editing):sb.from('items').insert(row);
+    const {error}=await q;if(error)throw new Error('The item was not saved. Try again.');
+    toast(editing?'Changes saved':'Item added');resetForm();load();
+  }catch(err){show($('#formMsg'),err.message)}
+  finally{$('#saveBtn').disabled=false}
+});
+
+/* ---------- seller approvals ---------- */
+const birrF=n=>Math.round(n).toLocaleString()+' Br';
+const when=d=>new Date(d).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+let sellers=[], sps=[];
+document.querySelector('#atabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;
+  ['dash','sellersView','spView','gpView','giftsView','boardView'].forEach(id=>$('#'+id).hidden=id!==b.dataset.tab);
+  if(b.dataset.tab==='boardView')loadBoard();
+  if(b.dataset.tab==='gpView')loadGp();
+  if(b.dataset.tab==='giftsView')loadGifts();
+  document.querySelectorAll('#atabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  if(b.dataset.tab==='sellersView')loadSellers(); if(b.dataset.tab==='spView')loadSp();});
+async function loadCounts(){
+  const a=await sb.from('sellers').select('user_id',{count:'exact',head:true}).eq('status','pending');
+  const b=await sb.from('seller_products').select('id',{count:'exact',head:true}).eq('status','pending');
+  const c=await sb.from('gift_partners').select('user_id',{count:'exact',head:true}).eq('status','pending');
+  [['#nSellers',a.count],['#nSp',b.count],['#nGp',c.error?0:c.count]].forEach(([id,n])=>{$(id).hidden=!n;$(id).textContent=n||''});
+}
+async function loadSellers(){
+  $('#sellers').innerHTML='<p class="empty">Loading…</p>';
+  const f=$('#sellerFilter').value; let q=sb.from('sellers').select('*').order('created_at',{ascending:false});
+  if(f!=='all')q=q.eq('status',f);
+  const {data,error}=await q; if(error){$('#sellers').innerHTML='<p class="empty">Sellers could not load. Has 002_sellers.sql been run in Supabase?</p>';return}
+  sellers=data; renderSellers();
+}
+function renderSellers(){
+  if(!sellers.length){$('#sellers').innerHTML='<p class="empty">No sellers here.</p>';return}
+  $('#sellers').innerHTML=sellers.map(s=>`<article class="rev">
+    <h3>${esc(s.business_name)} ${s.is_sample?'<span class="pill smp">Sample</span>':''}<span class="pill ${s.status}">${s.status}</span></h3>
+    <dl><dt>Owner</dt><dd>${esc(s.owner_name)}</dd><dt>Phone</dt><dd>${esc(s.phone)}</dd>
+      ${s.telegram?`<dt>Telegram</dt><dd><a href="https://t.me/${encodeURIComponent(s.telegram)}" target="_blank" rel="noopener">@${esc(s.telegram)}</a></dd>`:''}
+      <dt>Email</dt><dd>${esc(s.email||'')}</dd><dt>Area</dt><dd>${esc(s.area)}, Addis Ababa</dd>
+      <dt>Wants to</dt><dd>${[s.wants_marketplace!==false?'Sell to North America':'',s.wants_gifts?'Be a gift partner':''].filter(Boolean).join(' · ')}</dd>
+      ${s.about?`<dt>Sells</dt><dd>${esc(s.about)}</dd>`:''}<dt>Joined</dt><dd>${when(s.created_at)}</dd></dl>
+    <div class="acts"><input id="sn-${s.user_id}" placeholder="Note to seller (shown if not approved)" value="${esc(s.admin_note||'')}">
+      ${s.status!=='approved'?`<button class="btn ok sm" data-sact="approved" data-id="${s.user_id}">Approve</button>`:''}
+      ${s.status!=='rejected'&&s.status!=='approved'?`<button class="btn ghost sm" data-sact="rejected" data-id="${s.user_id}">Reject</button>`:''}
+      ${s.status==='approved'?`<button class="btn ghost sm" data-sact="suspended" data-id="${s.user_id}">Suspend</button>`:''}
+    </div></article>`).join('');
+}
+$('#sellers').addEventListener('click',async e=>{const b=e.target.closest('[data-sact]');if(!b)return;b.disabled=true;
+  const id=b.dataset.id,note=$('#sn-'+id).value.trim()||null;
+  const {error}=await sb.from('sellers').update({status:b.dataset.sact,admin_note:note}).eq('user_id',id);
+  if(error){toast('Not saved. Try again.');b.disabled=false;return}
+  toast('Seller '+b.dataset.sact);loadSellers();loadCounts();});
+$('#sellerFilter').addEventListener('change',loadSellers);
+
+async function loadSp(){
+  $('#sp').innerHTML='<p class="empty">Loading…</p>';
+  const f=$('#spFilter').value; let q=sb.from('seller_products').select('*, sellers(business_name,status,phone,telegram)').order('created_at',{ascending:false});
+  if(f!=='all')q=q.eq('status',f);
+  const {data,error}=await q; if(error){$('#sp').innerHTML='<p class="empty">Products could not load. Has 002_sellers.sql been run in Supabase?</p>';return}
+  sps=data; renderSp();
+}
+function renderSp(){
+  if(!sps.length){$('#sp').innerHTML='<p class="empty">No products here.</p>';return}
+  $('#sp').innerHTML=sps.map(p=>{const s=p.sellers||{};return `<article class="rev withimg">
+    ${p.photo_url?`<a href="${esc(p.photo_url)}" target="_blank" rel="noopener"><img src="${esc(p.photo_url)}" alt="${esc(p.name)}" loading="lazy"></a>`:'<img alt="">'}
+    <div style="min-width:0"><h3>${esc(p.name)} ${p.is_sample?'<span class="pill smp">Sample</span>':''}<span class="pill ${p.status}">${p.status==='approved'?'live':p.status}</span></h3>
+      <dl><dt>Seller price</dt><dd><b>${birrF(p.price_etb)}</b></dd><dt>Shop</dt><dd>${esc(s.business_name||'')} ${s.status&&s.status!=='approved'?`<span class="pill ${s.status}">shop ${s.status}</span>`:''}</dd>
+        <dt>Contact</dt><dd>${esc(s.phone||'')}${s.telegram?` · <a href="https://t.me/${encodeURIComponent(s.telegram)}" target="_blank" rel="noopener">@${esc(s.telegram)}</a>`:''}</dd>
+        <dt>Details</dt><dd>${esc(p.category)} · ${esc(p.condition)} · qty ${p.quantity}${p.weight_kg?` · ${p.weight_kg} kg`:''}</dd>
+        ${p.description?`<dt>About</dt><dd>${esc(p.description)}</dd>`:''}<dt>Added</dt><dd>${when(p.created_at)} · #${p.id}</dd></dl></div>
+    <div class="acts"><input id="pn-${p.id}" placeholder="Note to seller (shown if rejected)" value="${esc(p.admin_note||'')}">
+      ${p.status!=='approved'?`<button class="btn ok sm" data-pact="approved" data-id="${p.id}">Approve</button>`:''}
+      ${p.status!=='rejected'?`<button class="btn ghost sm" data-pact="rejected" data-id="${p.id}">${p.status==='approved'?'Take down':'Reject'}</button>`:''}
+    </div></article>`}).join('');
+}
+$('#sp').addEventListener('click',async e=>{const b=e.target.closest('[data-pact]');if(!b)return;b.disabled=true;
+  const id=b.dataset.id,note=$('#pn-'+id).value.trim()||null;
+  const {error}=await sb.from('seller_products').update({status:b.dataset.pact,admin_note:note}).eq('id',id);
+  if(error){toast('Not saved. Try again.');b.disabled=false;return}
+  toast(b.dataset.pact==='approved'?'Product is live':'Product rejected');loadSp();loadCounts();});
+$('#spFilter').addEventListener('change',loadSp);
+
+/* ---------- gift partners ---------- */
+const SUPL={livestock:'Livestock',groceries:'Groceries and essentials',holiday:'Holiday packages',bakery:'Cakes and bakery',flowers:'Flowers',phones:'Phones and electronics',clothing:'Clothing',other:'Other'};
+let gps=[];
+async function loadGp(){
+  $('#gp').innerHTML='<p class="empty">Loading…</p>';
+  const f=$('#gpFilter').value; let q=sb.from('gift_partners').select('*, sellers(business_name,owner_name,phone,telegram,area,email,status)').order('created_at',{ascending:false});
+  if(f!=='all')q=q.eq('status',f);
+  const {data,error}=await q; if(error){$('#gp').innerHTML='<p class="empty">Gift partners could not load. Has 004_gift_partners.sql been run in Supabase?</p>';return}
+  gps=data; renderGp();
+}
+function renderGp(){
+  if(!gps.length){$('#gp').innerHTML='<p class="empty">No gift partners here.</p>';return}
+  $('#gp').innerHTML=gps.map(g=>{const s=g.sellers||{};return `<article class="rev">
+    <h3>${esc(s.business_name||'')} <span class="pill ${g.status}">${g.status}</span> ${s.status&&s.status!=='approved'?`<span class="pill ${s.status}">shop ${s.status}</span>`:''}</h3>
+    <dl><dt>Supplies</dt><dd>${(g.supplies||[]).map(k=>esc(SUPL[k]||k)).join(', ')}</dd>
+      <dt>Delivers</dt><dd>${g.delivers_addis?'All of Addis Ababa':'Not all of Addis'}${g.other_cities?' · '+esc(g.other_cities):''}</dd>
+      ${g.price_notes?`<dt>Prices</dt><dd style="white-space:pre-line">${esc(g.price_notes)}</dd>`:''}
+      ${g.capacity?`<dt>Holiday week</dt><dd>${esc(g.capacity)} orders</dd>`:''}
+      <dt>Owner</dt><dd>${esc(s.owner_name||'')} · ${esc(s.phone||'')}${s.telegram?` · <a href="https://t.me/${encodeURIComponent(s.telegram)}" target="_blank" rel="noopener">@${esc(s.telegram)}</a>`:''}</dd>
+      <dt>Area</dt><dd>${esc(s.area||'')}, Addis Ababa</dd><dt>Applied</dt><dd>${when(g.created_at)}</dd></dl>
+    <div class="acts"><input id="gn-${g.user_id}" placeholder="Note to the shop (shown if not approved)" value="${esc(g.admin_note||'')}">
+      ${g.status!=='approved'?`<button class="btn ok sm" data-gpact="approved" data-id="${g.user_id}">Approve</button>`:''}
+      ${g.status!=='rejected'&&g.status!=='approved'?`<button class="btn ghost sm" data-gpact="rejected" data-id="${g.user_id}">Reject</button>`:''}
+      ${g.status==='approved'?`<button class="btn ghost sm" data-gpact="suspended" data-id="${g.user_id}">Suspend</button>`:''}
+    </div></article>`}).join('');
+}
+$('#gp').addEventListener('click',async e=>{const b=e.target.closest('[data-gpact]');if(!b)return;b.disabled=true;
+  const id=b.dataset.id,note=$('#gn-'+id).value.trim()||null;
+  const {error}=await sb.from('gift_partners').update({status:b.dataset.gpact,admin_note:note}).eq('user_id',id);
+  if(error){toast('Not saved. Try again.');b.disabled=false;return}
+  toast('Gift partner '+b.dataset.gpact);loadGp();loadCounts();});
+$('#gpFilter').addEventListener('change',loadGp);
+
+/* ---------- traveler board ---------- */
+let bposts=[];
+const todayISO=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+async function loadBoard(){
+  $('#board').innerHTML='<p class="empty">Loading…</p>';
+  const f=$('#boardFilter').value; let q=sb.from('travel_posts').select('*, members(name,whatsapp,telegram,city)').order('created_at',{ascending:false}).limit(200);
+  if(f==='live')q=q.eq('status','open').gte('travel_date',todayISO()); else if(f!=='all')q=q.eq('status',f);
+  const {data,error}=await q; if(error){$('#board').innerHTML='<p class="empty">Board posts could not load. Has 005_travelers.sql been run in Supabase?</p>';return}
+  bposts=data; renderBoard();
+}
+function renderBoard(){
+  if(!bposts.length){$('#board').innerHTML='<p class="empty">No posts here.</p>';return}
+  $('#board').innerHTML=bposts.map(p=>{const m=p.members||{},past=p.travel_date<todayISO();return `<article class="rev">
+    <h3>${esc(p.from_city)} (${p.from_country}) → ${esc(p.to_city)} (${p.to_country}) ${p.is_sample?'<span class="pill smp">Sample</span>':''}<span class="pill ${p.status==='open'&&!past?'approved':p.status==='removed'?'rejected':'pending'}">${p.status==='open'&&past?'date passed':p.status}</span></h3>
+    <dl><dt>Type</dt><dd>${p.kind==='trip'?'Traveler (can carry)':'Needs to send'}</dd>
+      <dt>Date</dt><dd>${esc(p.travel_date)}${p.weight_kg?` · ${p.weight_kg} kg`:''}</dd>
+      ${p.details?`<dt>Details</dt><dd>${esc(p.details)}</dd>`:''}
+      <dt>Posted by</dt><dd>${esc(m.name||'')} · ${esc(m.city||'')}</dd>
+      <dt>Contact</dt><dd>${esc(m.whatsapp||'')}${m.telegram?` · <a href="https://t.me/${encodeURIComponent(m.telegram)}" target="_blank" rel="noopener">@${esc(m.telegram)}</a>`:''}</dd>
+      <dt>Posted</dt><dd>${when(p.created_at)} · #${p.id}</dd></dl>
+    <div class="acts">${p.status==='removed'?`<button class="btn ghost sm" data-bact="open" data-id="${p.id}">Restore</button>`:`<button class="btn ghost sm" data-bact="removed" data-id="${p.id}">Remove from board</button>`}</div></article>`}).join('');
+}
+$('#board').addEventListener('click',async e=>{const b=e.target.closest('[data-bact]');if(!b)return;b.disabled=true;
+  const {error}=await sb.from('travel_posts').update({status:b.dataset.bact}).eq('id',b.dataset.id);
+  if(error){toast('Not saved. Try again.');b.disabled=false;return}
+  toast(b.dataset.bact==='removed'?'Removed from the board':'Restored');loadBoard()});
+$('#boardFilter').addEventListener('change',loadBoard);
+
+/* ---------- gift packages ---------- */
+const cadF=n=>n==null?'No price yet':'$'+(+n%1?(+n).toFixed(2):(+n).toFixed(0))+' CAD';
+$('#g-occ').innerHTML=C.occasions.map(o=>`<option>${esc(o)}</option>`).join('');
+let giftRows=[], gEditing=null, gPhoto=null, gConfirm=null;
+async function loadGifts(){
+  const {data,error}=await sb.from('gifts').select('*').order('sort').order('id');
+  if(error){$('#giftList').innerHTML='<p class="empty">Gifts could not load. Has 003_gifts.sql been run in Supabase?</p>';return}
+  giftRows=data;renderGiftList();
+}
+function renderGiftList(){
+  if(!giftRows.length){$('#giftList').innerHTML='<p class="empty">No gift packages yet. Add one with the form.</p>';return}
+  $('#giftList').innerHTML=giftRows.map(g=>`<article class="item ${g.active?'':'sold'}">
+    ${g.photo_url?`<img class="thumb" src="${esc(g.photo_url)}" alt="">`:'<div class="thumb">No photo</div>'}
+    <div style="min-width:0"><h3>${esc(g.name)}${g.is_sample?'<span class="pill smp">Sample</span>':''}<span class="pill ${g.active?'available':'sold'}">${g.active?'Live':'Hidden'}</span></h3>
+      <div class="meta">${esc(g.occasion)} · order ${g.sort}</div><div class="price">${cadF(g.price_cad)}</div></div>
+    <div class="ctl">
+      <button class="btn ghost sm" data-gtoggle="${g.id}">${g.active?'Hide':'Make live'}</button>
+      <button class="btn ghost sm" data-gedit="${g.id}">Edit</button>
+      <button class="btn ghost sm" data-gdel="${g.id}">Delete</button>
+    </div>
+    ${gConfirm===g.id?`<div class="confirm">Delete this package permanently? <button class="btn danger sm" data-gdelyes="${g.id}">Delete</button><button class="btn ghost sm" data-gdelno>Keep it</button></div>`:''}
+  </article>`).join('');
+}
+$('#giftList').addEventListener('click',async e=>{
+  const g=id=>giftRows.find(x=>String(x.id)===String(id));
+  const tg=e.target.closest('[data-gtoggle]');if(tg){const row=g(tg.dataset.gtoggle);
+    if(!row.active&&row.price_cad==null){toast('Add a price first, then make it live.');gStartEdit(row);return}
+    const {error}=await sb.from('gifts').update({active:!row.active}).eq('id',row.id);
+    if(error){toast('Not saved. Try again.');return} toast(row.active?'Hidden from the site':'Live on the site');loadGifts();return}
+  const ed=e.target.closest('[data-gedit]');if(ed){gStartEdit(g(ed.dataset.gedit));return}
+  const d=e.target.closest('[data-gdel]');if(d){gConfirm=+d.dataset.gdel;renderGiftList();return}
+  if(e.target.closest('[data-gdelno]')){gConfirm=null;renderGiftList();return}
+  const y=e.target.closest('[data-gdelyes]');if(y){const row=g(y.dataset.gdelyes);
+    const {error}=await sb.from('gifts').delete().eq('id',row.id);if(error){toast('Delete failed. Try again.');return}
+    if(row.photo_url){const path=row.photo_url.split('/item-photos/')[1];if(path)await sb.storage.from('item-photos').remove([path])}
+    gConfirm=null;if(gEditing===row.id)gReset();toast('Package deleted');loadGifts()}
+});
+function gStartEdit(r){gEditing=r.id;gPhoto=null;
+  $('#gTitle').textContent='Edit gift package';$('#gSave').textContent='Save changes';$('#gCancel').hidden=false;
+  $('#g-name').value=r.name;$('#g-price').value=r.price_cad??'';$('#g-occ').value=r.occasion;$('#g-desc').value=r.description||'';
+  $('#g-sort').value=r.sort;$('#g-active').value=String(r.active);$('#g-photo').value='';
+  $('#g-preview').hidden=!r.photo_url;$('#g-preview').src=r.photo_url||'';show($('#gMsg'));$('#giftForm').scrollIntoView({behavior:'smooth'})}
+function gReset(){gEditing=null;gPhoto=null;$('#giftForm').reset();$('#g-sort').value=0;$('#g-preview').hidden=true;
+  $('#gTitle').textContent='Add a gift package';$('#gSave').textContent='Add package';$('#gCancel').hidden=true}
+$('#gCancel').onclick=()=>{gReset();show($('#gMsg'))};
+$('#g-photo').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;
+  try{gPhoto=await shrink(f);$('#g-preview').src=URL.createObjectURL(gPhoto);$('#g-preview').hidden=false}
+  catch{gPhoto=null;show($('#gMsg'),'That photo could not be read. Try a JPG or PNG.')}});
+$('#giftForm').addEventListener('submit',async e=>{e.preventDefault();
+  const name=$('#g-name').value.trim(),priceTxt=$('#g-price').value.trim(),price=priceTxt===''?null:parseFloat(priceTxt),active=$('#g-active').value==='true';
+  if(!name){show($('#gMsg'),'Add a package name.');return}
+  if(price!=null&&!(price>=0)){show($('#gMsg'),'Enter the price as a number, like 95.');return}
+  if(active&&price==null){show($('#gMsg'),'Add a price before making the package live.');return}
+  $('#gSave').disabled=true;show($('#gMsg'));
+  const row={name,price_cad:price,occasion:$('#g-occ').value,description:$('#g-desc').value.trim()||null,sort:parseInt($('#g-sort').value,10)||0,active};
+  try{
+    if(gPhoto){const path=`gift-${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`;
+      const up=await sb.storage.from('item-photos').upload(path,gPhoto,{contentType:'image/jpeg'});
+      if(up.error)throw new Error('The photo did not upload. Try again or save without a photo.');
+      row.photo_url=sb.storage.from('item-photos').getPublicUrl(path).data.publicUrl}
+    const {error}=gEditing?await sb.from('gifts').update(row).eq('id',gEditing):await sb.from('gifts').insert(row);
+    if(error)throw new Error('The package was not saved. Try again.');
+    toast(gEditing?'Changes saved':'Package added');gReset();loadGifts();
+  }catch(err){show($('#gMsg'),err.message)}finally{$('#gSave').disabled=false}
+});
+
+init();
+</script>
+</body>
+</html>

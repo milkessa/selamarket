@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Selam Market Partners</title>
+<meta name="description" content="Addis Ababa shops: sell your products to customers in Canada and the USA with Selam Market.">
+<meta name="theme-color" content="#0B6B57">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Selam Market">
+<meta property="og:title" content="Sell with Selam Market">
+<meta property="og:description" content="Shops in Addis Ababa: sell your products to customers in Canada and the USA.">
+<meta property="og:url" content="https://selammarket.ca/seller.html">
+<meta property="og:image" content="https://selammarket.ca/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Noto+Sans+Ethiopic:wght@400;700&display=swap">
+<style>
+/* Seller portal: same Selam identity as the shop. Single column on phones, form beside list on desktop. */
+:root{
+  --bg:#F6F5F1; --surface:#FFFFFF; --sunk:#EEECE6; --line:#DEDAD0;
+  --ink:#1B1F1A; --muted:#5E625A;
+  --accent:#0B6B57; --accent-ink:#FFFFFF; --accent-soft:#DCEEE7;
+  --gold:#D49A1F; --gold-soft:#F6E8C8; --red:#B3343F; --red-soft:#F7E1E3;
+  --display:"Bricolage Grotesque","Noto Sans Ethiopic",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Ethiopic","Nyala",sans-serif;
+  --r:12px; color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#121512; --surface:#1B201C; --sunk:#161a17; --line:#2E352F;
+  --ink:#ECEEE8; --muted:#A3A99F;
+  --accent:#43C3A0; --accent-ink:#062019; --accent-soft:#163A30;
+  --gold:#E6B24A; --gold-soft:#3A2F17; --red:#E4707A; --red-soft:#3D1F22; color-scheme:dark}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+[hidden]{display:none!important}
+img{max-width:100%}
+h1,h2,h3{font-family:var(--display);line-height:1.2;margin:0;font-weight:800}
+:lang(am) h1,:lang(am) h2,:lang(am) h3{font-family:"Noto Sans Ethiopic",var(--body);font-weight:700}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.tibeb{height:9px;background:repeating-linear-gradient(90deg,var(--accent) 0 12px,var(--gold) 12px 16px,var(--red) 16px 20px,var(--gold) 20px 24px,var(--accent) 24px 36px,var(--gold) 36px 38px)}
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;padding-bottom:10px}
+.brand{text-decoration:none;color:var(--ink);min-width:0}
+.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em;white-space:nowrap;line-height:1.1;color:var(--ink)}
+.logo .lg-am{font-family:"Noto Sans Ethiopic",var(--body);font-weight:700;color:var(--accent);letter-spacing:0;position:relative;padding-bottom:2px;background:repeating-linear-gradient(90deg,var(--accent) 0 8px,var(--gold) 8px 11px,var(--red) 11px 14px,var(--gold) 14px 17px) left bottom/100% 3px no-repeat}
+.brand small{margin-top:3px}
+.brand small{display:block;color:var(--muted);font-size:12.5px}
+.lang{display:flex;flex:none;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--bg)}
+.lang button{border:0;background:transparent;padding:7px 10px;font-size:13px;cursor:pointer;min-height:36px;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+main{padding-top:20px;padding-bottom:48px}
+.hero{border-radius:var(--r);background:var(--accent);color:var(--accent-ink);padding:22px 20px;margin-bottom:20px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:0;right:0;bottom:0;width:40%;opacity:.15;background:linear-gradient(45deg,transparent 46%,var(--accent-ink) 46%,var(--accent-ink) 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,var(--accent-ink) 46%,var(--accent-ink) 54%,transparent 54%);background-size:26px 26px}
+.hero>*{position:relative}
+.hero h1{font-size:clamp(24px,6vw,38px);max-width:20ch}
+.hero p{margin:10px 0 0;max-width:60ch;opacity:.92}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0}
+.panel h2{font-size:20px}
+.sub{color:var(--muted);margin:6px 0 14px;font-size:14.5px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:11px 16px;min-height:44px;font-weight:700;cursor:pointer;text-decoration:none;font-size:15px;text-align:center}
+.btn.pri{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.danger{background:var(--red);color:#fff}
+.btn.sm{padding:7px 12px;min-height:38px;font-size:14px}
+.btn:disabled{opacity:.6;cursor:wait}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+label{display:block;font-size:13.5px;font-weight:700}
+label>input,label>select,label>textarea{display:block;margin-top:5px}
+.hint{display:block;font-weight:400;color:var(--muted);font-size:12.5px;margin-top:3px}
+input,select,textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;min-height:44px;font-weight:400;font-size:16px}
+textarea{min-height:80px;resize:vertical}
+.fields{display:grid;gap:12px}
+.tabs{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.tabs button{flex:1;border:0;background:var(--surface);padding:10px;min-height:44px;cursor:pointer;font-weight:600;color:var(--muted)}
+.tabs button[aria-pressed="true"]{background:var(--accent-soft);color:var(--ink)}
+.auth{max-width:440px;margin:0 auto}
+.msg{font-size:14px;padding:10px 12px;border-radius:10px;margin:0}
+.msg.err{background:var(--red-soft);color:var(--red)}
+.msg.ok{background:var(--accent-soft)}
+.status{border-radius:var(--r);padding:14px 16px;margin-bottom:16px;border:1px solid var(--line);background:var(--surface);border-left:5px solid var(--gold)}
+.status.approved{border-left-color:var(--accent)}
+.status.rejected,.status.suspended{border-left-color:var(--red)}
+.status b{display:block;font-size:15.5px}
+.status p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.layout{display:grid;gap:16px}
+.list{display:grid;gap:10px}
+.prod{display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px}
+.thumb{width:72px;height:72px;border-radius:8px;background:var(--sunk);object-fit:cover}
+.prod h3{font-family:var(--body);font-size:15px;font-weight:700;overflow-wrap:anywhere;word-wrap:break-word}
+.meta{color:var(--muted);font-size:13px}
+.price{font-weight:800;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;margin-top:4px}
+.pill.pending{background:var(--gold-soft);color:var(--ink)}
+.pill.approved{background:var(--accent-soft);color:var(--accent)}
+.pill.rejected{background:var(--red-soft);color:var(--red)}
+.pill.sold{background:var(--sunk);color:var(--muted)}
+.prod .ctl{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}
+.anote{grid-column:1/-1;font-size:13px;background:var(--sunk);border-radius:8px;padding:8px 10px}
+.preview{width:100%;max-width:100%;height:200px;object-fit:cover;border-radius:10px;background:var(--sunk)}
+.rules{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:14px}
+.rules li{margin-bottom:4px}
+.empty{color:var(--muted);text-align:center;padding:24px 8px}
+.roles{border:1px solid var(--line);border-radius:10px;padding:12px;margin:0;min-width:0}
+.roles legend{font-size:13.5px;font-weight:700;padding:0 6px}
+label.check{display:flex;align-items:flex-start;font-weight:400;font-size:14.5px;padding:6px 0;cursor:pointer}
+label.check input{width:20px;height:20px;min-height:0;margin:2px 10px 0 0;flex:none;accent-color:var(--accent)}
+label.check b{display:block;font-size:14.5px}
+.supgrid{display:grid;grid-template-columns:1fr;gap:2px}
+#gfArea{margin-bottom:16px}
+#gfArea h2{font-size:20px}
+@media (min-width:640px){.supgrid{grid-template-columns:1fr 1fr}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:60;max-width:calc(100% - 32px);text-align:center}
+footer{border-top:1px solid var(--line);background:var(--surface)}
+footer .wrap{padding-top:14px;padding-bottom:18px;color:var(--muted);font-size:13.5px}
+.brand b{white-space:nowrap}
+@media (max-width:420px){.brand b{font-size:17px}.bar .row{gap:6px;flex-wrap:nowrap}.bar .btn.sm{padding:6px 10px;min-height:36px;font-size:13px}.lang button{padding:7px 8px}}
+@media (min-width:640px){.fields.cols{grid-template-columns:1fr 1fr}.fields .full{grid-column:1/-1}.hero{padding:30px 28px}}
+@media (min-width:900px){.layout{grid-template-columns:400px minmax(0,1fr);align-items:start}}
+</style>
+</head>
+<body>
+<header>
+  <div class="tibeb" aria-hidden="true"></div>
+  <div class="wrap bar">
+    <a class="brand" href="./" aria-label="Selam Market"><b class="logo"><span class="lg-am" lang="am">ሰላም</span> Market</b><small data-t="portal"></small></a>
+    <div class="row">
+      <button class="btn ghost sm" id="logout" type="button" data-t="sign_out" hidden></button>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" lang="en">EN</button>
+        <button type="button" data-lang="am" lang="am">አማ</button>
+        <button type="button" data-lang="om" lang="om">Oro</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <h1 data-t="title"></h1>
+    <p data-t="intro"></p>
+  </div>
+
+  <!-- Sign up / sign in -->
+  <section id="authView" class="auth" hidden>
+    <div class="panel">
+      <div class="tabs" role="group">
+        <button type="button" id="tabUp" aria-pressed="true" data-t="signup"></button>
+        <button type="button" id="tabIn" aria-pressed="false" data-t="signin"></button>
+      </div>
+      <form id="authForm" class="fields" novalidate>
+        <label><span data-t="email"></span><input id="email" type="email" inputmode="email" autocomplete="email" required></label>
+        <label><span id="pwLabel" data-t="password"></span><input id="password" type="password" autocomplete="new-password" required></label>
+        <p id="authMsg" class="msg" hidden></p>
+        <div id="capAuth"></div>
+        <button class="btn pri" type="submit" id="authBtn" data-t="signup"></button>
+        <p class="hint" id="privNote"></p>
+      </form>
+      <p class="sub" style="margin:14px 0 0" id="help1"></p>
+    </div>
+  </section>
+
+  <!-- Shop profile -->
+  <section id="profileView" hidden>
+    <div class="panel" style="max-width:720px;margin:0 auto">
+      <h2 data-t="profile_t"></h2>
+      <p class="sub" data-t="profile_s"></p>
+      <form id="profileForm" class="fields cols" novalidate>
+        <label><span data-t="biz"></span><input id="biz" required></label>
+        <label><span data-t="owner"></span><input id="owner" required autocomplete="name"></label>
+        <label><span data-t="phone"></span><input id="phone" type="tel" inputmode="tel" placeholder="+251 9__ ___ ___" required autocomplete="tel"></label>
+        <label><span data-t="telegram"></span><input id="tg" placeholder="@username"></label>
+        <label><span data-t="area"></span><select id="area"></select></label>
+        <label class="full"><span data-t="about"></span><textarea id="about"></textarea></label>
+        <fieldset class="full roles"><legend data-t="roles_t"></legend>
+          <label class="check"><input type="checkbox" id="wantMk" checked><span><b data-t="role_mk"></b><span class="hint" data-t="role_mk_s"></span></span></label>
+          <label class="check"><input type="checkbox" id="wantGf"><span><b data-t="role_gf"></b><span class="hint" data-t="role_gf_s"></span></span></label>
+        </fieldset>
+        <p id="profileMsg" class="msg full" hidden></p>
+        <div class="row full"><button class="btn pri" type="submit" id="profileBtn" data-t="save_profile"></button><button class="btn ghost" type="button" id="profileCancel" data-t="cancel" hidden></button></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="dashView" hidden>
+    <div id="statusBox" class="status"></div>
+    <div class="row" style="justify-content:flex-end;margin:-6px 0 16px"><button class="btn ghost sm" type="button" id="editProfile" data-t="edit_profile"></button></div>
+
+    <form id="gfArea" class="panel fields" novalidate hidden>
+      <div class="row" style="justify-content:space-between"><h2 data-t="gf_t"></h2><span class="pill" id="gfPill" hidden></span></div>
+      <p class="sub" style="margin:0" data-t="gf_s"></p>
+      <p class="msg" id="gfNote" hidden></p>
+      <fieldset class="roles"><legend data-t="gf_sup"></legend><div class="supgrid" id="gfSupplies"></div></fieldset>
+      <label class="check"><input type="checkbox" id="gfAddis" checked><span data-t="gf_addis"></span></label>
+      <label><span data-t="gf_cities"></span><input id="gfCities" placeholder="Adama, Bishoftu"></label>
+      <label><span data-t="gf_prices"></span><span class="hint" data-t="gf_prices_h"></span><textarea id="gfPrices"></textarea></label>
+      <label><span data-t="gf_cap"></span><input id="gfCap" inputmode="numeric"></label>
+      <p id="gfMsg" class="msg" hidden></p>
+      <div class="row"><button class="btn pri" type="submit" id="gfBtn" data-t="gf_save"></button></div>
+    </form>
+
+    <div class="layout" id="mkArea">
+      <form id="prodForm" class="panel fields" novalidate>
+        <h2 id="prodTitle" data-t="add_t"></h2>
+        <label><span data-t="p_name"></span><input id="pname" required></label>
+        <label><span data-t="p_cat"></span><select id="pcat"></select></label>
+        <label><span data-t="p_cond"></span><select id="pcond"></select></label>
+        <label><span data-t="p_price"></span><span class="hint" data-t="p_price_hint"></span><input id="pprice" type="number" inputmode="decimal" min="0" step="1" required></label>
+        <label><span data-t="p_qty"></span><input id="pqty" type="number" inputmode="numeric" min="1" step="1" value="1"></label>
+        <label><span data-t="p_weight"></span><input id="pweight" type="number" inputmode="decimal" min="0" step="0.1" placeholder="0.5"></label>
+        <label><span data-t="p_desc"></span><textarea id="pdesc"></textarea></label>
+        <label><span data-t="p_photo"></span><input id="pphoto" type="file" accept="image/*"></label>
+        <img id="ppreview" class="preview" alt="" hidden>
+        <p class="hint" id="editWarn" data-t="p_edit_warn" hidden></p>
+        <p id="prodMsg" class="msg" hidden></p>
+        <div class="row"><button class="btn pri" type="submit" id="prodBtn" data-t="p_save_add"></button><button class="btn ghost" type="button" id="prodCancel" data-t="cancel" hidden></button></div>
+        <div>
+          <b data-t="rules_t"></b>
+          <ul class="rules"><li data-t="rule1"></li><li data-t="rule2"></li><li data-t="rule3"></li></ul>
+        </div>
+      </form>
+      <section style="min-width:0">
+        <h2 style="font-size:20px;margin-bottom:10px" data-t="products_t"></h2>
+        <div class="list" id="list"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><a href="./" data-t="back_shop"></a> · <a href="./#privacy" data-t="privacy"></a> · <span id="help2"></span></div></footer>
+
+<script src="config.js"></script>
+<script src="captcha.js"></script>
+<script src="stats.js"></script>
+<script src="i18n.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+(function(){
+var C=window.SELAM, I=window.SELAM_I18N, LI={en:0,am:1,om:2};
+var S={
+en:{portal:"Partner portal",err_captcha:"Wait a moment for the security check, then try again.",title:"Work with Selam Market",intro:"Shops in Ethiopia: sell your products to customers in Canada and the USA, or become a gift partner and deliver the gifts families abroad send home. A free account takes two minutes, and we review every shop before it goes live.",
+signup:"Create account",signin:"Sign in",email:"Email",password:"Password (at least 8 characters)",password_in:"Password",
+check_email:"Check your email and tap the confirmation link, then sign in here.",err_signin:"Sign-in failed. Check your email and password.",err_signup:"The account could not be created: {e}",err_short:"Use a password of at least 8 characters.",err_email:"Enter a valid email address.",
+profile_t:"Your shop details",profile_s:"We use these to verify your shop. Your phone number is never shown to buyers.",biz:"Shop name",owner:"Owner's full name",phone:"Phone number",telegram:"Telegram username (optional)",area:"Area in Addis Ababa",about:"What do you sell?",
+save_profile:"Submit for approval",save_changes:"Save changes",edit_profile:"Edit shop details",sign_out:"Sign out",cancel:"Cancel",
+st_pending_b:"Waiting for approval",st_pending:"We're reviewing your shop. You can fill in everything below in the meantime.",
+st_approved_b:"Your shop is approved",st_approved:"Your shop is approved to work with Selam Market.",
+st_rejected_b:"Your shop was not approved",st_rejected:"Update your shop details to ask for another review.",
+st_suspended_b:"Your shop is paused",st_suspended:"Contact us on Telegram to reopen it.",note_from:"Note from Selam Market: {n}",
+products_t:"Your products",add_t:"Add a product",edit_t:"Edit product",p_name:"Product name",p_cat:"Category",p_cond:"Condition",p_price:"Your price in birr",p_price_hint:"The amount you want to receive. We add shipping for the buyer.",
+p_qty:"Quantity available",p_weight:"Weight in kg (approximate)",p_desc:"Description (size, colour, material)",p_photo:"Photo",p_save_add:"Submit for approval",p_save_edit:"Save and resubmit",p_edit_warn:"Changes are reviewed again before the product goes live.",
+edit:"Edit",del:"Delete",mark_sold:"Mark sold",del_confirm:"Delete this product?",keep:"Keep",
+s_pending:"Waiting for approval",s_approved:"Live",s_rejected:"Not approved",s_sold:"Sold",
+no_products:"No products yet. Add your first product with the form.",saved:"Saved",submitted:"Submitted for approval",deleted:"Deleted",
+err_save:"Not saved. Check your connection and try again.",err_photo:"The photo did not upload. Try again or use a smaller photo.",err_req:"Fill in the required fields.",need_photo:"Add a photo of the product.",
+back_shop:"Back to the shop",help:"Questions? Message us on Telegram: @{tg}",
+rules_t:"Before you list",rule1:"List only items you have in stock in Addis Ababa.",rule2:"Use real photos of the item.",rule3:"No items that can't legally leave Ethiopia or enter Canada or the USA.",qty_short:"Qty {q}",
+roles_t:"What do you want to do with Selam Market?",
+role_mk:"Sell my products to customers in North America",
+role_mk_s:"You upload products and we find buyers in Canada and the USA.",
+role_gf:"Supply and deliver gifts in Ethiopia",
+role_gf_s:"Families abroad order gifts from us and you deliver them, for example sheep, groceries or cakes.",
+role_need:"Choose at least one option.",
+gf_t:"Gift partner application",
+gf_s:"Tell us what you can supply and deliver. We contact you before sending you any orders.",
+gf_sup:"What can you supply?",
+gf_addis:"I deliver anywhere in Addis Ababa",
+gf_cities:"Other cities you deliver to (optional)",
+gf_prices:"Your prices in birr",
+gf_prices_h:"For example, the price of a sheep, a chicken or a groceries pack, and whether delivery is included.",
+gf_cap:"How many orders can you handle in a holiday week?",
+gf_save:"Submit application",
+gf_need:"Choose at least one thing you can supply.",
+gf_sent:"Application sent",
+gfs_pending:"Waiting for review",
+gfs_approved:"Approved gift partner",
+gfs_rejected:"Not approved",
+gfs_suspended:"Paused",
+gfn_rejected:"Your application was not approved. Update it to ask for another review.",
+gfn_suspended:"Your gift partnership is paused. Contact us on Telegram.",
+priv_note:"By creating an account, you agree to our {link}.",
+priv_link:"privacy policy",
+privacy:"Privacy policy"},
+am:{portal:"የአጋሮች ገጽ",err_captcha:"የደህንነት ፍተሻው እስኪጨርስ ትንሽ ይጠብቁ፣ ከዚያ እንደገና ይሞክሩ።",title:"ከሰላም ማርኬት ጋር ይሥሩ",intro:"በኢትዮጵያ ያሉ ሱቆች፦ ምርቶችዎን በካናዳና በአሜሪካ ላሉ ደንበኞች ይሽጡ፣ ወይም የስጦታ አጋር ሆነው በውጭ ያሉ ቤተሰቦች የሚልኩትን ስጦታ ያድርሱ። ነፃ አካውንት ለመክፈት ሁለት ደቂቃ ይበቃል፤ እያንዳንዱን ሱቅ ከማጽደቃችን በፊት እንገመግማለን።",
+signup:"አካውንት ይክፈቱ",signin:"ይግቡ",email:"ኢሜይል",password:"የይለፍ ቃል (ቢያንስ 8 ቁምፊ)",password_in:"የይለፍ ቃል",
+check_email:"ኢሜይልዎን ይመልከቱ፤ የማረጋገጫ ሊንኩን ይጫኑ፣ ከዚያ እዚህ ይግቡ።",err_signin:"መግባት አልተሳካም። ኢሜይልና የይለፍ ቃልዎን ያረጋግጡ።",err_signup:"አካውንቱን መክፈት አልተቻለም፦ {e}",err_short:"ቢያንስ 8 ቁምፊ ያለው የይለፍ ቃል ይጠቀሙ።",err_email:"ትክክለኛ ኢሜይል ያስገቡ።",
+profile_t:"የሱቅዎ መረጃ",profile_s:"ሱቅዎን ለማረጋገጥ እንጠቀምበታለን። ስልክ ቁጥርዎ ለገዢዎች አይታይም።",biz:"የሱቁ ስም",owner:"የባለቤቱ ሙሉ ስም",phone:"ስልክ ቁጥር",telegram:"የቴሌግራም ስም (አማራጭ)",area:"በአዲስ አበባ ያለበት ሰፈር",about:"ምን ይሸጣሉ?",
+save_profile:"ለማጽደቅ ያስገቡ",save_changes:"ለውጦቹን ያስቀምጡ",edit_profile:"የሱቅ መረጃ ያስተካክሉ",sign_out:"ውጣ",cancel:"ተወው",
+st_pending_b:"ማጽደቅ በመጠበቅ ላይ",st_pending:"ሱቅዎን እየገመገምን ነው። እስከዚያው ከታች ያለውን ሁሉ መሙላት ይችላሉ።",
+st_approved_b:"ሱቅዎ ጸድቋል",st_approved:"ሱቅዎ ከሰላም ማርኬት ጋር ለመሥራት ጸድቋል።",
+st_rejected_b:"ሱቅዎ አልጸደቀም",st_rejected:"ዳግም እንዲገመገም የሱቅ መረጃዎን ያስተካክሉ።",
+st_suspended_b:"ሱቅዎ ለጊዜው ቆሟል",st_suspended:"እንደገና ለመክፈት በቴሌግራም ያግኙን።",note_from:"ከሰላም ማርኬት የተሰጠ ማስታወሻ፦ {n}",
+products_t:"ምርቶችዎ",add_t:"ምርት ይጨምሩ",edit_t:"ምርቱን ያስተካክሉ",p_name:"የምርቱ ስም",p_cat:"ምድብ",p_cond:"ሁኔታ",p_price:"የእርስዎ ዋጋ በብር",p_price_hint:"እንዲደርስዎ የሚፈልጉት መጠን። መላኪያውን ለገዢው እኛ እንጨምራለን።",
+p_qty:"ያለው ብዛት",p_weight:"ክብደት በኪ.ግ (ግምት)",p_desc:"መግለጫ (መጠን፣ ቀለም፣ ጥሬ እቃ)",p_photo:"ፎቶ",p_save_add:"ለማጽደቅ ያስገቡ",p_save_edit:"አስቀምጠው ዳግም ያስገቡ",p_edit_warn:"ለውጦች ምርቱ ከመታየቱ በፊት ዳግም ይገመገማሉ።",
+edit:"አስተካክል",del:"አጥፋ",mark_sold:"ተሽጧል በል",del_confirm:"ይህ ምርት ይጥፋ?",keep:"ይቆይ",
+s_pending:"ማጽደቅ በመጠበቅ ላይ",s_approved:"በሽያጭ ላይ",s_rejected:"አልጸደቀም",s_sold:"ተሽጧል",
+no_products:"እስካሁን ምርት የለም። የመጀመሪያ ምርትዎን በቅጹ ይጨምሩ።",saved:"ተቀምጧል",submitted:"ለማጽደቅ ገብቷል",deleted:"ተሰርዟል",
+err_save:"አልተቀመጠም። ኢንተርኔትዎን አረጋግጠው እንደገና ይሞክሩ።",err_photo:"ፎቶው አልተጫነም። እንደገና ይሞክሩ ወይም ትንሽ ፎቶ ይጠቀሙ።",err_req:"አስፈላጊ መስኮችን ይሙሉ።",need_photo:"የምርቱን ፎቶ ያክሉ።",
+back_shop:"ወደ ሱቁ ተመለስ",help:"ጥያቄ አለዎት? በቴሌግራም ያግኙን፦ @{tg}",
+rules_t:"ከመዘርዘርዎ በፊት",rule1:"በአዲስ አበባ ያለዎትን እቃ ብቻ ይዘርዝሩ።",rule2:"የእቃውን ትክክለኛ ፎቶ ይጠቀሙ።",rule3:"ከኢትዮጵያ በሕግ መውጣት ወይም ወደ ካናዳ ወይም አሜሪካ መግባት የማይችሉ እቃዎች አይፈቀዱም።",qty_short:"ብዛት {q}",
+roles_t:"ከሰላም ማርኬት ጋር ምን መሥራት ይፈልጋሉ?",
+role_mk:"ምርቶቼን በሰሜን አሜሪካ ላሉ ደንበኞች መሸጥ",
+role_mk_s:"ምርቶችን ይጭናሉ፤ እኛ በካናዳና በአሜሪካ ገዢዎችን እናገኛለን።",
+role_gf:"በኢትዮጵያ ስጦታዎችን ማቅረብና ማድረስ",
+role_gf_s:"በውጭ ያሉ ቤተሰቦች ስጦታ ያዝዙናል፤ እርስዎ ያደርሳሉ። ለምሳሌ በግ፣ የምግብ ሸቀጥ ወይም ኬክ።",
+role_need:"ቢያንስ አንድ አማራጭ ይምረጡ።",
+gf_t:"የስጦታ አጋር ማመልከቻ",
+gf_s:"ምን ማቅረብና ማድረስ እንደሚችሉ ይንገሩን። ትዕዛዝ ከመላካችን በፊት እናገኝዎታለን።",
+gf_sup:"ምን ማቅረብ ይችላሉ?",
+gf_addis:"በአዲስ አበባ በየትኛውም ቦታ አደርሳለሁ",
+gf_cities:"የሚያደርሱባቸው ሌሎች ከተሞች (አማራጭ)",
+gf_prices:"ዋጋዎችዎ በብር",
+gf_prices_h:"ለምሳሌ የበግ፣ የዶሮ ወይም የምግብ ሸቀጥ እሽግ ዋጋ፣ እና ማድረሻን ያካትት እንደሆነ።",
+gf_cap:"በበዓል ሳምንት ስንት ትዕዛዝ ማስተናገድ ይችላሉ?",
+gf_save:"ማመልከቻውን ያስገቡ",
+gf_need:"ማቅረብ የሚችሉትን ቢያንስ አንድ ይምረጡ።",
+gf_sent:"ማመልከቻው ተልኳል",
+gfs_pending:"ግምገማ በመጠበቅ ላይ",
+gfs_approved:"የጸደቀ የስጦታ አጋር",
+gfs_rejected:"አልጸደቀም",
+gfs_suspended:"ለጊዜው ቆሟል",
+gfn_rejected:"ማመልከቻዎ አልጸደቀም። ዳግም እንዲገመገም ያስተካክሉት።",
+gfn_suspended:"የስጦታ አጋርነትዎ ለጊዜው ቆሟል። በቴሌግራም ያግኙን።",
+priv_note:"አካውንት በመክፈት {link} ይቀበላሉ።",
+priv_link:"የግላዊነት ፖሊሲያችንን",
+privacy:"የግላዊነት ፖሊሲ"},
+om:{portal:"Fuula hirmaattotaa",err_captcha:"Qorannoon nageenyaa hamma xumuramutti xiqqoo eegiitii irra deebi'i yaali.",title:"Selam Market waliin hojjedhu",intro:"Suuqiiwwan Itoophiyaa: oomishaalee keessan maamiltoota Kanaadaa fi Ameerikaatiif gurguraa, ykn hirmaataa kennaa ta'uun kennaa maatiin alaa jiran ergan geessaa. Herrega bilisaa banuuf daqiiqaa lama qofa fudhata; suuqii hunda osoo hin mirkaneessin dura ni ilaalla.",
+signup:"Herrega bani",signin:"Seeni",email:"Imeelii",password:"Jecha icciitii (yoo xiqqaate qubee 8)",password_in:"Jecha icciitii",
+check_email:"Imeelii kee ilaali, liinkii mirkaneessaa tuqi, sana booda asitti seeni.",err_signin:"Seenuun hin milkoofne. Imeelii fi jecha icciitii kee mirkaneessi.",err_signup:"Herrega banuu hin dandeenye: {e}",err_short:"Jecha icciitii qubee 8 ol qabu fayyadami.",err_email:"Imeelii sirrii galchi.",
+profile_t:"Odeeffannoo suuqii keetii",profile_s:"Suuqii kee mirkaneessuuf itti fayyadamna. Lakkoofsi bilbila keetii bitattootaaf hin mul'atu.",biz:"Maqaa suuqii",owner:"Maqaa guutuu abbaa suuqii",phone:"Lakkoofsa bilbilaa",telegram:"Maqaa Telegram (dirqama miti)",area:"Naannoo Finfinnee keessaa",about:"Maal gurgurta?",
+save_profile:"Mirkaneessuuf galchi",save_changes:"Jijjiirama olkaa'i",edit_profile:"Odeeffannoo suuqii sirreessi",sign_out:"Ba'i",cancel:"Dhiisi",
+st_pending_b:"Mirkanaa'uu eegaa jira",st_pending:"Suuqii kee ilaalaa jirra. Yeroo kanatti waan gadii hunda guutuu dandeessa.",
+st_approved_b:"Suuqiin kee mirkanaa'eera",st_approved:"Suuqiin kee Selam Market waliin hojjechuuf mirkanaa'eera.",
+st_rejected_b:"Suuqiin kee hin mirkanoofne",st_rejected:"Akka irra deebiin ilaalamuuf odeeffannoo suuqii kee sirreessi.",
+st_suspended_b:"Suuqiin kee yeroof dhaabateera",st_suspended:"Irra deebiin banuuf Telegram irratti nu qunnamaa.",note_from:"Yaada Selam Market irraa: {n}",
+products_t:"Oomishaalee kee",add_t:"Oomisha dabali",edit_t:"Oomisha sirreessi",p_name:"Maqaa oomishaa",p_cat:"Ramaddii",p_cond:"Haala",p_price:"Gatii kee birriin",p_price_hint:"Maallaqa argachuu barbaaddu. Geejjiba bitataaf nuti daballa.",
+p_qty:"Baay'ina jiru",p_weight:"Ulfaatina kg (tilmaama)",p_desc:"Ibsa (hamma, halluu, meeshaa irraa hojjetame)",p_photo:"Suuraa",p_save_add:"Mirkaneessuuf galchi",p_save_edit:"Olkaa'iitii irra deebiin galchi",p_edit_warn:"Jijjiiramni osoo oomishni hin mul'atin dura irra deebiin ilaalama.",
+edit:"Sirreessi",del:"Haqi",mark_sold:"Gurgurameera jedhi",del_confirm:"Oomishni kun haa haqamu?",keep:"Haa turu",
+s_pending:"Mirkanaa'uu eegaa",s_approved:"Gabaa irra jira",s_rejected:"Hin mirkanoofne",s_sold:"Gurguramee",
+no_products:"Hanga ammaatti oomishni hin jiru. Oomisha kee jalqabaa unkaa kanaan dabali.",saved:"Olkaa'ameera",submitted:"Mirkaneessuuf galfameera",deleted:"Haqameera",
+err_save:"Hin olkaa'amne. Interneetii kee mirkaneessiitii irra deebi'i yaali.",err_photo:"Suuraan hin olfe'amne. Irra deebi'i yaali ykn suuraa xiqqaa fayyadami.",err_req:"Bakkeewwan barbaachisoo guuti.",need_photo:"Suuraa oomishaa dabali.",
+back_shop:"Gara suuqiitti deebi'i",help:"Gaaffii qabdaa? Telegram irratti nu qunnamaa: @{tg}",
+rules_t:"Osoo hin galchin dura",rule1:"Meeshaa Finfinnee keessatti qabdu qofa galchi.",rule2:"Suuraa dhugaa meeshaa fayyadami.",rule3:"Meeshaaleen seeraan Itoophiyaa irraa ba'uu ykn Kanaadaa ykn Ameerikaa seenuu hin dandeenye hin hayyamaman.",qty_short:"Baay'ina {q}",
+roles_t:"Selam Market waliin maal hojjechuu barbaadda?",
+role_mk:"Oomishaalee koo maamiltoota Ameerikaa Kaabaatiif gurguruu",
+role_mk_s:"Ati oomisha olfeessita, nuti Kanaadaa fi Ameerikaa keessaa bitattoota barbaanna.",
+role_gf:"Itoophiyaa keessatti kennaa dhiyeessuu fi geessuu",
+role_gf_s:"Maatiin alaa jiran nurraa kennaa ajajatu, ati immoo geessita, fakkeenyaaf hoolaa, meeshaalee nyaataa ykn keekii.",
+role_need:"Yoo xiqqaate filannoo tokko filadhu.",
+gf_t:"Iyyannoo hirmaataa kennaa",
+gf_s:"Maal dhiyeessuu fi geessuu akka dandeessu nutti himi. Osoo ajaja siif hin ergin dura si qunnamna.",
+gf_sup:"Maal dhiyeessuu dandeessa?",
+gf_addis:"Finfinnee keessa bakka kamittuu nan geessa",
+gf_cities:"Magaalota biroo itti geessitu (dirqama miti)",
+gf_prices:"Gatii kee birriin",
+gf_prices_h:"Fakkeenyaaf gatii hoolaa, lukkuu ykn paakeejii meeshaalee nyaataa, akkasumas geejjibni dabalatamuu isaa.",
+gf_cap:"Torban ayyaanaa keessa ajaja meeqa qabachuu dandeessa?",
+gf_save:"Iyyannoo galchi",
+gf_need:"Waan dhiyeessuu dandeessu yoo xiqqaate tokko filadhu.",
+gf_sent:"Iyyannoon ergameera",
+gfs_pending:"Ilaalamuu eegaa jira",
+gfs_approved:"Hirmaataa kennaa mirkanaa'e",
+gfs_rejected:"Hin mirkanoofne",
+gfs_suspended:"Yeroof dhaabateera",
+gfn_rejected:"Iyyannoon kee hin mirkanoofne. Akka irra deebiin ilaalamuuf sirreessi.",
+gfn_suspended:"Hirmaannaan kennaa kee yeroof dhaabateera. Telegram irratti nu qunnamaa.",
+priv_note:"Herrega banuudhaan {link} keenya ni fudhatta.",
+priv_link:"imaammata dhuunfaa",
+privacy:"Imaammata dhuunfaa"}};
+
+var SUP=[["livestock",["Livestock (sheep, goats, chickens)","የቁም እንስሳት (በግ፣ ፍየል፣ ዶሮ)","Horii (hoolaa, re'ee, lukkuu)"]],
+  ["groceries",["Groceries and essentials","የምግብ ሸቀጦችና መሠረታዊ ፍጆታዎች","Meeshaalee nyaataa fi barbaachisoo"]],
+  ["holiday",["Holiday packages","የበዓል እሽጎች","Paakeejii ayyaanaa"]],
+  ["bakery",["Cakes and bakery","ኬክና ዳቦ ቤት","Keekii fi daabboo"]],
+  ["flowers",["Flowers","አበባ","Abaaboo"]],
+  ["phones",["Phones and electronics","ስልክና ኤሌክትሮኒክስ","Bilbilaa fi elektirooniksii"]],
+  ["clothing",["Clothing","አልባሳት","Uffata"]],
+  ["other",["Other","ሌላ","Kan biraa"]]];
+function $(s){return document.querySelector(s)}
+function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+function esc(x){return String(x==null?"":x).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+var lang=store("sm-lang")||"en";if(!S[lang])lang="en";
+function t(k,v){var s=S[lang][k]!=null?S[lang][k]:(S.en[k]||"");if(v)for(var x in v)s=s.split("{"+x+"}").join(v[x]);return s}
+function tr(map,key){var r=map[key];return r?r[LI[lang]]:key}
+function birr(n){return Math.round(n).toLocaleString("en-US")+" "+(lang==="am"?"ብር":"Br")}
+function toast(m){var d=document.createElement("div");d.className="toast";d.textContent=m;document.body.appendChild(d);setTimeout(function(){if(d.parentNode)d.parentNode.removeChild(d)},2600)}
+function msg(el,text,kind){el.hidden=!text;el.className="msg "+(kind||"err")+(el.classList.contains("full")?" full":"");el.textContent=text||""}
+
+var sb=window.supabase.createClient(C.supabaseUrl,C.supabaseAnonKey);
+var mode="up", me=null, seller=null, products=[], editing=null, photoBlob=null, confirmId=null, editingProfile=false, partner=null;
+
+function fillSelects(){
+  var a=$("#area").value,c=$("#pcat").value,d=$("#pcond").value;
+  $("#area").innerHTML=C.pickupAreas.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+"</option>"}).join("");
+  $("#pcat").innerHTML=C.categories.map(function(x){return '<option value="'+esc(x)+'">'+esc(tr(I.CATS,x))+"</option>"}).join("");
+  $("#pcond").innerHTML=C.conditions.map(function(x){return '<option value="'+esc(x)+'">'+esc(tr(I.CONDS,x))+"</option>"}).join("");
+  if(a)$("#area").value=a;if(c)$("#pcat").value=c;if(d)$("#pcond").value=d;
+}
+function applyLang(){
+  document.documentElement.lang=lang;
+  $$("[data-t]").forEach(function(el){el.textContent=t(el.getAttribute("data-t"))});
+  $$("[data-lang]").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
+  $("#help1").textContent=$("#help2").textContent=t("help",{tg:C.telegram});
+  var pl=t("priv_note").split("{link}");$("#privNote").innerHTML=esc(pl[0])+'<a href="./#privacy" target="_blank" rel="noopener">'+esc(t("priv_link"))+"</a>"+esc(pl[1]||"");
+  renderSupplies();
+  setMode(mode);fillSelects();window.SelamCaptcha.mount($("#capAuth"),lang);
+  $("#prodTitle").textContent=t(editing?"edit_t":"add_t");$("#prodBtn").textContent=t(editing?"p_save_edit":"p_save_add");
+  $("#profileBtn").textContent=t(seller?"save_changes":"save_profile");
+  if(seller){renderStatus();renderList();renderPartner()}
+}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-lang]");if(b){lang=b.getAttribute("data-lang");store("sm-lang",lang);applyLang()}});
+
+function show(view){["authView","profileView","dashView"].forEach(function(v){$("#"+v).hidden=v!==view});$("#logout").hidden=view==="authView"}
+
+/* ---------- auth ---------- */
+function setMode(m){mode=m;$("#tabUp").setAttribute("aria-pressed",m==="up");$("#tabIn").setAttribute("aria-pressed",m==="in");
+  $("#authBtn").textContent=t(m==="up"?"signup":"signin");$("#pwLabel").textContent=t(m==="up"?"password":"password_in");
+  $("#password").setAttribute("autocomplete",m==="up"?"new-password":"current-password")}
+$("#tabUp").onclick=function(){setMode("up");msg($("#authMsg"))};
+$("#tabIn").onclick=function(){setMode("in");msg($("#authMsg"))};
+$("#authForm").addEventListener("submit",function(e){e.preventDefault();
+  var email=$("#email").value.trim(),pw=$("#password").value,box=$("#authMsg");
+  if(!/^\S+@\S+\.\S+$/.test(email)){msg(box,t("err_email"));return}
+  if(mode==="up"&&pw.length<8){msg(box,t("err_short"));return}
+  $("#authBtn").disabled=true;msg(box);
+  var cap=window.SelamCaptcha;
+  cap.token($("#capAuth")).then(function(tok){
+  if(tok===null){$("#authBtn").disabled=false;msg(box,t("err_captcha"));return}
+  var req=mode==="up"?sb.auth.signUp({email:email,password:pw,options:{emailRedirectTo:location.origin+location.pathname,captchaToken:tok}}):sb.auth.signInWithPassword({email:email,password:pw,options:{captchaToken:tok}});
+  req.then(function(r){$("#authBtn").disabled=false;cap.reset($("#capAuth"));
+    if(r.error){msg(box,mode==="up"?t("err_signup",{e:r.error.message}):t("err_signin"));return}
+    if(mode==="up"&&!r.data.session){setMode("in");msg(box,t("check_email"),"ok");return}
+    start();
+  });
+  });
+});
+$("#logout").onclick=function(){sb.auth.signOut().then(function(){location.reload()})};
+
+/* ---------- profile ---------- */
+function openProfile(edit){editingProfile=edit;show("profileView");$("#profileCancel").hidden=!edit;
+  $("#profileBtn").textContent=t(seller?"save_changes":"save_profile");
+  if(seller){$("#biz").value=seller.business_name;$("#owner").value=seller.owner_name;$("#phone").value=seller.phone;$("#tg").value=seller.telegram||"";$("#area").value=seller.area;$("#about").value=seller.about||"";
+    $("#wantMk").checked=seller.wants_marketplace!==false;$("#wantGf").checked=!!seller.wants_gifts}}
+$("#profileCancel").onclick=function(){show("dashView")};
+$("#editProfile").onclick=function(){openProfile(true)};
+$("#profileForm").addEventListener("submit",function(e){e.preventDefault();var box=$("#profileMsg");
+  var row={business_name:$("#biz").value.trim(),owner_name:$("#owner").value.trim(),phone:$("#phone").value.trim(),telegram:$("#tg").value.trim().replace(/^@/,"")||null,area:$("#area").value,about:$("#about").value.trim()||null};
+  if(!row.business_name||!row.owner_name||!row.phone){msg(box,t("err_req"));return}
+  row.wants_marketplace=$("#wantMk").checked;row.wants_gifts=$("#wantGf").checked;
+  if(!row.wants_marketplace&&!row.wants_gifts){msg(box,t("role_need"));return}
+  $("#profileBtn").disabled=true;msg(box);
+  var q=seller?sb.from("sellers").update(row).eq("user_id",me.id):sb.from("sellers").insert(Object.assign({user_id:me.id},row));
+  q.then(function(r){$("#profileBtn").disabled=false;if(r.error){msg(box,t("err_save")+" ("+(r.error.message||r.error.code||"error")+")");return}
+    toast(seller?t("saved"):t("submitted"));loadSeller()});
+});
+
+/* ---------- dashboard ---------- */
+function renderStatus(){var s=seller.status,b=$("#statusBox");b.className="status "+s;
+  b.innerHTML="<b>"+esc(t("st_"+s+"_b"))+"</b><p>"+esc(t("st_"+s))+"</p>"+(seller.admin_note&&s!=="approved"?"<p>"+esc(t("note_from",{n:seller.admin_note}))+"</p>":"")}
+function renderList(){var L=$("#list");
+  if(!products.length){L.innerHTML='<p class="empty">'+esc(t("no_products"))+"</p>";return}
+  L.innerHTML=products.map(function(p){return '<article class="prod">'+(p.photo_url?'<img class="thumb" src="'+esc(p.photo_url)+'" alt="" loading="lazy">':'<div class="thumb"></div>')+
+    '<div style="min-width:0"><h3>'+esc(p.name)+'</h3><div class="meta">'+esc(tr(I.CATS,p.category))+" · "+esc(t("qty_short",{q:p.quantity}))+'</div><div class="price">'+birr(p.price_etb)+'</div><span class="pill '+p.status+'">'+esc(t("s_"+p.status))+"</span></div>"+
+    (p.admin_note&&p.status==="rejected"?'<div class="anote">'+esc(t("note_from",{n:p.admin_note}))+"</div>":"")+
+    '<div class="ctl">'+(confirmId===p.id?'<span style="align-self:center">'+esc(t("del_confirm"))+'</span><button type="button" class="btn danger sm" data-delyes="'+p.id+'">'+esc(t("del"))+'</button><button type="button" class="btn ghost sm" data-delno>'+esc(t("keep"))+"</button>":
+      '<button type="button" class="btn ghost sm" data-edit="'+p.id+'">'+esc(t("edit"))+"</button>"+(p.status!=="sold"?'<button type="button" class="btn ghost sm" data-sold="'+p.id+'">'+esc(t("mark_sold"))+"</button>":"")+'<button type="button" class="btn ghost sm" data-del="'+p.id+'">'+esc(t("del"))+"</button>")+"</div></article>"}).join("")}
+function find(id){for(var i=0;i<products.length;i++)if(String(products[i].id)===String(id))return products[i]}
+$("#list").addEventListener("click",function(e){var el=e.target.closest("button");if(!el)return;
+  if(el.hasAttribute("data-edit"))startEdit(find(el.getAttribute("data-edit")));
+  if(el.hasAttribute("data-del")){confirmId=+el.getAttribute("data-del");renderList()}
+  if(el.hasAttribute("data-delno")){confirmId=null;renderList()}
+  if(el.hasAttribute("data-delyes")){var p=find(el.getAttribute("data-delyes"));
+    sb.from("seller_products").delete().eq("id",p.id).then(function(r){if(r.error){toast(t("err_save"));return}
+      if(p.photo_url){var path=p.photo_url.split("/seller-photos/")[1];if(path)sb.storage.from("seller-photos").remove([path])}
+      confirmId=null;if(editing===p.id)resetForm();toast(t("deleted"));loadProducts()})}
+  if(el.hasAttribute("data-sold")){sb.from("seller_products").update({status:"sold"}).eq("id",el.getAttribute("data-sold")).then(function(r){if(r.error)toast(t("err_save"));else loadProducts()})}
+});
+
+function startEdit(p){editing=p.id;photoBlob=null;
+  $("#pname").value=p.name;$("#pcat").value=p.category;$("#pcond").value=p.condition;$("#pprice").value=p.price_etb;$("#pqty").value=p.quantity;$("#pweight").value=p.weight_kg||"";$("#pdesc").value=p.description||"";$("#pphoto").value="";
+  $("#ppreview").hidden=!p.photo_url;if(p.photo_url)$("#ppreview").src=p.photo_url;
+  $("#prodTitle").textContent=t("edit_t");$("#prodBtn").textContent=t("p_save_edit");$("#prodCancel").hidden=false;$("#editWarn").hidden=false;msg($("#prodMsg"));
+  $("#prodForm").scrollIntoView({behavior:"smooth",block:"start"})}
+function resetForm(){editing=null;photoBlob=null;$("#prodForm").reset();$("#pqty").value=1;$("#ppreview").hidden=true;$("#ppreview").removeAttribute("src");
+  $("#prodTitle").textContent=t("add_t");$("#prodBtn").textContent=t("p_save_add");$("#prodCancel").hidden=true;$("#editWarn").hidden=true;fillSelects()}
+$("#prodCancel").onclick=function(){resetForm();msg($("#prodMsg"))};
+
+function shrink(file,max){return new Promise(function(res,rej){var img=new Image(),url=URL.createObjectURL(file);
+  img.onload=function(){var k=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);
+    c.getContext("2d").drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(url);c.toBlob(function(b){b?res(b):rej()},"image/jpeg",0.82)};
+  img.onerror=function(){rej()};img.src=url})}
+$("#pphoto").addEventListener("change",function(e){var f=e.target.files[0];if(!f)return;
+  shrink(f,1200).then(function(b){photoBlob=b;$("#ppreview").src=URL.createObjectURL(b);$("#ppreview").hidden=false},function(){photoBlob=null;msg($("#prodMsg"),t("err_photo"))})});
+
+$("#prodForm").addEventListener("submit",function(e){e.preventDefault();var box=$("#prodMsg");
+  var name=$("#pname").value.trim(),price=parseFloat($("#pprice").value);
+  if(!name||!(price>=0)){msg(box,t("err_req"));return}
+  var cur=editing?find(editing):null;
+  if(!photoBlob&&!(cur&&cur.photo_url)){msg(box,t("need_photo"));return}
+  var row={name:name,category:$("#pcat").value,condition:$("#pcond").value,price_etb:price,quantity:Math.max(0,parseInt($("#pqty").value,10)||1),
+    weight_kg:parseFloat($("#pweight").value)||null,description:$("#pdesc").value.trim()||null};
+  $("#prodBtn").disabled=true;msg(box);
+  var up=photoBlob?sb.storage.from("seller-photos").upload(me.id+"/"+Date.now()+"-"+Math.random().toString(36).slice(2,7)+".jpg",photoBlob,{contentType:"image/jpeg"}):Promise.resolve(null);
+  up.then(function(r){
+    if(r&&r.error)throw new Error(t("err_photo")+" ("+(r.error.message||"error")+")");
+    if(r){row.photo_url=sb.storage.from("seller-photos").getPublicUrl(r.data.path).data.publicUrl}
+    return editing?sb.from("seller_products").update(row).eq("id",editing):sb.from("seller_products").insert(Object.assign({seller_id:me.id},row));
+  }).then(function(r){if(r.error){if(window.console)console.error(r.error);throw new Error(t("err_save")+" ("+(r.error.message||r.error.code||"error")+")")}
+    if(cur&&row.photo_url&&cur.photo_url){var old=cur.photo_url.split("/seller-photos/")[1];if(old)sb.storage.from("seller-photos").remove([old])}
+    toast(t("submitted"));resetForm();loadProducts();
+  }).catch(function(err){msg(box,err&&err.message?err.message:t("err_save"))})
+  .then(function(){$("#prodBtn").disabled=false});
+});
+
+/* ---------- load ---------- */
+function loadProducts(){return sb.from("seller_products").select("*").eq("seller_id",me.id).order("created_at",{ascending:false}).then(function(r){products=r.data||[];renderList()})}
+function loadSeller(){return sb.from("sellers").select("*").eq("user_id",me.id).maybeSingle().then(function(r){
+  seller=r.data;if(!seller){openProfile(false);return}
+  var mk=seller.wants_marketplace!==false,gf=!!seller.wants_gifts;
+  show("dashView");renderStatus();$("#mkArea").hidden=!mk;$("#gfArea").hidden=!gf;
+  if(mk)loadProducts();if(gf)loadPartner()})}
+
+/* ---------- gift partner application ---------- */
+function renderSupplies(){var picked={};$$("#gfSupplies input:checked").forEach(function(x){picked[x.value]=1});
+  if(partner&&!$$("#gfSupplies input").length)(partner.supplies||[]).forEach(function(k){picked[k]=1});
+  $("#gfSupplies").innerHTML=SUP.map(function(s){return '<label class="check"><input type="checkbox" value="'+s[0]+'"'+(picked[s[0]]?" checked":"")+"><span>"+esc(s[1][LI[lang]])+"</span></label>"}).join("")}
+function renderPartner(){var p=$("#gfPill"),n=$("#gfNote");
+  if(!partner){p.hidden=true;n.hidden=true;$("#gfBtn").textContent=t("gf_save");return}
+  var st=partner.status;p.hidden=false;p.className="pill "+(st==="suspended"?"rejected":st);p.textContent=t("gfs_"+st);
+  $("#gfBtn").textContent=t("save_changes");
+  var note=st==="rejected"?t("gfn_rejected"):st==="suspended"?t("gfn_suspended"):"";
+  if(partner.admin_note&&st!=="approved")note+=(note?" ":"")+t("note_from",{n:partner.admin_note});
+  msg(n,note,st==="rejected"||st==="suspended"?"err":"ok")}
+function loadPartner(){return sb.from("gift_partners").select("*").eq("user_id",me.id).maybeSingle().then(function(r){
+  partner=r.data||null;
+  if(partner){$$("#gfSupplies input").forEach(function(x){x.checked=(partner.supplies||[]).indexOf(x.value)>-1});
+    $("#gfAddis").checked=partner.delivers_addis!==false;$("#gfCities").value=partner.other_cities||"";$("#gfPrices").value=partner.price_notes||"";$("#gfCap").value=partner.capacity||""}
+  renderPartner()})}
+$("#gfArea").addEventListener("submit",function(e){e.preventDefault();var box=$("#gfMsg");
+  var sup=$$("#gfSupplies input:checked").map(function(x){return x.value});
+  if(!sup.length){msg(box,t("gf_need"));return}
+  var row={supplies:sup,delivers_addis:$("#gfAddis").checked,other_cities:$("#gfCities").value.trim()||null,price_notes:$("#gfPrices").value.trim()||null,capacity:$("#gfCap").value.trim()||null};
+  $("#gfBtn").disabled=true;msg(box);
+  var q=partner?sb.from("gift_partners").update(row).eq("user_id",me.id):sb.from("gift_partners").insert(Object.assign({user_id:me.id},row));
+  q.then(function(r){$("#gfBtn").disabled=false;
+    if(r.error){msg(box,t("err_save")+" ("+(r.error.message||r.error.code||"error")+")");return}
+    toast(partner?t("saved"):t("gf_sent"));loadPartner()})});
+function start(){sb.auth.getUser().then(function(r){me=r.data&&r.data.user;if(!me||me.is_anonymous){me=null;show("authView");return}loadSeller()})}
+
+applyLang();
+sb.auth.getSession().then(function(r){if(r.data.session)start();else show("authView")});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Selam Market</title>
+<meta name="description" content="Quality items ready now in Addis Ababa. Buy on Telegram or WhatsApp. English, አማርኛ, Afaan Oromoo.">
+<meta name="theme-color" content="#0B6B57">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Selam Market">
+<meta property="og:title" content="Selam Market">
+<meta property="og:description" content="Quality items ready now in Addis Ababa. Shop Ethiopia from Canada and the USA. Buy on Telegram or WhatsApp.">
+<meta property="og:url" content="https://selammarket.ca/">
+<meta property="og:image" content="https://selammarket.ca/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<link rel="preconnect" href="https://amutaslmrjasowwrhyjw.supabase.co" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Noto+Sans+Ethiopic:wght@400;700&display=swap">
+<style>
+/* Mobile-first storefront. Tibeb (woven border) bands frame the page; a tilet diamond weave sits behind the hero. Bottom tab bar on phones, top tabs on larger screens. */
+:root{
+  --bg:#F6F5F1; --surface:#FFFFFF; --sunk:#EEECE6; --line:#DEDAD0;
+  --ink:#1B1F1A; --muted:#5E625A;
+  --accent:#0B6B57; --accent-ink:#FFFFFF; --accent-soft:#DCEEE7;
+  --gold:#D49A1F; --gold-soft:#F6E8C8; --red:#B3343F;
+  --display:"Bricolage Grotesque","Noto Sans Ethiopic",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Ethiopic","Nyala","Abyssinica SIL",sans-serif;
+  --r:12px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121512; --surface:#1B201C; --sunk:#161a17; --line:#2E352F;
+  --ink:#ECEEE8; --muted:#A3A99F;
+  --accent:#43C3A0; --accent-ink:#062019; --accent-soft:#163A30;
+  --gold:#E6B24A; --gold-soft:#3A2F17; --red:#E4707A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121512; --surface:#1B201C; --sunk:#161a17; --line:#2E352F;
+  --ink:#ECEEE8; --muted:#A3A99F;
+  --accent:#43C3A0; --accent-ink:#062019; --accent-soft:#163A30;
+  --gold:#E6B24A; --gold-soft:#3A2F17; --red:#E4707A; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;padding-bottom:calc(68px + env(safe-area-inset-bottom,0px))}
+[hidden]{display:none!important}
+img{max-width:100%}
+h1,h2,h3{font-family:var(--display);line-height:1.2;margin:0;font-weight:800}
+:lang(am) h1,:lang(am) h2,:lang(am) h3{font-family:"Noto Sans Ethiopic",var(--body);font-weight:700}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.tibeb{height:9px;background:repeating-linear-gradient(90deg,var(--accent) 0 12px,var(--gold) 12px 16px,var(--red) 16px 20px,var(--gold) 20px 24px,var(--accent) 24px 36px,var(--gold) 36px 38px)}
+.tibeb.thin{height:5px;border-radius:3px;width:72px;margin-top:8px}
+
+header{background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:10px;padding-bottom:10px}
+.brand{text-decoration:none;color:var(--ink);display:block;min-width:0}
+.logo{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.01em;white-space:nowrap;line-height:1.1;color:var(--ink)}
+.logo .lg-am{font-family:"Noto Sans Ethiopic",var(--body);font-weight:700;color:var(--accent);letter-spacing:0;position:relative;padding-bottom:2px;background:repeating-linear-gradient(90deg,var(--accent) 0 8px,var(--gold) 8px 11px,var(--red) 11px 14px,var(--gold) 14px 17px) left bottom/100% 3px no-repeat}
+.brand small{margin-top:3px}
+.brand small{display:block;color:var(--muted);font-size:12px;line-height:1.3}
+.lang{display:flex;flex:none;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--bg)}
+.lang button{border:0;background:transparent;padding:7px 10px;font-size:13px;cursor:pointer;min-height:36px;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.topnav{display:none}
+main{padding-top:20px;padding-bottom:48px}
+
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+.tabbar a{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60px;text-decoration:none;color:var(--muted);font-size:11px;line-height:1.2;text-align:center;padding:6px 2px}
+.tabbar svg{width:22px;height:22px;margin-bottom:3px}
+.tabbar a[aria-current="page"]{color:var(--accent);font-weight:700}
+
+.hero{position:relative;overflow:hidden;border-radius:var(--r);background:var(--accent);color:var(--accent-ink);padding:22px 20px;margin-bottom:24px}
+.hero::before{content:"";position:absolute;top:0;right:0;bottom:0;width:45%;opacity:.16;
+  background:linear-gradient(45deg,transparent 46%,var(--accent-ink) 46%,var(--accent-ink) 54%,transparent 54%),linear-gradient(-45deg,transparent 46%,var(--accent-ink) 46%,var(--accent-ink) 54%,transparent 54%);background-size:26px 26px}
+.hero>*{position:relative}
+.greet{font-size:13px;letter-spacing:.06em;opacity:.85;margin-bottom:6px}
+.greet span{font-family:"Noto Sans Ethiopic",var(--body)}
+.hero h1{font-size:clamp(26px,6.4vw,44px);letter-spacing:-.015em;max-width:18ch}
+.hero h1 em{font-style:normal;color:var(--gold-soft)}
+.hero p{margin:10px 0 16px;max-width:56ch;opacity:.92}
+.chan{display:inline-flex;align-items:center;margin-top:16px;padding:6px 12px 6px 8px;min-height:40px;border-radius:999px;background:rgba(255,255,255,.14);color:inherit;text-decoration:none;font-weight:700;font-size:14px}
+.chan svg{width:22px;height:22px;margin-right:8px;padding:3px;border-radius:50%;background:var(--accent-ink);color:var(--accent)}
+.chan:hover{background:rgba(255,255,255,.22)}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:11px 16px;min-height:44px;font-weight:700;cursor:pointer;text-decoration:none;font-size:15px;text-align:center}
+.btn.pri{background:var(--accent);color:var(--accent-ink)}
+.btn.gold{background:var(--gold);color:#1B1F1A}
+.btn.line{background:transparent;border:1px solid currentColor;color:inherit}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.btn.sm{padding:8px 12px;min-height:40px;font-size:14px}
+.btn.block{width:100%}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+
+.how{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+.how>div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.how b{display:flex;align-items:center;font-size:15px}
+.how b i{font-style:normal;flex:none;width:24px;height:24px;margin-right:8px;border-radius:50%;background:var(--gold-soft);color:var(--ink);font-size:13px;display:inline-flex;align-items:center;justify-content:center}
+.how>div>span{display:block;color:var(--muted);font-size:13.5px;margin-top:4px}
+
+.head{margin-bottom:14px}
+.head h2{font-size:24px}
+.head p{color:var(--muted);margin:4px 0 0;font-size:14.5px}
+.tools{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.search{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:11px 14px;min-height:44px;font-size:16px}
+.chips{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;min-height:38px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.ph{position:relative;padding-top:80%;background:var(--sunk)}
+.ph>img,.ph>svg{position:absolute;top:0;left:0;width:100%;height:100%}
+.ph>img{object-fit:cover}
+.ph>svg{padding:26%;color:var(--accent);opacity:.75}
+.badge{position:absolute;top:8px;left:8px;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--surface);color:var(--ink)}
+.badge.res{background:var(--red);color:#fff}
+.card .bd{padding:10px 12px 12px;display:flex;flex-direction:column;flex:1;min-width:0}
+.card .bd>*+*{margin-top:4px}
+.card h3{font-family:var(--body);font-size:14.5px;font-weight:700;line-height:1.35;overflow-wrap:anywhere;word-wrap:break-word}
+.meta{color:var(--muted);font-size:12.5px;overflow-wrap:anywhere;word-wrap:break-word}
+.price{font-weight:800;font-size:17px;font-variant-numeric:tabular-nums}
+.card .btn{margin-top:auto!important;width:100%}
+.card .price{margin-bottom:8px}
+.skel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);height:260px;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.55}}
+.empty{grid-column:1/-1;color:var(--muted);text-align:center;padding:30px 10px}
+
+.strip{display:grid;gap:10px;margin-top:28px}
+.card .shop{color:var(--accent);font-size:12.5px;font-weight:700}
+.card .open{color:inherit;text-decoration:none;display:block}
+.card .open:hover h3{text-decoration:underline}
+.card .clamp{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.back{display:inline-flex;align-items:center;min-height:40px;margin-bottom:12px;font-weight:700;text-decoration:none}
+.back::before{content:"\2190";margin-right:8px}
+.dt{display:grid;gap:18px}
+.dt .pic{position:relative;border-radius:var(--r);overflow:hidden;background:var(--sunk);border:1px solid var(--line)}
+.dt .pic img{display:block;width:100%;height:auto;max-height:78vh;object-fit:contain;background:var(--sunk)}
+.dt .pic svg{display:block;width:40%;margin:12% auto;color:var(--accent);opacity:.7}
+.dt .pic .badge{top:12px;left:12px;font-size:12.5px;padding:4px 10px}
+.dt h1{font-size:clamp(22px,5.5vw,32px);overflow-wrap:anywhere;word-wrap:break-word}
+:lang(am) .dt h1{font-family:"Noto Sans Ethiopic",var(--body)}
+.dt .bigprice{font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;margin:8px 0 2px}
+.dt .shopline{color:var(--accent);font-weight:700;margin-top:6px}
+.dt .actions{display:grid;gap:8px;margin:16px 0}
+.dt .desc{white-space:pre-line;color:var(--ink);margin:6px 0 0;overflow-wrap:anywhere;word-wrap:break-word}
+.dt h2{font-size:17px;margin-top:4px}
+.dt dl{display:grid;grid-template-columns:auto minmax(0,1fr);margin:8px 0 0;font-size:14.5px;border-top:1px solid var(--line)}
+.dt dt,.dt dd{padding:8px 0;border-bottom:1px solid var(--line);margin:0}
+.dt dt{color:var(--muted);padding-right:16px}
+.dt dd{text-align:right;font-weight:600;overflow-wrap:anywhere}
+.why{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:var(--r);padding:14px 16px;margin-top:16px}
+.why ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:14.5px}
+.why li{margin-bottom:4px}
+.more{margin-top:32px}
+.more h2{font-size:20px;margin-bottom:12px}
+.gone{text-align:center;padding:40px 10px}
+.gone h1{font-size:24px}
+.stag{position:absolute;top:8px;right:8px;background:var(--ink);color:var(--bg);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px}
+.dt .pic .stag{top:12px;right:12px;font-size:12px}
+.pill.smp{background:var(--ink);color:var(--bg)}
+.snote{background:var(--gold-soft);color:var(--ink);border-radius:8px;padding:8px 10px;font-size:13.5px;margin:10px 0 0}
+.bfilters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.bfilters label{font-size:12.5px}
+.bfilters select{min-height:40px;padding:6px 8px;font-size:14px}
+.posts{display:grid;gap:10px}
+.post .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.post .when{font-weight:700;font-size:14px;white-space:nowrap}
+.post .route{display:flex;flex-wrap:wrap;align-items:center}
+.post .route small{font-size:11px;font-weight:700;color:var(--muted);background:var(--sunk);border-radius:4px;padding:1px 5px;margin-left:6px}
+.post .who{color:var(--muted);font-size:13px;margin-top:6px}
+.post .det{margin:6px 0 0;font-size:14.5px;overflow-wrap:anywhere;word-wrap:break-word}
+.post .btn{margin-top:10px}
+.legal{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;max-width:760px}
+.legal h2{font-size:24px}
+.legal h3{font-size:17px;margin:20px 0 6px}
+.legal p,.legal li{color:var(--ink);font-size:15px}
+.legal ul{padding-left:20px;margin:6px 0}
+.legal li{margin-bottom:8px}
+.promise{list-style:none;padding:0;margin:0 0 18px;display:flex;flex-wrap:wrap;gap:8px}
+.promise li{background:var(--accent-soft);color:var(--ink);border-radius:999px;padding:6px 12px;font-size:13.5px;font-weight:600}
+.promise li::before{content:"\2713";color:var(--accent);font-weight:800;margin-right:6px}
+.gcard .occ{background:var(--gold);color:#1B1F1A}
+.gprice{font-weight:800;font-size:18px;font-variant-numeric:tabular-nums;margin-bottom:8px}
+.gcustom{background:transparent;border:2px dashed var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.gcustom h3{font-size:17px}
+.gcustom p{color:var(--muted);font-size:14px;margin:6px 0 12px}
+.payopts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:6px}
+.payopts label{display:flex;align-items:center;justify-content:center;min-height:44px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-weight:600;background:var(--bg);text-align:center;padding:4px}
+.payopts input{position:absolute;opacity:0;pointer-events:none}
+.payopts label[hidden]{display:none!important}
+.payopts input:checked+span{color:var(--accent)}
+.payopts label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.payopts label:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+.gone p{color:var(--muted)}
+.strip a{display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;text-decoration:none;color:var(--ink)}
+.strip .k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.strip b{display:block;font-family:var(--display);font-size:18px;margin:2px 0}
+:lang(am) .strip b{font-family:"Noto Sans Ethiopic",var(--body)}
+.strip span{color:var(--muted);font-size:14px}
+
+.two{display:grid;gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;min-width:0}
+.panel h2{font-size:22px}
+.sub{color:var(--muted);margin:6px 0 16px;font-size:14.5px}
+label{display:block;font-size:13.5px;font-weight:700}
+label>input,label>select,label>textarea{display:block;margin-top:5px}
+input,select,textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;min-height:44px;font-weight:400;font-size:16px}
+textarea{min-height:80px;resize:vertical}
+.fields{display:grid;gap:12px}
+.sum{font-variant-numeric:tabular-nums;font-size:14.5px}
+.sum>div{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)}
+.sum>div>span:last-child{text-align:right;white-space:nowrap;padding-left:12px}
+.sum .tot{font-weight:800;font-size:18px;border-bottom:0;padding-top:10px}
+.note{color:var(--muted);font-size:13px;margin:10px 0 0}
+.morelink{margin:-16px 0 28px;font-size:14.5px;font-weight:600}
+.info{display:grid;gap:12px}
+.info article{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:var(--r);padding:16px 18px;min-width:0}
+.info h3{font-size:17px;margin-bottom:6px}
+:lang(am) .info h3{font-size:17px}
+.info p,.info ul{margin:6px 0 0;color:var(--muted);font-size:15px}
+.info ul{padding-left:18px}
+.info li{margin-bottom:4px}
+.info .contact{border-top-color:var(--accent)}
+.info .contact .row{margin-top:12px}
+.steps{margin:12px 0 0;padding-left:20px;color:var(--muted);font-size:14.5px}
+.steps li{margin-bottom:8px;padding-left:4px}
+.steps li::marker{color:var(--gold);font-weight:800}
+
+.post{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.route{font-weight:800;font-size:16px;margin:6px 0 2px}
+.route i{font-style:normal;color:var(--gold);margin:0 6px}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;margin-right:6px}
+.pill.trip{background:var(--accent-soft);color:var(--accent)}
+.pill.req{background:var(--gold-soft);color:var(--ink)}
+.pill.ver{border:1px solid var(--line);color:var(--muted)}
+.safety{background:var(--surface);border:1px solid var(--line);border-top:5px solid var(--gold);border-radius:var(--r);padding:16px}
+.safety ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:14px}
+.safety li{margin-bottom:6px}
+
+.modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:50;background:rgba(10,14,10,.55);display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--surface);color:var(--ink);width:100%;max-width:480px;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;border-radius:16px 16px 0 0;padding:20px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.sheet h2{font-size:20px;margin-bottom:8px}
+.stack{display:grid;gap:8px;margin-top:12px}
+.contacts{margin-top:12px;font-size:14px}
+.contacts>div{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)}
+.contacts b{-webkit-user-select:all;user-select:all}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:60;max-width:calc(100% - 32px);text-align:center}
+
+footer{border-top:1px solid var(--line);background:var(--surface)}
+footer .wrap{padding-top:16px;padding-bottom:20px;color:var(--muted);font-size:13.5px}
+footer .wrap span{display:block}
+footer .wrap span+span{margin-top:4px}
+
+@media (min-width:600px){
+  .grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+  .how{grid-template-columns:repeat(4,1fr)}
+  .fields.cols{grid-template-columns:1fr 1fr}
+  .fields .full{grid-column:1/-1}
+  .strip{grid-template-columns:1fr 1fr}
+  .info{grid-template-columns:1fr 1fr}
+  .info .contact{grid-column:1/-1}
+  .strip a:last-child:nth-child(odd){grid-column:1/-1}
+  .hero{padding:34px 32px}
+  .modal{align-items:center}
+  .sheet{border-radius:16px}
+}
+@media (min-width:860px){
+  .strip{grid-template-columns:repeat(3,1fr)}
+  .strip a:last-child:nth-child(odd){grid-column:auto}
+  body{padding-bottom:0}
+  .tabbar{display:none}
+  .toast{bottom:24px}
+  .topnav{display:flex;gap:4px;flex:1;margin:0 20px}
+  .topnav a{padding:8px 12px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:600;font-size:14.5px}
+  .topnav a:hover{background:var(--sunk);color:var(--ink)}
+  .topnav a[aria-current="page"]{background:var(--accent-soft);color:var(--ink)}
+  .tools{flex-direction:row;align-items:center;justify-content:space-between}
+  .search{max-width:280px;order:2}
+  .two{grid-template-columns:1.4fr 1fr;align-items:start}
+  .dt{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:start}
+  .dt .info2{position:sticky;top:16px}
+}
+@media (prefers-reduced-motion:reduce){.skel{animation:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="tibeb" aria-hidden="true"></div>
+  <div class="wrap bar">
+    <a class="brand" href="#shop" aria-label="Selam Market"><b class="logo"><span class="lg-am" lang="am">ሰላም</span> Market</b><small id="ecDate"></small></a>
+    <nav class="topnav" aria-label="Main">
+      <a href="#shop" data-v="shop" data-t="nav_shop"></a>
+      <a href="#gifts" data-v="gifts" data-t="nav_gifts"></a>
+      <a href="#order-abroad" data-v="order-abroad" data-t="nav_abroad"></a>
+      <a href="#from-addis" data-v="from-addis" data-t="nav_addis"></a>
+      <a href="#travelers" data-v="travelers" data-t="nav_travel"></a>
+      <a href="#about" data-v="about" data-t="nav_about"></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" lang="en">EN</button>
+      <button type="button" data-lang="am" lang="am">አማ</button>
+      <button type="button" data-lang="om" lang="om">Oro</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section data-view="shop">
+    <div class="hero">
+      <div class="greet">Selam · <span>ሰላም</span> · Akkam</div>
+      <h1><span data-t="hero_t1"></span> <em data-t="hero_t2"></em></h1>
+      <p data-t="hero_p"></p>
+      <div class="row">
+        <a class="btn gold" href="#products" data-t="btn_browse"></a>
+        <a class="btn line" href="#gifts" data-t="btn_gift"></a>
+      </div>
+      <a class="chan" id="heroChan" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.5 4.2 18.4 19c-.2 1-.9 1.3-1.8.8l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.8 8.8-7.9c.4-.3-.1-.5-.6-.2L6.2 13l-4.7-1.5c-1-.3-1-1 .2-1.5L20.1 3c.9-.3 1.6.2 1.4 1.2z"/></svg><span data-t="chan_btn"></span></a>
+    </div>
+
+    <div class="head"><h2 data-t="how_t"></h2><div class="tibeb thin" aria-hidden="true"></div></div>
+    <div class="how">
+      <div><b><i>1</i><span data-t="how1b"></span></b><span data-t="how1s"></span></div>
+      <div><b><i>2</i><span data-t="how2b"></span></b><span data-t="how2s"></span></div>
+      <div><b><i>3</i><span data-t="how3b"></span></b><span data-t="how3s"></span></div>
+      <div><b><i>4</i><span data-t="how4b"></span></b><span data-t="how4s"></span></div>
+    </div>
+    <p class="morelink"><a href="#about" data-t="more_link"></a></p>
+
+    <div class="head" id="products"><h2 data-t="shop_t"></h2><p data-t="shop_s"></p></div>
+    <div class="tools">
+      <input class="search" id="q" type="search" data-tp="search" autocomplete="off">
+      <div class="chips" id="cats"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+
+    <div class="strip">
+      <a href="#order-abroad"><span class="k" data-t="strip1k"></span><b data-t="strip1b"></b><span data-t="strip1s"></span></a>
+      <a href="#travelers"><span class="k" data-t="strip2k"></span><b data-t="nav_travel"></b><span data-t="strip2s"></span></a>
+      <a href="seller.html"><span class="k" data-t="sell_k"></span><b data-t="sell_b"></b><span data-t="sell_s"></span></a>
+    </div>
+  </section>
+
+  <section data-view="order-abroad" hidden>
+    <div class="two">
+      <div class="panel">
+        <h2 data-t="ab_t"></h2>
+        <p class="sub" data-t="ab_s"></p>
+        <form id="abroad" class="fields cols" novalidate>
+          <label class="full"><span data-t="ab_link"></span><input id="alink" type="url" inputmode="url" placeholder="https://www.amazon.ca/..."></label>
+          <label><span data-t="ab_store"></span><select id="astore">
+            <option>Amazon.ca</option><option>Amazon.com</option><option>Shein</option><option data-t="ab_other"></option>
+          </select></label>
+          <label><span data-t="ab_qty"></span><input id="aqty" type="number" inputmode="numeric" min="1" value="1"></label>
+          <label class="full"><span data-t="ab_notes"></span><textarea id="anote"></textarea></label>
+          <button class="btn pri full" type="submit" data-t="ab_send"></button>
+        </form>
+      </div>
+      <div class="panel">
+        <h2 style="font-size:19px" data-t="ab_how_t"></h2>
+        <ol class="steps">
+          <li data-t="ab_how1"></li><li data-t="ab_how2"></li><li data-t="ab_how3"></li><li data-t="ab_how4"></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section data-view="gifts" hidden>
+    <div class="head"><h2 data-t="g_t"></h2><p data-t="g_s"></p><div class="tibeb thin" aria-hidden="true"></div></div>
+    <ul class="promise">
+      <li data-t="g_p1"></li><li data-t="g_p2"></li><li data-t="g_p3"></li>
+    </ul>
+    <div class="grid" id="ggrid"></div>
+    <p class="note" data-t="g_usd"></p>
+  </section>
+
+  <section data-view="from-addis" hidden>
+    <div class="hero">
+      <div class="greet">Addis Ababa → Toronto · Washington · Calgary</div>
+      <h1 data-t="fa_t"></h1>
+      <p data-t="fa_s"></p>
+      <a class="btn line" href="seller.html" data-t="fa_sell"></a>
+    </div>
+    <div class="tools"><input class="search" id="fq" type="search" data-tp="search" autocomplete="off"><div class="chips" id="fcats"></div></div>
+    <div class="grid" id="fgrid"></div>
+  </section>
+
+  <section data-view="travelers" hidden>
+    <div class="head"><h2 data-t="nav_travel"></h2><p data-t="tr_s"></p></div>
+    <div class="row" style="margin-bottom:16px">
+      <a class="btn pri" href="travel.html#new-trip" data-t="tr_trip"></a>
+      <a class="btn ghost" href="travel.html#new-send" data-t="tr_req"></a>
+      <a class="btn ghost" href="travel.html" data-t="tr_mine"></a>
+    </div>
+    <div class="two">
+      <div style="min-width:0">
+        <div class="bfilters">
+          <label><span data-t="f_show"></span><select id="bkind"><option value="all" data-t="f_all"></option><option value="trip" data-t="f_trips"></option><option value="send" data-t="f_sends"></option></select></label>
+          <label><span data-t="f_from"></span><select id="bfrom"><option value="" data-t="c_any"></option><option value="CA" data-t="c_CA"></option><option value="US" data-t="c_US"></option><option value="ET" data-t="c_ET"></option></select></label>
+          <label><span data-t="f_to"></span><select id="bto"><option value="" data-t="c_any"></option><option value="CA" data-t="c_CA"></option><option value="US" data-t="c_US"></option><option value="ET" data-t="c_ET"></option></select></label>
+        </div>
+        <div class="posts" id="board"></div>
+      </div>
+      <aside class="safety">
+        <b data-t="safe_t"></b>
+        <ul><li data-t="safe1"></li><li data-t="safe2"></li><li data-t="safe3"></li><li data-t="safe4"></li></ul>
+      </aside>
+    </div>
+  </section>
+
+  <section data-view="about" hidden>
+    <div class="head"><h2 data-t="about_t"></h2><p data-t="about_s"></p><div class="tibeb thin" aria-hidden="true"></div></div>
+    <div class="info">
+      <article><h3 data-t="who_t"></h3><p data-t="who_p"></p></article>
+      <article><h3 data-t="pay_t"></h3><ul><li data-t="pay_et"></li><li data-t="pay_na"></li></ul></article>
+      <article><h3 data-t="del_t"></h3><ul><li data-t="del_addis"></li><li data-t="del_other"></li><li data-t="del_pick"></li></ul></article>
+      <article><h3 data-t="insp_t"></h3><p data-t="insp_p"></p></article>
+      <article><h3 data-t="abr_t"></h3><p data-t="abr_p"></p></article>
+      <article><h3 data-t="sell_t"></h3><p data-t="sell_p1"></p><p data-t="sell_p2"></p></article>
+      <article class="contact"><h3 data-t="ct_t"></h3><p data-t="ct_p"></p>
+        <div class="row"><a class="btn pri" id="aboutChan" target="_blank" rel="noopener" data-t="chan_btn"></a><a class="btn ghost" id="aboutTg" target="_blank" rel="noopener">Telegram</a><a class="btn ghost" id="aboutWa" target="_blank" rel="noopener">WhatsApp</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section data-view="privacy" hidden>
+    <article class="legal">
+      <h2 data-t="pv_t"></h2><p class="note" data-t="pv_upd"></p>
+      <p data-t="pv_intro"></p>
+      <h3 data-t="pv_c_t"></h3>
+      <ul><li data-t="pv_c1"></li><li data-t="pv_c2"></li><li data-t="pv_c3"></li><li data-t="pv_c4" id="pvStats"></li></ul>
+      <h3 data-t="pv_u_t"></h3><p data-t="pv_u"></p>
+      <h3 data-t="pv_s_t"></h3><p data-t="pv_s"></p>
+      <h3 data-t="pv_k_t"></h3><p data-t="pv_k"></p>
+      <h3 data-t="pv_r_t"></h3><p data-t="pv_r"></p>
+      <p id="pvContact"></p>
+    </article>
+  </section>
+
+  <section data-view="item" hidden>
+    <div id="detail"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="tibeb" aria-hidden="true"></div>
+  <div class="wrap">
+    <span>Selam Market · <span style="display:inline" data-t="foot"></span></span>
+    <span><span style="display:inline" data-t="chan_foot"></span>: <a id="chanFoot" target="_blank" rel="noopener"></a></span>
+    <span>Telegram: <b id="tgFoot"></b> · WhatsApp: <b id="waFoot"></b></span>
+    <span><a href="#about" data-t="more_link"></a> · <a href="seller.html" data-t="sell_b"></a> · <a href="#privacy" data-t="privacy"></a></span>
+  </div>
+</footer>
+
+<nav class="tabbar" aria-label="Main">
+  <a href="#shop" data-v="shop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h16l-1.2 11H5.2zM8 9V7a4 4 0 0 1 8 0v2"/></svg><span data-t="nav_shop"></span></a>
+  <a href="#gifts" data-v="gifts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 11h16v9H4zM3 7h18v4H3zM12 7v13M12 7c-1.5-3-5-3.5-5-1.2C7 7 9.5 7 12 7zm0 0c1.5-3 5-3.5 5-1.2C17 7 14.5 7 12 7z"/></svg><span data-t="tab_gifts"></span></a>
+  <a href="#order-abroad" data-v="order-abroad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21M12 3C9.5 5.7 8.2 8.7 8.2 12S9.5 18.3 12 21"/></svg><span data-t="tab_abroad"></span></a>
+  <a href="#from-addis" data-v="from-addis"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/></svg><span data-t="tab_addis"></span></a>
+  <a href="#travelers" data-v="travelers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2.5 15.5l19-6-1-2.5-7 1.5L8 4H6l2.5 6-4.5 1L2.5 9H1.5l1 6.5zM3 20h18"/></svg><span data-t="tab_travel"></span></a>
+</nav>
+
+<div class="modal" id="modal" hidden><div class="sheet" role="dialog" aria-modal="true" id="sheet"></div></div>
+
+<script src="config.js"></script>
+<script src="stats.js"></script>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
