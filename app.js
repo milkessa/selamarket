@@ -215,18 +215,28 @@ function openSheet(html){lastFocus=document.activeElement;$("#sheet").innerHTML=
 function closeSheet(){$("#modal").hidden=true;document.body.style.overflow="";if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 $("#modal").addEventListener("click",function(e){if(e.target.id==="modal"||up(e.target,"[data-close]"))closeSheet()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("#modal").hidden)closeSheet()});
+function botCode(){var a="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789",o="",r=new Uint8Array(18);
+  try{crypto.getRandomValues(r)}catch(e){for(var j=0;j<18;j++)r[j]=Math.random()*256}
+  for(var i=0;i<18;i++)o+=a[r[i]%a.length];return o}
 function contactSheet(title,sub,msg,waFirst){
-  var tgBtn='<a class="btn '+(waFirst?"ghost":"pri")+' block" id="tgGo" target="_blank" rel="noopener" href="'+TG_URL+'">'+esc(t(waFirst?"dlg_tg_alt":"dlg_tg"))+"</a>",
+  var BOT=C.telegramBot, bk=BOT?"_bot":"";
+  var tgBtn='<a class="btn '+(waFirst?"ghost":"pri")+' block" id="tgGo" target="_blank" rel="noopener" href="'+(BOT?"https://t.me/"+encodeURIComponent(BOT):TG_URL)+'">'+esc(t((waFirst?"dlg_tg_alt":"dlg_tg")+bk))+"</a>",
       waBtn='<a class="btn '+(waFirst?"pri":"ghost")+' block" id="waGo" target="_blank" rel="noopener" href="'+waUrl(msg)+'">'+esc(t(waFirst?"dlg_wa_main":"dlg_wa"))+"</a>";
   openSheet('<h2>'+esc(title)+'</h2>'+(sub?'<p class="sub">'+esc(sub)+"</p>":"")+
    '<label><span>'+esc(t("dlg_msg"))+'</span><textarea id="cmsg">'+esc(msg)+"</textarea></label>"+
    '<div class="stack">'+(waFirst?waBtn+tgBtn:tgBtn+waBtn)+"</div>"+
-   '<p class="note">'+esc(t(waFirst?"dlg_note_wa":"dlg_note"))+"</p>"+
-   '<div class="contacts"><div><span>Telegram</span><b>@'+esc(TG)+"</b></div><div><span>WhatsApp</span><b>"+esc(WA)+"</b></div></div>"+
+   '<p class="note">'+esc(t(waFirst?"dlg_note_wa":"dlg_note"+bk))+"</p>"+
+   '<div class="contacts"><div><span>Telegram</span><b>@'+esc(BOT||TG)+"</b></div><div><span>WhatsApp</span><b>"+esc(WA)+"</b></div></div>"+
    '<div class="stack"><button type="button" class="btn ghost" data-close>'+esc(t("close"))+"</button></div>");
   var box=$("#cmsg");
   box.addEventListener("input",function(){$("#waGo").href=waUrl(box.value)});
-  $("#tgGo").addEventListener("click",function(){copy(box.value,box)});
+  $("#tgGo").addEventListener("click",function(){
+    if(!BOT){copy(box.value,box);return}
+    // Save the message with a one-time code; the bot picks it up when the customer taps Start.
+    var code=botCode();this.href="https://t.me/"+encodeURIComponent(BOT)+"?start="+code;
+    try{fetch(C.supabaseUrl+"/rest/v1/bot_orders",{method:"POST",keepalive:true,headers:{apikey:C.supabaseAnonKey,Authorization:"Bearer "+C.supabaseAnonKey,"Content-Type":"application/json",Prefer:"return=minimal"},
+      body:JSON.stringify({code:code,message:box.value.trim().slice(0,3000)||"-",page:(location.hash||"#shop").slice(0,200),lang:lang})})}catch(e){}
+    copy(box.value,box)});
 }
 
 document.addEventListener("click",function(e){
