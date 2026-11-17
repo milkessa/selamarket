@@ -279,7 +279,7 @@ function renderBoard(){
   var list=board.filter(function(p){return (k==="all"||p.kind===k)&&(!f||p.from_country===f)&&(!to||p.to_country===to)});
   box.innerHTML=list.length?list.map(function(p){var trip=p.kind==="trip";
     return '<article class="post"><div class="top"><span><span class="pill '+(trip?"trip":"req")+'">'+esc(t(trip?"bp_trip":"bp_send"))+'</span>'+(p.is_sample?' <span class="pill smp">'+esc(t("sample"))+'</span>':'')+'</span><span class="when">'+esc(t(trip?"bp_on":"bp_by",{d:fmtDate(p.travel_date)}))+"</span></div>"+
-      '<div class="route">'+esc(p.from_city)+"<small>"+esc(p.from_country)+"</small><i>→</i>"+esc(p.to_city)+"<small>"+esc(p.to_country)+"</small></div>"+
+      '<div class="route">'+esc(p.from_city)+(p.from_country==="OT"?"":"<small>"+esc(p.from_country)+"</small>")+"<i>→</i>"+esc(p.to_city)+(p.to_country==="OT"?"":"<small>"+esc(p.to_country)+"</small>")+"</div>"+
       (p.weight_kg?'<div class="meta">'+esc(t(trip?"bp_space":"bp_weight",{k:+p.weight_kg}))+"</div>":"")+
       (p.details?'<p class="det">'+esc(p.details)+"</p>":"")+
       '<div class="who">'+esc(t("bp_who",{n:p.first_name,c:p.member_city}))+"</div>"+

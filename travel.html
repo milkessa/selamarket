@@ -321,7 +321,11 @@ err_save:"Hin olkaa'amne. Interneetii kee mirkaneessiitii irra deebi'i yaali.",b
 
 var CITIES={CA:["Toronto","Ottawa","Montreal","Calgary","Edmonton","Vancouver","Winnipeg","Hamilton","Mississauga","Brampton"],
   US:["Washington DC","Silver Spring","Alexandria","Seattle","Minneapolis","St. Paul","Dallas","Houston","Atlanta","Los Angeles","Denver","Columbus","Las Vegas","Boston","New York"],
-  ET:["Addis Ababa","Adama","Bishoftu","Bahir Dar","Hawassa","Dire Dawa","Harar","Mekelle","Gondar","Jimma","Dessie","Nekemte","Shashemene"]};
+  ET:["Addis Ababa","Adama","Bishoftu","Bahir Dar","Hawassa","Dire Dawa","Harar","Mekelle","Gondar","Jimma","Dessie","Nekemte","Shashemene"],
+  GB:["London","Manchester","Birmingham","Leeds"],DE:["Frankfurt","Berlin","Munich","Cologne","Hamburg"],SE:["Stockholm","Gothenburg","Malmö"],NO:["Oslo","Bergen"],
+  NL:["Amsterdam","Rotterdam","The Hague"],IT:["Rome","Milan"],FR:["Paris","Lyon"],AE:["Dubai","Abu Dhabi","Sharjah"],SA:["Riyadh","Jeddah","Dammam"],
+  QA:["Doha"],KW:["Kuwait City"],LB:["Beirut"],IL:["Tel Aviv","Jerusalem","Netanya"],KE:["Nairobi","Mombasa"],ZA:["Johannesburg","Pretoria","Cape Town"],
+  AU:["Melbourne","Sydney","Perth","Brisbane"],OT:[]};
 var OM_MONTHS=["Amajjii","Guraandhala","Bitootessa","Ebla","Caamsaa","Waxabajjii","Adoolessa","Hagayya","Fulbaana","Onkoloolessa","Sadaasa","Muddee"];
 
 function $(s){return document.querySelector(s)}
@@ -354,10 +358,10 @@ if(readHash())store("sm-travel-next",nextAction);
 
 /* ---------- language ---------- */
 function fillCountries(){["fromC","toC"].forEach(function(id){var el=$("#"+id),v=el.value;
-  el.innerHTML=["CA","US","ET"].map(function(c){return '<option value="'+c+'">'+esc(t("c_"+c))+"</option>"}).join("");el.value=v||(id==="fromC"?"CA":"ET")});
+  el.innerHTML=(C.travelCountries||["CA","US","ET"]).map(function(c){return '<option value="'+c+'">'+esc(t("c_"+c))+"</option>"}).join("");el.value=v||(id==="fromC"?"CA":"ET")});
   $("#allCities").innerHTML=CITIES.CA.concat(CITIES.US,CITIES.ET).map(function(c){return "<option value=\""+esc(c)+"\">"}).join("");syncCityLists()}
-function syncCityLists(){$("#fromList").innerHTML=CITIES[$("#fromC").value].map(function(c){return "<option value=\""+esc(c)+"\">"}).join("");
-  $("#toList").innerHTML=CITIES[$("#toC").value].map(function(c){return "<option value=\""+esc(c)+"\">"}).join("")}
+function syncCityLists(){$("#fromList").innerHTML=(CITIES[$("#fromC").value]||[]).map(function(c){return "<option value=\""+esc(c)+"\">"}).join("");
+  $("#toList").innerHTML=(CITIES[$("#toC").value]||[]).map(function(c){return "<option value=\""+esc(c)+"\">"}).join("")}
 function applyLang(){
   document.documentElement.lang=lang;
   $$("[data-t]").forEach(function(el){el.textContent=t(el.getAttribute("data-t"))});

@@ -12,5 +12,6 @@ window.SELAM = {
   categories: ['Electronics','Clothing','Traditional clothing','Shoes','Beauty','Coffee & spices','Jewelry','Crafts & art','Home','Kids','Bags','Other'],
   occasions: ['Genna','Timket','Fasika','Eid','Meskel','Irreecha','Enkutatash','Any holiday','School year','Any time'],
   conditions: ['New','New with tags','New in box','Sealed','Handmade','Like new','Used, good'],
+  travelCountries: ['CA', 'US', 'ET', 'GB', 'DE', 'SE', 'NO', 'NL', 'IT', 'FR', 'AE', 'SA', 'QA', 'KW', 'LB', 'IL', 'KE', 'ZA', 'AU', 'OT'], // traveler board countries ('OT' = other)
   pickupAreas: ['Bole','Kazanchis','CMC','Piassa','Megenagna','Sarbet','Ayat','Other']
 };
