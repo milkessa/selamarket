@@ -1,0 +1,24 @@
+{
+  "name": "ሰላም Market · Selam Market",
+  "short_name": "Selam Market",
+  "description": "Shop in Addis Ababa, send gifts to family in Ethiopia, order from Amazon and Shein, and find travelers.",
+  "id": "./",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B6B57",
+  "theme_color": "#0B6B57",
+  "lang": "en",
+  "categories": ["shopping", "lifestyle"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Gifts for family", "url": "./?source=app#gifts" },
+    { "name": "Amazon & Shein", "url": "./?source=app#order-abroad" },
+    { "name": "Traveler board", "url": "./?source=app#travelers" }
+  ]
+}
