@@ -6,7 +6,6 @@ window.SELAM = {
   telegramLink: 'https://t.me/selamarket251?direct', // where Telegram buttons go: the channel's Direct Messages
   telegramBot: 'Selam251Bot',               // bot username (without @) once the bot is set up; '' = use telegramLink
   channel: 'selamarket251',       // public Telegram channel for new items
-  whatsapp: '+1 647 573 0925',    // WhatsApp number for orders
   turnstileSiteKey: '0x4AAAAAAF_IrXTL1j43oI2w',           // Cloudflare Turnstile site key for the sign-in bot check; leave '' to keep it off
   analyticsToken: 'df99b1ec074f4086a43abd83a114908e',             // Cloudflare Web Analytics token; leave '' to keep visitor stats off
   categories: ['Electronics','Clothing','Traditional clothing','Shoes','Beauty','Coffee & spices','Jewelry','Crafts & art','Home','Kids','Bags','Other'],

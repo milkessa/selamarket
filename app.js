@@ -1,6 +1,6 @@
 // Selam Market storefront. Plain ES5-friendly JavaScript so it runs on older phones too.
 (function(){
-var C=window.SELAM, I=window.SELAM_I18N, T=I.T, TG=C.telegram, WA=C.whatsapp;
+var C=window.SELAM, I=window.SELAM_I18N, T=I.T, TG=C.telegram;
 var LI={en:0,am:1,om:2};
 
 /* ---------- helpers ---------- */
@@ -21,8 +21,7 @@ function copy(text,box){
   try{if(box){box.focus();box.select();if(document.execCommand("copy")){ok();return}}}catch(e){}
   fail();
 }
-var TG_URL=C.telegramLink||("https://t.me/"+encodeURIComponent(TG)), WA_NUM=WA.replace(/\D/g,"");
-function waUrl(msg){return "https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(msg)}
+var TG_URL=C.telegramLink||("https://t.me/"+encodeURIComponent(TG));
 
 /* Ethiopian calendar date */
 function ecDate(d){var a=Math.floor((14-(d.getMonth()+1))/12),y=d.getFullYear()+4800-a,m=d.getMonth()+1+12*a-3;
@@ -38,7 +37,7 @@ function applyLang(){
   $$("[data-lang]").forEach(function(b){b.setAttribute("aria-pressed",b.getAttribute("data-lang")===lang?"true":"false")});
   var e=ecDate(new Date());
   $("#ecDate").textContent=(lang==="am"?I.MONTHS_AM[e.m]:I.MONTHS_LAT[e.m])+" "+e.d+", "+e.y+" "+t("era");
-  $("#pvStats").hidden=!C.analyticsToken;$("#pvContact").textContent=t("pv_ct",{tg:TG,wa:WA});
+  $("#pvStats").hidden=!C.analyticsToken;$("#pvContact").textContent=t("pv_ct",{tg:BOTN()});
   renderShop();renderMarket();renderGifts();renderBoard();if(curView==="item")renderDetail();
 }
 
@@ -170,7 +169,7 @@ function giftSheet(g){
     var wh=$("#gwhere"),msg=t("gf_msg",{g:g.name,p:cad(g.price_cad),y:y,w:wh.options[wh.selectedIndex].text,r:r,ph:ph,c:city,a:$("#garea").value.trim()||"-",d:$("#gdate").value||"-",m:$("#gnote").value.trim()||"-",
       pay:t(pm.value==="etransfer"?"pay_etr":pm.value==="paypal"?"pay_pp":"pay_cash")});
     if(g.is_sample)msg+="\n"+t("sample_gift_tag");
-    contactSheet(t("gf_t",{n:g.name}),t("gf_after"),msg,true)});
+    contactSheet(t("gf_t",{n:g.name}),t("gf_after"),msg)});
 }
 
 /* ---------- item detail page ---------- */
@@ -218,15 +217,15 @@ document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("#modal"
 function botCode(){var a="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789",o="",r=new Uint8Array(18);
   try{crypto.getRandomValues(r)}catch(e){for(var j=0;j<18;j++)r[j]=Math.random()*256}
   for(var i=0;i<18;i++)o+=a[r[i]%a.length];return o}
-function contactSheet(title,sub,msg,waFirst){
+function BOTN(){return C.telegramBot||TG}
+function contactSheet(title,sub,msg){
   var BOT=C.telegramBot, bk=BOT?"_bot":"";
-  var tgBtn='<a class="btn '+(waFirst?"ghost":"pri")+' block" id="tgGo" target="_blank" rel="noopener" href="'+(BOT?"https://t.me/"+encodeURIComponent(BOT):TG_URL)+'">'+esc(t((waFirst?"dlg_tg_alt":"dlg_tg")+bk))+"</a>",
-      waBtn='<a class="btn '+(waFirst?"pri":"ghost")+' block" id="waGo" target="_blank" rel="noopener" href="'+waUrl(msg)+'">'+esc(t(waFirst?"dlg_wa_main":"dlg_wa"))+"</a>";
+  var tgBtn='<a class="btn pri block" id="tgGo" target="_blank" rel="noopener" href="'+(BOT?"https://t.me/"+encodeURIComponent(BOT):TG_URL)+'">'+esc(t("dlg_tg"+bk))+"</a>";
   openSheet('<h2>'+esc(title)+'</h2>'+(sub?'<p class="sub">'+esc(sub)+"</p>":"")+
    '<label><span>'+esc(t("dlg_msg"))+'</span><textarea id="cmsg">'+esc(msg)+"</textarea></label>"+
-   '<div class="stack">'+(waFirst?waBtn+tgBtn:tgBtn+waBtn)+"</div>"+
-   '<p class="note">'+esc(t(waFirst?"dlg_note_wa":"dlg_note"+bk))+"</p>"+
-   '<div class="contacts"><div><span>Telegram</span><b>@'+esc(BOT||TG)+"</b></div><div><span>WhatsApp</span><b>"+esc(WA)+"</b></div></div>"+
+   '<div class="stack">'+tgBtn+"</div>"+
+   '<p class="note">'+esc(t("dlg_note"+bk))+"</p>"+
+   '<div class="contacts"><div><span>Telegram</span><b>@'+esc(BOT||TG)+"</b></div></div>"+
    '<div class="stack"><button type="button" class="btn ghost" data-close>'+esc(t("close"))+"</button></div>");
   var box=$("#cmsg");
   box.addEventListener("input",function(){$("#waGo").href=waUrl(box.value)});
@@ -250,7 +249,7 @@ document.addEventListener("click",function(e){
     if(i)contactSheet(i.is_sample?t("sample_ask"):t("dlg_t"),i.is_sample?t("sample_note"):i.name+" · "+birr(i.price_etb),i.is_sample?t("sample_msg",{n:i.name}):t("buy_msg",{n:i.name,p:birr(i.price_etb),i:i.id}));return}
   if(up(e.target,"[data-share]")){shareItem();return}
   var gb=up(e.target,"[data-gift]");if(gb){var g=findIn(gifts,gb.getAttribute("data-gift"));if(g)giftSheet(g);return}
-  if(up(e.target,"[data-gcustom]")){contactSheet(t("g_custom_t"),"",t("g_custom_msg"),true);return}
+  if(up(e.target,"[data-gcustom]")){contactSheet(t("g_custom_t"),"",t("g_custom_msg"));return}
 });
 
 /* ---------- Amazon / Shein request (price is sent by Selam Market) ---------- */
@@ -291,6 +290,6 @@ function renderBoard(){
 
 /* ---------- start ---------- */
 var CH_URL="https://t.me/"+encodeURIComponent(C.channel);$("#heroChan").href=$("#aboutChan").href=$("#chanFoot").href=CH_URL;$("#chanFoot").textContent="t.me/"+C.channel;
-$("#tgFoot").textContent="@"+TG;$("#waFoot").textContent=WA;$("#aboutTg").href=TG_URL;$("#aboutWa").href="https://wa.me/"+WA_NUM;$("#aboutTg").textContent="Telegram @"+TG;$("#aboutWa").textContent="WhatsApp "+WA;
+$("#tgFoot").textContent="@"+BOTN();$("#aboutTg").href=C.telegramBot?"https://t.me/"+encodeURIComponent(C.telegramBot):TG_URL;$("#aboutTg").textContent="Telegram @"+BOTN();
 route();applyLang();loadItems();loadMarket();loadGifts();loadBoard();
 })();

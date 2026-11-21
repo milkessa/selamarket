@@ -475,7 +475,7 @@ let bposts=[];
 const todayISO=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 async function loadBoard(){
   $('#board').innerHTML='<p class="empty">Loading…</p>';
-  const f=$('#boardFilter').value; let q=sb.from('travel_posts').select('*, members(name,whatsapp,telegram,city)').order('created_at',{ascending:false}).limit(200);
+  const f=$('#boardFilter').value; let q=sb.from('travel_posts').select('*, members(name,telegram,city)').order('created_at',{ascending:false}).limit(200);
   if(f==='live')q=q.eq('status','open').gte('travel_date',todayISO()); else if(f!=='all')q=q.eq('status',f);
   const {data,error}=await q; if(error){$('#board').innerHTML='<p class="empty">Board posts could not load. Has 005_travelers.sql been run in Supabase?</p>';return}
   bposts=data; renderBoard();
@@ -488,7 +488,7 @@ function renderBoard(){
       <dt>Date</dt><dd>${esc(p.travel_date)}${p.weight_kg?` · ${p.weight_kg} kg`:''}</dd>
       ${p.details?`<dt>Details</dt><dd>${esc(p.details)}</dd>`:''}
       <dt>Posted by</dt><dd>${esc(m.name||'')} · ${esc(m.city||'')}</dd>
-      <dt>Contact</dt><dd>${esc(m.whatsapp||'')}${m.telegram?` · <a href="https://t.me/${encodeURIComponent(m.telegram)}" target="_blank" rel="noopener">@${esc(m.telegram)}</a>`:''}</dd>
+      <dt>Contact</dt><dd>${m.telegram?`<a href="https://t.me/${encodeURIComponent(m.telegram)}" target="_blank" rel="noopener">@${esc(m.telegram)}</a>`:''}</dd>
       <dt>Posted</dt><dd>${when(p.created_at)} · #${p.id}</dd></dl>
     <div class="acts">${p.status==='removed'?`<button class="btn ghost sm" data-bact="open" data-id="${p.id}">Restore</button>`:`<button class="btn ghost sm" data-bact="removed" data-id="${p.id}">Remove from board</button>`}</div></article>`}).join('');
 }

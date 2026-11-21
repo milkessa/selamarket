@@ -74,7 +74,6 @@ main{padding-top:20px;padding-bottom:48px}
 .btn.pri{background:var(--accent);color:var(--accent-ink)}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
 .btn.danger{background:var(--red);color:#fff}
-.btn.wa{background:#1F8F4E;color:#fff}
 .btn.sm{padding:7px 12px;min-height:38px;font-size:14px}
 .btn:disabled{opacity:.6;cursor:wait}
 .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
@@ -178,8 +177,7 @@ footer .wrap{padding-top:14px;padding-bottom:18px;color:var(--muted);font-size:1
       <div class="full"><h2 data-t="profile_t"></h2><p class="sub" style="margin-bottom:0" data-t="profile_s"></p></div>
       <label><span data-t="f_name"></span><input id="mname" autocomplete="name"></label>
       <label><span data-t="f_city"></span><input id="mcity" list="allCities" autocomplete="address-level2"></label>
-      <label><span data-t="f_wa"></span><input id="mwa" type="tel" inputmode="tel" placeholder="+1 416 555 0101" autocomplete="tel"></label>
-      <label><span data-t="f_tg"></span><input id="mtg" placeholder="@username"></label>
+      <label><span data-t="f_tg"></span><input id="mtg" placeholder="@username" autocapitalize="off" autocorrect="off" spellcheck="false"><small class="hint" data-t="f_tg_hint"></small></label>
       <p id="profileMsg" class="msg full" hidden></p>
       <div class="row full"><button class="btn pri" type="submit" id="profileBtn" data-t="save"></button><button class="btn ghost" type="button" id="profileCancel" data-t="cancel" hidden></button></div>
     </form>
@@ -259,17 +257,17 @@ footer .wrap{padding-top:14px;padding-bottom:18px;color:var(--muted);font-size:1
 (function(){
 var C=window.SELAM, I=window.SELAM_I18N;
 var S={
-en:{portal:"Traveler board",keep_sent:"Check your email and tap the link to confirm.",keep_btn:"Save my email",keep_s:"Right now only this phone knows you. Add your email so you can sign in anywhere and never lose your posts.",keep_t:"Keep access on any phone",err_captcha:"Wait a moment for the security check, then try again.",err_quick:"Couldn't start. Check your connection and try again.",link_sent:"Check your email and tap the link to sign in.",email_btn:"Email me a sign-in link",email_s:"We email you a sign-in link, no password. Use it to get back in on any phone.",or_email:"or use your email",quick_btn:"Start without an account",quick_s:"No sign-up needed. Add your name, city and WhatsApp, then post. This phone remembers you.",quick_t:"Start in seconds",ct_sample_t:"This is a sample post",ct_sample:"It shows how the board works, so there is no one to contact. Post your own trip or request, or find a real traveler on the board.",one_request:"1 request",ct_need:"Write a short note so they know what you need.",title:"Send with a traveler",intro:"Post your trip or what you need to send, and connect with people going the same way. Your phone number is shared only with people you accept.",
+en:{portal:"Traveler board",keep_sent:"Check your email and tap the link to confirm.",keep_btn:"Save my email",keep_s:"Right now only this phone knows you. Add your email so you can sign in anywhere and never lose your posts.",keep_t:"Keep access on any phone",err_captcha:"Wait a moment for the security check, then try again.",err_quick:"Couldn't start. Check your connection and try again.",link_sent:"Check your email and tap the link to sign in.",email_btn:"Email me a sign-in link",email_s:"We email you a sign-in link, no password. Use it to get back in on any phone.",or_email:"or use your email",quick_btn:"Start without an account",quick_s:"No sign-up needed. Add your name, city and Telegram username, then post. This phone remembers you.",quick_t:"Start in seconds",ct_sample_t:"This is a sample post",ct_sample:"It shows how the board works, so there is no one to contact. Post your own trip or request, or find a real traveler on the board.",one_request:"1 request",ct_need:"Write a short note so they know what you need.",title:"Send with a traveler",intro:"Post your trip or what you need to send, and connect with people going the same way. Your phone number is shared only with people you accept.",
 email:"Email",
 err_email:"Enter a valid email address.",
 priv_note:"By continuing, you agree to our {link}.",priv_link:"privacy policy",
-profile_t:"Your details",profile_s:"Only your first name and city show on the board. Your WhatsApp and Telegram are shared only when you accept someone, or they accept you.",
-f_name:"Full name",f_city:"City where you live",f_wa:"WhatsApp number (with country code)",f_tg:"Telegram username (optional)",save:"Save",saved:"Saved",cancel:"Cancel",sign_out:"Sign out",
-need_profile:"Add your name, city and WhatsApp number.",hi:"Hi {n}",new_trip:"Post a trip",new_send:"Post a send request",view_board:"View the board",edit_profile:"Edit my details",
+profile_t:"Your details",profile_s:"Only your first name and city show on the board. Your Telegram is shared only when you accept someone, or they accept you.",
+f_name:"Full name",f_city:"City where you live",f_wa:"",f_tg:"Telegram username",f_tg_hint:"No username yet? In Telegram open Settings, then Username.",no_tg:"{n} hasn't added a Telegram username yet.",bad_tg:"Enter your Telegram username, for example @abebe_k (5 or more letters).",save:"Save",saved:"Saved",cancel:"Cancel",sign_out:"Sign out",
+need_profile:"Add your name, city and Telegram username.",hi:"Hi {n}",new_trip:"Post a trip",new_send:"Post a send request",view_board:"View the board",edit_profile:"Edit my details",
 pf_trip_t:"Post your trip",pf_send_t:"Post a send request",k_trip:"I'm traveling",k_send:"I need to send",pf_from:"From",pf_to:"To",pf_country:"Country",pf_city:"City",
 pf_date_trip:"Flight date",pf_date_send:"Needed by",pf_kg_trip:"Space you have (kg)",pf_kg_send:"Approximate weight (kg)",pf_det_trip:"What can you carry? (optional)",pf_det_send:"What do you need to send?",
 pf_rule:"Only post things that can be carried legally. Travelers: never carry a sealed package you haven't checked.",pf_post:"Post on the board",pf_posted:"Posted on the board",pf_req:"Fill in the route and date.",pf_same:"Choose two different places.",
-ct_t:"Contact {n}",ct_s:"{n} sees your first name, your city and this note. If they accept, you both see each other's WhatsApp.",ct_msg:"Your note",
+ct_t:"Contact {n}",ct_s:"{n} sees your first name, your city and this note. If they accept, you both see each other's Telegram.",ct_msg:"Your note",
 ct_ph_trip:"Hi, I'd like to send a small package with you. It weighs about ... kg and contains ...",ct_ph_send:"Hi, I'm traveling on that route and could carry your item.",
 ct_send:"Send request",ct_sent:"Request sent. You'll see the answer under Requests I sent.",ct_gone:"This post is no longer open.",
 rec_t:"Requests for your posts",rec_empty:"No requests yet. When someone contacts you, it shows here.",accept:"Accept",decline:"Decline",
@@ -277,21 +275,21 @@ mine_t:"My posts",mine_empty:"You haven't posted yet.",sent_t:"Requests I sent",
 withdraw:"Withdraw",close_post:"Close post",reopen:"Reopen",del:"Delete",del_confirm:"Delete this post?",keep:"Keep",
 st_open:"On the board",st_closed:"Closed",st_removed:"Removed by Selam Market",st_expired:"Date passed",
 rs_pending:"Waiting for an answer",rs_accepted:"Accepted",rs_declined:"Declined",
-n_requests:"{n} requests",contact_now:"You're connected. Talk to {n}:",wa_btn:"WhatsApp {n}",
+n_requests:"{n} requests",contact_now:"You're connected. Talk to {n}:",wa_btn:"Message {n} on Telegram",
 wa_msg:"Hi {n}, we connected on Selam Market about {r} on {d}.",
 e_past:"The date has already passed.",e_limit:"You can have up to 5 open posts. Close one first.",e_own:"This is your own post.",e_dup:"You already contacted this person about this post.",e_many:"Too many requests today. Try again tomorrow.",
 err_save:"Not saved. Check your connection and try again.",back_board:"Back to the board",privacy:"Privacy policy",help:"Questions? Message us on Telegram: @{tg}",loading:"Loading…"},
-am:{portal:"የተጓዦች ሰሌዳ",keep_sent:"ኢሜይልዎን ይመልከቱና ለማረጋገጥ ሊንኩን ይጫኑ።",keep_btn:"ኢሜይሌን አስቀምጥ",keep_s:"አሁን የሚያውቅዎ ይህ ስልክ ብቻ ነው። በየትኛውም ቦታ ለመግባትና ልጥፎችዎን እንዳያጡ ኢሜይልዎን ያክሉ።",keep_t:"በማንኛውም ስልክ መግባት እንዲችሉ",err_captcha:"የደህንነት ፍተሻው እስኪጨርስ ትንሽ ይጠብቁ፣ ከዚያ እንደገና ይሞክሩ።",err_quick:"መጀመር አልተቻለም። ኢንተርኔትዎን አረጋግጠው እንደገና ይሞክሩ።",link_sent:"ኢሜይልዎን ይመልከቱና ለመግባት ሊንኩን ይጫኑ።",email_btn:"የመግቢያ ሊንክ በኢሜይል ላኩልኝ",email_s:"ያለ የይለፍ ቃል የመግቢያ ሊንክ በኢሜይል እንልክልዎታለን። በማንኛውም ስልክ ለመመለስ ይጠቀሙበት።",or_email:"ወይም በኢሜይልዎ",quick_btn:"ያለ አካውንት ይጀምሩ",quick_s:"መመዝገብ አያስፈልግም። ስምዎን፣ ከተማዎንና ዋትስአፕዎን ያስገቡ፣ ከዚያ ይለጥፉ። ይህ ስልክ ያስታውስዎታል።",quick_t:"በሰከንዶች ይጀምሩ",ct_sample_t:"ይህ የናሙና ልጥፍ ነው",ct_sample:"ሰሌዳው እንዴት እንደሚሠራ ያሳያል፤ ስለዚህ የሚገኝ ሰው የለም። የራስዎን ጉዞ ወይም ጥያቄ ይለጥፉ፣ ወይም በሰሌዳው ላይ እውነተኛ ተጓዥ ይፈልጉ።",one_request:"1 ጥያቄ",ct_need:"የሚፈልጉትን እንዲያውቁ አጭር ማስታወሻ ይጻፉ።",title:"በተጓዥ ይላኩ",intro:"ጉዞዎን ወይም የሚልኩትን ይለጥፉና በተመሳሳይ መንገድ ከሚሄዱ ሰዎች ጋር ይገናኙ። ስልክ ቁጥርዎ የሚጋራው ከተቀበሏቸው ሰዎች ጋር ብቻ ነው።",
+am:{portal:"የተጓዦች ሰሌዳ",keep_sent:"ኢሜይልዎን ይመልከቱና ለማረጋገጥ ሊንኩን ይጫኑ።",keep_btn:"ኢሜይሌን አስቀምጥ",keep_s:"አሁን የሚያውቅዎ ይህ ስልክ ብቻ ነው። በየትኛውም ቦታ ለመግባትና ልጥፎችዎን እንዳያጡ ኢሜይልዎን ያክሉ።",keep_t:"በማንኛውም ስልክ መግባት እንዲችሉ",err_captcha:"የደህንነት ፍተሻው እስኪጨርስ ትንሽ ይጠብቁ፣ ከዚያ እንደገና ይሞክሩ።",err_quick:"መጀመር አልተቻለም። ኢንተርኔትዎን አረጋግጠው እንደገና ይሞክሩ።",link_sent:"ኢሜይልዎን ይመልከቱና ለመግባት ሊንኩን ይጫኑ።",email_btn:"የመግቢያ ሊንክ በኢሜይል ላኩልኝ",email_s:"ያለ የይለፍ ቃል የመግቢያ ሊንክ በኢሜይል እንልክልዎታለን። በማንኛውም ስልክ ለመመለስ ይጠቀሙበት።",or_email:"ወይም በኢሜይልዎ",quick_btn:"ያለ አካውንት ይጀምሩ",quick_s:"መመዝገብ አያስፈልግም። ስምዎን፣ ከተማዎንና የቴሌግራም ስምዎን ያስገቡ፣ ከዚያ ይለጥፉ። ይህ ስልክ ያስታውስዎታል።",quick_t:"በሰከንዶች ይጀምሩ",ct_sample_t:"ይህ የናሙና ልጥፍ ነው",ct_sample:"ሰሌዳው እንዴት እንደሚሠራ ያሳያል፤ ስለዚህ የሚገኝ ሰው የለም። የራስዎን ጉዞ ወይም ጥያቄ ይለጥፉ፣ ወይም በሰሌዳው ላይ እውነተኛ ተጓዥ ይፈልጉ።",one_request:"1 ጥያቄ",ct_need:"የሚፈልጉትን እንዲያውቁ አጭር ማስታወሻ ይጻፉ።",title:"በተጓዥ ይላኩ",intro:"ጉዞዎን ወይም የሚልኩትን ይለጥፉና በተመሳሳይ መንገድ ከሚሄዱ ሰዎች ጋር ይገናኙ። ስልክ ቁጥርዎ የሚጋራው ከተቀበሏቸው ሰዎች ጋር ብቻ ነው።",
 email:"ኢሜይል",
 err_email:"ትክክለኛ ኢሜይል ያስገቡ።",
 priv_note:"በመቀጠል {link} ይቀበላሉ።",priv_link:"የግላዊነት ፖሊሲያችንን",
-profile_t:"የእርስዎ መረጃ",profile_s:"በሰሌዳው ላይ የሚታየው የመጀመሪያ ስምዎና ከተማዎ ብቻ ነው። ዋትስአፕና ቴሌግራምዎ የሚጋሩት አንድን ሰው ሲቀበሉ ወይም እርስዎን ሲቀበሉ ብቻ ነው።",
-f_name:"ሙሉ ስም",f_city:"የሚኖሩበት ከተማ",f_wa:"የዋትስአፕ ቁጥር (ከአገር ኮድ ጋር)",f_tg:"የቴሌግራም ስም (አማራጭ)",save:"አስቀምጥ",saved:"ተቀምጧል",cancel:"ተወው",sign_out:"ውጣ",
-need_profile:"ስምዎን፣ ከተማዎንና የዋትስአፕ ቁጥርዎን ያስገቡ።",hi:"ሰላም {n}",new_trip:"ጉዞ ይለጥፉ",new_send:"የመላኪያ ጥያቄ ይለጥፉ",view_board:"ሰሌዳውን ይመልከቱ",edit_profile:"መረጃዬን አስተካክል",
+profile_t:"የእርስዎ መረጃ",profile_s:"በሰሌዳው ላይ የሚታየው የመጀመሪያ ስምዎና ከተማዎ ብቻ ነው። ቴሌግራምዎ የሚጋራው አንድን ሰው ሲቀበሉ ወይም እርስዎን ሲቀበሉ ብቻ ነው።",
+f_name:"ሙሉ ስም",f_city:"የሚኖሩበት ከተማ",f_wa:"",f_tg:"የቴሌግራም ስም (username)",f_tg_hint:"ስም (username) የለዎትም? በቴሌግራም Settings ውስጥ Username ይምረጡ።",no_tg:"{n} ገና የቴሌግራም ስም አላስገባም።",bad_tg:"የቴሌግራም ስምዎን ያስገቡ፤ ለምሳሌ @abebe_k (ቢያንስ 5 ፊደላት)።",save:"አስቀምጥ",saved:"ተቀምጧል",cancel:"ተወው",sign_out:"ውጣ",
+need_profile:"ስምዎን፣ ከተማዎንና የቴሌግራም ስምዎን ያስገቡ።",hi:"ሰላም {n}",new_trip:"ጉዞ ይለጥፉ",new_send:"የመላኪያ ጥያቄ ይለጥፉ",view_board:"ሰሌዳውን ይመልከቱ",edit_profile:"መረጃዬን አስተካክል",
 pf_trip_t:"ጉዞዎን ይለጥፉ",pf_send_t:"የመላኪያ ጥያቄ ይለጥፉ",k_trip:"እጓዛለሁ",k_send:"መላክ እፈልጋለሁ",pf_from:"ከ",pf_to:"ወደ",pf_country:"አገር",pf_city:"ከተማ",
 pf_date_trip:"የበረራ ቀን",pf_date_send:"እስከ መቼ",pf_kg_trip:"ያለዎት ቦታ (ኪ.ግ)",pf_kg_send:"ግምታዊ ክብደት (ኪ.ግ)",pf_det_trip:"ምን መያዝ ይችላሉ? (አማራጭ)",pf_det_send:"ምን መላክ ይፈልጋሉ?",
 pf_rule:"በሕግ ሊያዙ የሚችሉ ነገሮችን ብቻ ይለጥፉ። ተጓዦች፦ ያልፈተሹትን የታሸገ እሽግ በጭራሽ አይያዙ።",pf_post:"በሰሌዳው ላይ ይለጥፉ",pf_posted:"በሰሌዳው ላይ ተለጥፏል",pf_req:"መስመሩንና ቀኑን ይሙሉ።",pf_same:"ሁለት የተለያዩ ቦታዎችን ይምረጡ።",
-ct_t:"{n}ን ያግኙ",ct_s:"{n} የመጀመሪያ ስምዎን፣ ከተማዎንና ይህን ማስታወሻ ያያል። ከተቀበለ ሁለታችሁም የእርስ በርስ ዋትስአፕ ታያላችሁ።",ct_msg:"ማስታወሻዎ",
+ct_t:"{n}ን ያግኙ",ct_s:"{n} የመጀመሪያ ስምዎን፣ ከተማዎንና ይህን ማስታወሻ ያያል። ከተቀበለ ሁለታችሁም የእርስ በርስ ቴሌግራም ታያላችሁ።",ct_msg:"ማስታወሻዎ",
 ct_ph_trip:"ሰላም፣ ከእርስዎ ጋር ትንሽ እሽግ መላክ እፈልጋለሁ። ክብደቱ ... ኪ.ግ ገደማ ሲሆን ውስጡ ... ነው።",ct_ph_send:"ሰላም፣ በዚያ መስመር እጓዛለሁ፤ እቃዎን መያዝ እችላለሁ።",
 ct_send:"ጥያቄውን ይላኩ",ct_sent:"ጥያቄው ተልኳል። መልሱን 'የላክኋቸው ጥያቄዎች' ስር ያያሉ።",ct_gone:"ይህ ልጥፍ ከአሁን በኋላ ክፍት አይደለም።",
 rec_t:"ለልጥፎችዎ የመጡ ጥያቄዎች",rec_empty:"እስካሁን ጥያቄ የለም። አንድ ሰው ሲያገኝዎ እዚህ ይታያል።",accept:"ተቀበል",decline:"አትቀበል",
@@ -299,21 +297,21 @@ mine_t:"ልጥፎቼ",mine_empty:"እስካሁን አልለጠፉም።",sent_t:
 withdraw:"ጥያቄውን ሰርዝ",close_post:"ልጥፉን ዝጋ",reopen:"እንደገና ክፈት",del:"አጥፋ",del_confirm:"ይህ ልጥፍ ይጥፋ?",keep:"ይቆይ",
 st_open:"በሰሌዳው ላይ",st_closed:"ተዘግቷል",st_removed:"በሰላም ማርኬት ተወግዷል",st_expired:"ቀኑ አልፏል",
 rs_pending:"መልስ በመጠበቅ ላይ",rs_accepted:"ተቀባይነት አግኝቷል",rs_declined:"አልተቀበለም",
-n_requests:"{n} ጥያቄዎች",contact_now:"ተገናኝታችኋል። ከ{n} ጋር ይነጋገሩ፦",wa_btn:"ዋትስአፕ {n}",
+n_requests:"{n} ጥያቄዎች",contact_now:"ተገናኝታችኋል። ከ{n} ጋር ይነጋገሩ፦",wa_btn:"{n}ን በቴሌግራም ያግኙ",
 wa_msg:"ሰላም {n}፣ በሰላም ማርኬት ስለ {r} ({d}) ተገናኝተናል።",
 e_past:"ቀኑ አልፏል።",e_limit:"እስከ 5 ክፍት ልጥፎች ብቻ ሊኖርዎት ይችላል። መጀመሪያ አንዱን ይዝጉ።",e_own:"ይህ የራስዎ ልጥፍ ነው።",e_dup:"ስለዚህ ልጥፍ ይህን ሰው አስቀድመው አግኝተዋል።",e_many:"ዛሬ ብዙ ጥያቄዎች ልከዋል። ነገ እንደገና ይሞክሩ።",
 err_save:"አልተቀመጠም። ኢንተርኔትዎን አረጋግጠው እንደገና ይሞክሩ።",back_board:"ወደ ሰሌዳው ተመለስ",privacy:"የግላዊነት ፖሊሲ",help:"ጥያቄ አለዎት? በቴሌግራም ያግኙን፦ @{tg}",loading:"በመጫን ላይ…"},
-om:{portal:"Gabatee imaltootaa",keep_sent:"Imeelii kee ilaaliitii mirkaneessuuf liinkii tuqi.",keep_btn:"Imeelii koo olkaa'i",keep_s:"Amma bilbila kana qofatu si beeka. Bakka kamittuu seenuuf fi maxxansa kee akka hin dhabneef imeelii kee dabali.",keep_t:"Bilbila kamiin iyyuu seenuuf",err_captcha:"Qorannoon nageenyaa hamma xumuramutti xiqqoo eegiitii irra deebi'i yaali.",err_quick:"Jalqabuu hin dandeenye. Interneetii kee mirkaneessiitii irra deebi'i yaali.",link_sent:"Imeelii kee ilaaliitii seenuuf liinkii tuqi.",email_btn:"Liinkii seensaa naaf ergi",email_s:"Jecha icciitii malee liinkii seensaa imeeliidhaan siif ergina. Bilbila kamiin iyyuu deebi'uuf itti fayyadami.",or_email:"ykn imeelii keetiin",quick_btn:"Herrega malee jalqabi",quick_s:"Galmaa'uun hin barbaachisu. Maqaa, magaalaa fi WhatsApp kee galchiitii maxxansi. Bilbilli kun si yaadata.",quick_t:"Sekondii muraasaan jalqabi",ct_sample_t:"Kun maxxansa fakkeenyaati",ct_sample:"Akkaataa gabateen itti hojjetu agarsiisa, kanaaf namni qunnamamu hin jiru. Imala ykn gaaffii kee maxxansi, ykn gabatee irratti imaltuu dhugaa barbaadi.",one_request:"Gaaffii 1",ct_need:"Waan barbaaddu akka beekaniif yaadannoo gabaabaa barreessi.",title:"Imaltuun ergi",intro:"Imala kee ykn waan erguu barbaaddu maxxansiitii namoota karaa wal fakkaataa deeman waliin wal qunnami. Lakkoofsi bilbila keetii namoota ati fudhatte qofaaf qoodama.",
+om:{portal:"Gabatee imaltootaa",keep_sent:"Imeelii kee ilaaliitii mirkaneessuuf liinkii tuqi.",keep_btn:"Imeelii koo olkaa'i",keep_s:"Amma bilbila kana qofatu si beeka. Bakka kamittuu seenuuf fi maxxansa kee akka hin dhabneef imeelii kee dabali.",keep_t:"Bilbila kamiin iyyuu seenuuf",err_captcha:"Qorannoon nageenyaa hamma xumuramutti xiqqoo eegiitii irra deebi'i yaali.",err_quick:"Jalqabuu hin dandeenye. Interneetii kee mirkaneessiitii irra deebi'i yaali.",link_sent:"Imeelii kee ilaaliitii seenuuf liinkii tuqi.",email_btn:"Liinkii seensaa naaf ergi",email_s:"Jecha icciitii malee liinkii seensaa imeeliidhaan siif ergina. Bilbila kamiin iyyuu deebi'uuf itti fayyadami.",or_email:"ykn imeelii keetiin",quick_btn:"Herrega malee jalqabi",quick_s:"Galmaa'uun hin barbaachisu. Maqaa, magaalaa fi maqaa Telegram kee galchiitii maxxansi. Bilbilli kun si yaadata.",quick_t:"Sekondii muraasaan jalqabi",ct_sample_t:"Kun maxxansa fakkeenyaati",ct_sample:"Akkaataa gabateen itti hojjetu agarsiisa, kanaaf namni qunnamamu hin jiru. Imala ykn gaaffii kee maxxansi, ykn gabatee irratti imaltuu dhugaa barbaadi.",one_request:"Gaaffii 1",ct_need:"Waan barbaaddu akka beekaniif yaadannoo gabaabaa barreessi.",title:"Imaltuun ergi",intro:"Imala kee ykn waan erguu barbaaddu maxxansiitii namoota karaa wal fakkaataa deeman waliin wal qunnami. Lakkoofsi bilbila keetii namoota ati fudhatte qofaaf qoodama.",
 email:"Imeelii",
 err_email:"Imeelii sirrii galchi.",
 priv_note:"Itti fufuudhaan {link} keenya ni fudhatta.",priv_link:"imaammata dhuunfaa",
-profile_t:"Odeeffannoo kee",profile_s:"Gabatee irratti maqaa kee jalqabaa fi magaalaa kee qofatu mul'ata. WhatsApp fi Telegram kee kan qoodamu yeroo ati nama fudhattu ykn inni si fudhatu qofa.",
-f_name:"Maqaa guutuu",f_city:"Magaalaa itti jiraattu",f_wa:"Lakkoofsa WhatsApp (koodii biyyaa waliin)",f_tg:"Maqaa Telegram (dirqama miti)",save:"Olkaa'i",saved:"Olkaa'ameera",cancel:"Dhiisi",sign_out:"Ba'i",
-need_profile:"Maqaa, magaalaa fi lakkoofsa WhatsApp kee galchi.",hi:"Akkam {n}",new_trip:"Imala maxxansi",new_send:"Gaaffii erguu maxxansi",view_board:"Gabatee ilaali",edit_profile:"Odeeffannoo koo sirreessi",
+profile_t:"Odeeffannoo kee",profile_s:"Gabatee irratti maqaa kee jalqabaa fi magaalaa kee qofatu mul'ata. Telegram kee kan qoodamu yeroo ati nama fudhattu ykn inni si fudhatu qofa.",
+f_name:"Maqaa guutuu",f_city:"Magaalaa itti jiraattu",f_wa:"",f_tg:"Maqaa Telegram (username)",f_tg_hint:"Maqaa (username) hin qabduu? Telegram keessatti Settings, achiis Username bani.",no_tg:"{n} ammallee maqaa Telegram hin galchine.",bad_tg:"Maqaa Telegram kee galchi, fkn @abebe_k (qubee 5 ol).",save:"Olkaa'i",saved:"Olkaa'ameera",cancel:"Dhiisi",sign_out:"Ba'i",
+need_profile:"Maqaa, magaalaa fi maqaa Telegram kee galchi.",hi:"Akkam {n}",new_trip:"Imala maxxansi",new_send:"Gaaffii erguu maxxansi",view_board:"Gabatee ilaali",edit_profile:"Odeeffannoo koo sirreessi",
 pf_trip_t:"Imala kee maxxansi",pf_send_t:"Gaaffii erguu maxxansi",k_trip:"Nan imala",k_send:"Erguu barbaada",pf_from:"Irraa",pf_to:"Gara",pf_country:"Biyya",pf_city:"Magaalaa",
 pf_date_trip:"Guyyaa balalii",pf_date_send:"Hanga yoom",pf_kg_trip:"Bakka qabdu (kg)",pf_kg_send:"Ulfaatina tilmaamaa (kg)",pf_det_trip:"Maal fudhachuu dandeessa? (dirqama miti)",pf_det_send:"Maal erguu barbaadda?",
 pf_rule:"Waan seeraan fudhatamuu danda'u qofa maxxansi. Imaltoota: paakeejii cufame kan hin sakatta'in gonkumaa hin fudhatinaa.",pf_post:"Gabatee irratti maxxansi",pf_posted:"Gabatee irratti maxxanfameera",pf_req:"Karaa fi guyyaa guuti.",pf_same:"Bakkeewwan lama adda ta'an filadhu.",
-ct_t:"{n} qunnami",ct_s:"{n} maqaa kee jalqabaa, magaalaa kee fi yaadannoo kana arga. Yoo fudhate, lachuu WhatsApp walii argitu.",ct_msg:"Yaadannoo kee",
+ct_t:"{n} qunnami",ct_s:"{n} maqaa kee jalqabaa, magaalaa kee fi yaadannoo kana arga. Yoo fudhate, lachuu Telegram walii argitu.",ct_msg:"Yaadannoo kee",
 ct_ph_trip:"Akkam, paakeejii xiqqaa si waliin erguu barbaada. Ulfaatinni isaa gara ... kg, keessi isaa ... dha.",ct_ph_send:"Akkam, karaa sanaan nan imala, meeshaa kee fudhachuu nan danda'a.",
 ct_send:"Gaaffii ergi",ct_sent:"Gaaffiin ergameera. Deebii isaa 'Gaaffii ani erge' jala argita.",ct_gone:"Maxxansi kun amma banaa miti.",
 rec_t:"Gaaffii maxxansa keetiif dhufan",rec_empty:"Hanga ammaatti gaaffiin hin jiru. Yeroo namni si qunnamu asitti mul'ata.",accept:"Fudhadhu",decline:"Didi",
@@ -321,7 +319,7 @@ mine_t:"Maxxansa koo",mine_empty:"Hanga ammaatti hin maxxansine.",sent_t:"Gaaffi
 withdraw:"Gaaffii haqi",close_post:"Maxxansa cufi",reopen:"Irra deebiin bani",del:"Haqi",del_confirm:"Maxxansi kun haa haqamu?",keep:"Haa turu",
 st_open:"Gabatee irra jira",st_closed:"Cufameera",st_removed:"Selam Market'n haqameera",st_expired:"Guyyaan darbeera",
 rs_pending:"Deebii eegaa jira",rs_accepted:"Fudhatameera",rs_declined:"Didameera",
-n_requests:"Gaaffii {n}",contact_now:"Walqunnamtaniittu. {n} waliin haasa'i:",wa_btn:"WhatsApp {n}",
+n_requests:"Gaaffii {n}",contact_now:"Walqunnamtaniittu. {n} waliin haasa'i:",wa_btn:"{n} Telegram irratti qunnami",
 wa_msg:"Akkam {n}, waa'ee {r} ({d}) Selam Market irratti walqunnamne.",
 e_past:"Guyyaan darbeera.",e_limit:"Maxxansa banaa hanga 5 qofa qabaachuu dandeessa. Dursa tokko cufi.",e_own:"Kun maxxansa keeti.",e_dup:"Waa'ee maxxansa kanaa nama kana duraan qunnamteetta.",e_many:"Har'a gaaffii baay'ee ergiteetta. Boru irra deebi'i yaali.",
 err_save:"Hin olkaa'amne. Interneetii kee mirkaneessiitii irra deebi'i yaali.",back_board:"Gara gabateetti deebi'i",privacy:"Imaammata dhuunfaa",help:"Gaaffii qabdaa? Telegram irratti nu qunnamaa: @{tg}",loading:"Fe'amaa jira…"}};
@@ -407,12 +405,13 @@ $("#logout").onclick=function(){store("sm-travel-next",null);sb.auth.signOut().t
 
 /* ---------- profile ---------- */
 function openProfile(edit){show("profileView");$("#profileCancel").hidden=!edit;
-  if(member){$("#mname").value=member.name;$("#mcity").value=member.city;$("#mwa").value=member.whatsapp;$("#mtg").value=member.telegram||""}}
+  if(member){$("#mname").value=member.name;$("#mcity").value=member.city;$("#mtg").value=member.telegram?"@"+member.telegram:""}}
 $("#profileCancel").onclick=function(){show("dashView")};
 $("#editProfile").onclick=function(){openProfile(true)};
 $("#profileForm").addEventListener("submit",function(e){e.preventDefault();var box=$("#profileMsg");
-  var row={name:$("#mname").value.trim(),city:$("#mcity").value.trim(),whatsapp:$("#mwa").value.trim(),telegram:$("#mtg").value.trim().replace(/^@/,"")||null};
-  if(!row.name||!row.city||row.whatsapp.replace(/\D/g,"").length<7){msg(box,t("need_profile"));return}
+  var row={name:$("#mname").value.trim(),city:$("#mcity").value.trim(),whatsapp:"",telegram:$("#mtg").value.trim().replace(/^(https?:\/\/)?(t\.me\/|telegram\.me\/)/i,"").replace(/^@/,"")||null};
+  if(!row.name||!row.city||!row.telegram){msg(box,t("need_profile"));return}
+  if(!/^[A-Za-z][A-Za-z0-9_]{4,31}$/.test(row.telegram)){msg(box,t("bad_tg"));return}
   $("#profileBtn").disabled=true;msg(box);
   var q=member?sb.from("members").update(row).eq("user_id",me.id):sb.from("members").insert(Object.assign({user_id:me.id},row));
   q.then(function(r){$("#profileBtn").disabled=false;if(r.error){msg(box,dbErr(r.error));return}toast(t("saved"));loadMember()})});
@@ -462,13 +461,10 @@ $("#contactForm").addEventListener("submit",function(e){e.preventDefault();var b
     toast(t("ct_sent"));$("#contactForm").reset();$("#contactForm").hidden=true;contactPost=null;store("sm-travel-next",null);if(location.hash)history.replaceState(null,"",location.pathname);loadAll()})});
 
 /* ---------- lists ---------- */
-function waLink(num,text){return "https://wa.me/"+String(num||"").replace(/\D/g,"")+"?text="+encodeURIComponent(text)}
-function contactBox(r){var first=(r.other_full_name||r.other_name||"").split(" ")[0];
-  var text=t("wa_msg",{n:first,r:routeTxt(r),d:fmtDate(r.travel_date)});
-  return '<div class="contact"><b>'+esc(t("contact_now",{n:r.other_full_name||r.other_name}))+'</b><div class="row">'+
-    '<a class="btn wa sm" target="_blank" rel="noopener" href="'+waLink(r.other_whatsapp,text)+'">'+esc(t("wa_btn",{n:first}))+"</a>"+
-    (r.other_telegram?'<a class="btn ghost sm" target="_blank" rel="noopener" href="https://t.me/'+encodeURIComponent(r.other_telegram)+'">Telegram @'+esc(r.other_telegram)+"</a>":"")+
-    '</div><div class="meta" style="margin-top:6px;-webkit-user-select:all;user-select:all">'+esc(r.other_whatsapp)+"</div></div>"}
+function contactBox(r){var full=r.other_full_name||r.other_name||"",first=full.split(" ")[0];
+  return '<div class="contact"><b>'+esc(t("contact_now",{n:full}))+'</b><div class="row">'+
+    (r.other_telegram?'<a class="btn pri sm" target="_blank" rel="noopener" href="https://t.me/'+encodeURIComponent(r.other_telegram)+'">'+esc(t("wa_btn",{n:first}))+'</a></div><div class="meta" style="margin-top:6px;-webkit-user-select:all;user-select:all">@'+esc(r.other_telegram)+"</div>"
+      :"</div><p class=\"meta\">"+esc(t("no_tg",{n:first}))+"</p>")+"</div>"}
 function postState(p){if(p.status==="removed")return "removed";if(p.status==="closed")return "closed";if(p.travel_date<today())return "expired";return "open"}
 function renderAll(){
   var rec=reqs.filter(function(r){return r.direction==="received"}),sent=reqs.filter(function(r){return r.direction==="sent"});
