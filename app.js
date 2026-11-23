@@ -182,8 +182,12 @@ function renderDetail(){
   if(!i){document.title="Selam Market";box.innerHTML=back+'<div class="gone"><h1>'+esc(t("gone_t"))+"</h1><p>"+esc(t("gone_p"))+'</p><a class="btn pri" href="'+backHref+'">'+esc(t("btn_browse"))+"</a></div>";return}
   document.title=i.name+" · Selam Market";
   var res=!addis&&i.status==="reserved";
-  var pic='<div class="pic">'+(i.photo_url?'<a href="'+esc(i.photo_url)+'" target="_blank" rel="noopener"><img src="'+esc(i.photo_url)+'" alt="'+esc(i.name)+'"></a>':ICON)+
-    '<span class="badge'+(res?" res":"")+'">'+esc(res?t("reserved"):tr(I.CONDS,i.condition))+"</span>"+(i.is_sample?'<span class="stag">'+esc(t("sample"))+'</span>':'')+"</div>";
+  var ph=(i.photos&&i.photos.length?i.photos:(i.photo_url?[i.photo_url]:[]));
+  var gal=!ph.length?ICON:ph.length===1?'<a href="'+esc(ph[0])+'" target="_blank" rel="noopener"><img src="'+esc(ph[0])+'" alt="'+esc(i.name)+'"></a>':
+    '<div class="gal" id="gal">'+ph.map(function(u,n){return '<a href="'+esc(u)+'" target="_blank" rel="noopener"><img src="'+esc(u)+'" alt="'+esc(i.name+" "+(n+1))+'"'+(n?' loading="lazy"':"")+"></a>"}).join("")+'</div><span class="gcount" id="gcount">1 / '+ph.length+"</span>";
+  var thumbs=ph.length>1?'<div class="gthumbs">'+ph.map(function(u,n){return '<button type="button" data-gi="'+n+'"'+(n?"":' aria-current="true"')+' aria-label="Photo '+(n+1)+'"><img src="'+esc(u)+'" alt="" loading="lazy"></button>'}).join("")+"</div>":"";
+  var pic='<div><div class="pic">'+gal+
+    '<span class="badge'+(res?" res":"")+'">'+esc(res?t("reserved"):tr(I.CONDS,i.condition))+"</span>"+(i.is_sample?'<span class="stag">'+esc(t("sample"))+'</span>':'')+"</div>"+thumbs+"</div>";
   var rows=[[t("d_cat"),tr(I.CATS,i.category)],[t("d_cond"),tr(I.CONDS,i.condition)]];
   if(addis)rows.push([t("d_shop"),i.shop_name+" · "+t("in_addis",{a:i.shop_area})]);else rows.push([t("d_pick"),t("in_addis",{a:i.pickup_area})]);
   rows.push([t("d_num"),"#"+i.id]);
@@ -198,9 +202,14 @@ function renderDetail(){
     '<div class="why"><b>'+esc(t("why_t"))+"</b><ul>"+(addis?["fa_why1","fa_why2","pay_na"]:["insp_short","del_addis","pay_et"]).map(function(k){return "<li>"+esc(t(k))+"</li>"}).join("")+"</ul></div></div>";
   var more=(list||[]).filter(function(x){return String(x.id)!==String(i.id)&&x.category===i.category}).slice(0,4);
   if(more.length<2)more=(list||[]).filter(function(x){return String(x.id)!==String(i.id)}).slice(0,4);
+  setTimeout(bindGallery,0);
   box.innerHTML=back+'<div class="dt">'+pic+info+"</div>"+
     (more.length?'<div class="more"><h2>'+esc(t("more_t"))+'</h2><div class="grid">'+more.map(function(x,n){return addis?marketCard(x,n+4):shopCard(x,n+4)}).join("")+"</div></div>":"");
 }
+function bindGallery(){var g=$("#gal");if(!g)return;var th=document.querySelectorAll(".gthumbs [data-gi]"),cnt=$("#gcount"),n=g.children.length,raf=0;
+  g.addEventListener("scroll",function(){if(raf)return;raf=requestAnimationFrame(function(){raf=0;var k=Math.round(g.scrollLeft/g.clientWidth);
+    if(cnt)cnt.textContent=(k+1)+" / "+n;[].forEach.call(th,function(b,j){if(j===k)b.setAttribute("aria-current","true");else b.removeAttribute("aria-current")})})});
+  [].forEach.call(th,function(b){b.addEventListener("click",function(){g.scrollTo({left:+b.getAttribute("data-gi")*g.clientWidth,behavior:"smooth"})})})}
 function shareItem(){var url=location.href.split("#")[0]+"#"+(detail.kind==="addis"?"addis-":"item-")+detail.id;
   var i=findIn(detail.kind==="addis"?market:items,detail.id),title=i?i.name:"Selam Market";
   try{if(navigator.share){navigator.share({title:title,text:title+" · Selam Market",url:url}).catch(function(){});return}}catch(e){}

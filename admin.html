@@ -75,6 +75,14 @@ textarea{min-height:70px;resize:vertical}
 .pill.reserved{background:color-mix(in srgb,var(--ochre) 18%,transparent);color:var(--warn)}
 .pill.sold{background:var(--sunk);color:var(--muted)}
 .preview{width:100%;max-width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:var(--sunk)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:8px 0}
+.pgrid:empty{display:none}
+.pcell{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:var(--sunk);border:1px solid var(--line)}
+.pcell img{width:100%;height:100%;object-fit:cover;display:block}
+.pcell .cv{position:absolute;left:4px;top:4px;background:var(--accent);color:#fff;font-size:10.5px;font-weight:700;padding:2px 6px;border-radius:999px}
+.pcell .pb{position:absolute;bottom:4px;display:flex;gap:4px;right:4px}
+.pcell button{width:28px;height:28px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:14px;line-height:28px;padding:0;cursor:pointer}
+.muted{color:var(--muted);font-weight:400;font-size:12.5px}
 .confirm{grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13.5px;padding-top:8px;border-top:1px solid var(--line)}
 .empty{color:var(--muted);text-align:center;padding:28px 8px}
 .atabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
@@ -140,8 +148,9 @@ textarea{min-height:70px;resize:vertical}
         <label>Condition<select id="f-cond"></select></label>
         <label>Pickup area<select id="f-area"></select></label>
         <label class="full">Description<textarea id="f-desc" placeholder="Size, colour, details buyers will ask about"></textarea></label>
-        <label class="full">Photo<input id="f-photo" type="file" accept="image/*"></label>
-        <img id="f-preview" class="preview full" alt="" hidden>
+        <div class="full"><label for="f-photo">Photos <span class="muted">(up to 8. The first one is the cover; tap ◀ to move a photo forward)</span></label>
+          <div id="f-photos" class="pgrid"></div>
+          <input id="f-photo" type="file" accept="image/*" multiple></div>
         <label class="full">Status<select id="f-status">
           <option value="available">Available</option><option value="reserved">Reserved</option><option value="sold">Sold</option>
         </select></label>
@@ -226,7 +235,10 @@ const C=window.SELAM, sb=window.supabase.createClient(C.supabaseUrl,C.supabaseAn
 const $=s=>document.querySelector(s);
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const birr=n=>Math.round(n).toLocaleString()+' Br';
-let items=[], editing=null, pendingPhoto=null, confirmId=null;
+let items=[], editing=null, photoList=[], origPhotos=[], confirmId=null;
+const MAXP=8;
+const photosOf=i=>(i.photos&&i.photos.length?i.photos:(i.photo_url?[i.photo_url]:[]));
+const storagePath=u=>(u||'').split('/item-photos/')[1];
 
 $('#f-cat').innerHTML=C.categories.map(c=>`<option>${c}</option>`).join('');
 $('#f-cond').innerHTML=C.conditions.map(c=>`<option>${c}</option>`).join('');
@@ -274,7 +286,7 @@ function render(){
   const list=items.filter(i=>(sf==='all'||i.status===sf)&&(i.name+' '+i.category+' '+(i.description||'')).toLowerCase().includes(q));
   if(!items.length){$('#items').innerHTML='<p class="empty">No items yet. Add your first item with the form.</p>';return}
   $('#items').innerHTML=list.length?list.map(i=>`<article class="item ${i.status==='sold'?'sold':''}">
-    ${i.photo_url?`<img class="thumb" src="${esc(i.photo_url)}" alt="">`:'<div class="thumb">No photo</div>'}
+    ${i.photo_url?`<img class="thumb" src="${esc(i.photo_url)}" alt="" title="${photosOf(i).length} photo(s)">`:'<div class="thumb">No photo</div>'}
     <div style="min-width:0"><h3>${esc(i.name)}${i.is_sample?'<span class="pill smp">Sample</span>':''}<span class="pill ${i.status}">${i.status[0].toUpperCase()+i.status.slice(1)}</span></h3>
       <div class="meta">${esc(i.category)} · ${esc(i.condition)} · ${esc(i.pickup_area)} · #${i.id}</div>
       <div class="price">${birr(i.price_etb)}</div></div>
@@ -308,22 +320,22 @@ $('#items').addEventListener('click',async e=>{
     const item=items.find(i=>i.id==y.dataset.delyes);
     const {error}=await sb.from('items').delete().eq('id',item.id);
     if(error){toast('Delete failed. Try again.');return}
-    if(item.photo_url){const path=item.photo_url.split('/item-photos/')[1];if(path)await sb.storage.from('item-photos').remove([path])}
+    const paths=photosOf(item).map(storagePath).filter(Boolean);if(paths.length)await sb.storage.from('item-photos').remove(paths);
     confirmId=null;if(editing===item.id)resetForm();toast('Item deleted');load();
   }
 });
 
 /* form */
 function startEdit(id){
-  const i=items.find(x=>x.id===id);editing=id;pendingPhoto=null;
+  const i=items.find(x=>x.id===id);editing=id;origPhotos=photosOf(i);photoList=origPhotos.map(u=>({url:u}));
   $('#formTitle').textContent='Edit item #'+id;$('#saveBtn').textContent='Save changes';$('#cancelEdit').hidden=false;
   $('#f-name').value=i.name;$('#f-price').value=i.price_etb;$('#f-cat').value=i.category;$('#f-cond').value=i.condition;
   $('#f-area').value=i.pickup_area;$('#f-desc').value=i.description||'';$('#f-status').value=i.status;$('#f-photo').value='';
-  $('#f-preview').hidden=!i.photo_url;$('#f-preview').src=i.photo_url||'';
+  renderPhotos();
   show($('#formMsg'));$('#itemForm').scrollIntoView({behavior:'smooth'});
 }
 function resetForm(){
-  editing=null;pendingPhoto=null;$('#itemForm').reset();$('#f-preview').hidden=true;$('#f-preview').removeAttribute('src');
+  editing=null;photoList.forEach(p=>p.blob&&URL.revokeObjectURL(p.src));photoList=[];origPhotos=[];$('#itemForm').reset();renderPhotos();
   $('#formTitle').textContent='Add an item';$('#saveBtn').textContent='Add item';$('#cancelEdit').hidden=true;
 }
 $('#cancelEdit').onclick=()=>{resetForm();show($('#formMsg'))};
@@ -335,10 +347,20 @@ function shrink(file,max=1200){return new Promise((res,rej)=>{
     c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);
     URL.revokeObjectURL(url);c.toBlob(b=>b?res(b):rej(new Error('shrink')),'image/jpeg',0.82)};
   img.onerror=()=>rej(new Error('read'));img.src=url;})}
+function renderPhotos(){
+  $('#f-photos').innerHTML=photoList.map((p,n)=>`<div class="pcell"><img src="${esc(p.blob?p.src:p.url)}" alt="">${n===0?'<span class="cv">Cover</span>':''}
+    <div class="pb">${n>0?`<button type="button" data-pmove="${n}" aria-label="Move forward">◀</button>`:''}<button type="button" data-pdel="${n}" aria-label="Remove photo">✕</button></div></div>`).join('');
+  $('#f-photo').disabled=photoList.length>=MAXP}
+$('#f-photos').addEventListener('click',e=>{
+  const m=e.target.closest('[data-pmove]'),d=e.target.closest('[data-pdel]');
+  if(m){const n=+m.dataset.pmove;[photoList[n-1],photoList[n]]=[photoList[n],photoList[n-1]];renderPhotos()}
+  if(d){const n=+d.dataset.pdel;const [p]=photoList.splice(n,1);if(p.blob)URL.revokeObjectURL(p.src);renderPhotos()}});
 $('#f-photo').addEventListener('change',async e=>{
-  const f=e.target.files[0];if(!f)return;
-  try{pendingPhoto=await shrink(f);$('#f-preview').src=URL.createObjectURL(pendingPhoto);$('#f-preview').hidden=false}
-  catch{pendingPhoto=null;show($('#formMsg'),'That photo could not be read. Try a JPG or PNG.')}
+  const files=[...e.target.files];e.target.value='';let bad=0,over=0;
+  for(const f of files){if(photoList.length>=MAXP){over++;continue}
+    try{const b=await shrink(f);photoList.push({blob:b,src:URL.createObjectURL(b)})}catch{bad++}}
+  renderPhotos();
+  show($('#formMsg'),bad?`${bad} photo(s) could not be read. Try JPG or PNG.`:over?`Only ${MAXP} photos per item. ${over} were not added.`:'');
 });
 
 $('#itemForm').addEventListener('submit',async e=>{
@@ -350,17 +372,22 @@ $('#itemForm').addEventListener('submit',async e=>{
   const row={name,price_etb:price,category:$('#f-cat').value,condition:$('#f-cond').value,pickup_area:$('#f-area').value,
     description:$('#f-desc').value.trim()||null,status:$('#f-status').value};
   try{
-    if(pendingPhoto){
+    const urls=[];
+    for(let n=0;n<photoList.length;n++){const p=photoList[n];
+      if(!p.blob){urls.push(p.url);continue}
+      $('#saveBtn').textContent=`Uploading photo ${n+1} of ${photoList.length}…`;
       const path=`${Date.now()}-${Math.random().toString(36).slice(2,8)}.jpg`;
-      const up=await sb.storage.from('item-photos').upload(path,pendingPhoto,{contentType:'image/jpeg'});
-      if(up.error)throw new Error('The photo did not upload. Try again or save without a photo.');
-      row.photo_url=sb.storage.from('item-photos').getPublicUrl(path).data.publicUrl;
-    }
+      const up=await sb.storage.from('item-photos').upload(path,p.blob,{contentType:'image/jpeg'});
+      if(up.error)throw new Error('A photo did not upload. Try again.');
+      p.url=sb.storage.from('item-photos').getPublicUrl(path).data.publicUrl;delete p.blob;urls.push(p.url)}
+    row.photos=urls;row.photo_url=urls[0]||null;
     const q=editing?sb.from('items').update(row).eq('id',editing):sb.from('items').insert(row);
-    const {error}=await q;if(error)throw new Error('The item was not saved. Try again.');
+    const {error}=await q;
+    if(error){if(/photos/.test(error.message||''))throw new Error('Multiple photos need a one-time database update. Run the "photos" SQL in Supabase, then save again.');throw new Error('The item was not saved. Try again.')}
+    const gone=origPhotos.filter(u=>!urls.includes(u)).map(storagePath).filter(Boolean);if(gone.length)await sb.storage.from('item-photos').remove(gone);
     toast(editing?'Changes saved':'Item added');resetForm();load();
   }catch(err){show($('#formMsg'),err.message)}
-  finally{$('#saveBtn').disabled=false}
+  finally{$('#saveBtn').disabled=false;$('#saveBtn').textContent=editing?'Save changes':'Add item'}
 });
 
 /* ---------- seller approvals ---------- */
