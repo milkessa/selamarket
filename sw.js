@@ -1,7 +1,7 @@
 /* Selam Market service worker: makes the site installable and fast on slow connections.
    Pages and code: network first (so updates show at once), saved copy when offline.
    Pictures and fonts: saved copy first, refreshed in the background. Orders and logins always go to the network. */
-var V = "selam-v1";
+var V = "selam-v2";
 var CORE = ["./", "index.html", "app.js", "i18n.js", "config.js", "captcha.js", "stats.js", "pwa.js", "favicon.svg", "manifest.webmanifest", "icons/icon-192.png"];
 
 self.addEventListener("install", function (e) {
