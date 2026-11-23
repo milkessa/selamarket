@@ -98,6 +98,12 @@ textarea{min-height:70px;resize:vertical}
 .rev dd{margin:0;overflow-wrap:anywhere}
 .rev .acts{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .rev .acts input{flex:1;min-width:180px;width:auto}
+.rev .acts .cadin{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600}
+.rev .acts .cadin input{width:110px;min-width:0;flex:none}
+.pricing{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;background:var(--sunk);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:13.5px}
+.pricing label{display:flex;align-items:center;gap:6px}
+.pricing input{width:84px;padding:6px 8px}
+.pricing .muted{flex-basis:100%}
 .btn.ok{background:var(--accent);color:var(--accent-ink)}
 .pill.smp{background:var(--ink);color:var(--bg)}
 .pill.pending{background:color-mix(in srgb,var(--ochre) 18%,transparent);color:var(--warn)}
@@ -185,6 +191,7 @@ textarea{min-height:70px;resize:vertical}
     <div class="filters">
       <select id="spFilter" aria-label="Filter seller products"><option value="pending">Waiting for approval</option><option value="approved">Live</option><option value="rejected">Rejected</option><option value="sold">Sold</option><option value="all">All products</option></select>
     </div>
+    <div id="pricingBox"></div>
     <div class="items" id="sp"></div>
   </section>
 
@@ -443,26 +450,49 @@ async function loadSp(){
   const {data,error}=await q; if(error){$('#sp').innerHTML='<p class="empty">Products could not load. Has 002_sellers.sql been run in Supabase?</p>';return}
   sps=data; renderSp();
 }
+// Price helper: birr -> CAD using your exchange rate, fee % and fixed fee (saved on this computer only)
+function pset(){try{return JSON.parse(localStorage.getItem('sm-pricing')||'{}')}catch{return {}}}
+function sugg(etb){const c=pset();const r=+c.rate;if(!(r>0))return '';const v=(etb/r)*(1+(+c.pct||0)/100)+(+c.fixed||0);return Math.ceil(v)}
+function pricingBar(){const c=pset();return `<div class="pricing"><b>Price helper</b><label>1 CAD =<input id="pr-rate" type="number" step="0.01" value="${esc(c.rate||'')}" placeholder="birr"> Br</label>
+  <label>Fee<input id="pr-pct" type="number" step="1" value="${esc(c.pct??'')}" placeholder="%">%</label><label>+ $<input id="pr-fixed" type="number" step="1" value="${esc(c.fixed??'')}" placeholder="fixed"> CAD</label>
+  <span class="muted">Suggested price = seller's birr ÷ rate, plus fee %, plus fixed fee, rounded up. You can change any price before saving.</span></div>`}
 function renderSp(){
+  if(!$('#pricingBox').innerHTML)$('#pricingBox').innerHTML=pricingBar();
   if(!sps.length){$('#sp').innerHTML='<p class="empty">No products here.</p>';return}
   $('#sp').innerHTML=sps.map(p=>{const s=p.sellers||{};return `<article class="rev withimg">
     ${p.photo_url?`<a href="${esc(p.photo_url)}" target="_blank" rel="noopener"><img src="${esc(p.photo_url)}" alt="${esc(p.name)}" loading="lazy"></a>`:'<img alt="">'}
     <div style="min-width:0"><h3>${esc(p.name)} ${p.is_sample?'<span class="pill smp">Sample</span>':''}<span class="pill ${p.status}">${p.status==='approved'?'live':p.status}</span></h3>
-      <dl><dt>Seller price</dt><dd><b>${birrF(p.price_etb)}</b></dd><dt>Shop</dt><dd>${esc(s.business_name||'')} ${s.status&&s.status!=='approved'?`<span class="pill ${s.status}">shop ${s.status}</span>`:''}</dd>
+      <dl><dt>Seller price</dt><dd><b>${birrF(p.price_etb)}</b>${sugg(p.price_etb)?` <span class="muted">≈ suggested $${sugg(p.price_etb)} CAD</span>`:''}</dd>
+        <dt>Your price</dt><dd>${p.price_cad!=null?`<b>$${(+p.price_cad).toFixed(2)} CAD</b> shown on the site`:'<span class="muted">Not set: shows "Ask for a price"</span>'}</dd><dt>Shop</dt><dd>${esc(s.business_name||'')} ${s.status&&s.status!=='approved'?`<span class="pill ${s.status}">shop ${s.status}</span>`:''}</dd>
         <dt>Contact</dt><dd>${esc(s.phone||'')}${s.telegram?` · <a href="https://t.me/${encodeURIComponent(s.telegram)}" target="_blank" rel="noopener">@${esc(s.telegram)}</a>`:''}</dd>
         <dt>Details</dt><dd>${esc(p.category)} · ${esc(p.condition)} · qty ${p.quantity}${p.weight_kg?` · ${p.weight_kg} kg`:''}</dd>
         ${p.description?`<dt>About</dt><dd>${esc(p.description)}</dd>`:''}<dt>Added</dt><dd>${when(p.created_at)} · #${p.id}</dd></dl></div>
-    <div class="acts"><input id="pn-${p.id}" placeholder="Note to seller (shown if rejected)" value="${esc(p.admin_note||'')}">
+    <div class="acts"><label class="cadin">Price (CAD)<input id="pc-${p.id}" type="number" min="0" step="0.01" inputmode="decimal" value="${p.price_cad!=null?p.price_cad:(sugg(p.price_etb)||'')}" placeholder="e.g. 45"></label>
+      <button class="btn ghost sm" data-pprice="${p.id}">Save price</button>
+      <input id="pn-${p.id}" placeholder="Note to seller (shown if rejected)" value="${esc(p.admin_note||'')}">
       ${p.status!=='approved'?`<button class="btn ok sm" data-pact="approved" data-id="${p.id}">Approve</button>`:''}
       ${p.status!=='rejected'?`<button class="btn ghost sm" data-pact="rejected" data-id="${p.id}">${p.status==='approved'?'Take down':'Reject'}</button>`:''}
     </div></article>`}).join('');
 }
-$('#sp').addEventListener('click',async e=>{const b=e.target.closest('[data-pact]');if(!b)return;b.disabled=true;
-  const id=b.dataset.id,note=$('#pn-'+id).value.trim()||null;
-  const {error}=await sb.from('seller_products').update({status:b.dataset.pact,admin_note:note}).eq('id',id);
-  if(error){toast('Not saved. Try again.');b.disabled=false;return}
+function readCad(id){const v=$('#pc-'+id).value.trim();if(v==='')return null;const n=+v;return n>=0?Math.round(n*100)/100:NaN}
+$('#sp').addEventListener('click',async e=>{
+  const pp=e.target.closest('[data-pprice]');
+  if(pp){const id=pp.dataset.pprice,v=readCad(id);if(Number.isNaN(v)){toast('Enter a valid price');return}pp.disabled=true;
+    const {error}=await sb.from('seller_products').update({price_cad:v}).eq('id',id);
+    if(error){toast(/price_cad/.test(error.message||'')?'Run the CAD price SQL in Supabase first.':'Not saved. Try again.');pp.disabled=false;return}
+    toast(v==null?'Price removed':'Price saved');loadSp();return}
+  const b=e.target.closest('[data-pact]');if(!b)return;b.disabled=true;
+  const id=b.dataset.id,note=$('#pn-'+id).value.trim()||null,v=readCad(id);
+  if(Number.isNaN(v)){toast('Enter a valid price');b.disabled=false;return}
+  const upd={status:b.dataset.pact,admin_note:note};if(b.dataset.pact==='approved')upd.price_cad=v;
+  const {error}=await sb.from('seller_products').update(upd).eq('id',id);
+  if(error){toast(/price_cad/.test(error.message||'')?'Run the CAD price SQL in Supabase first.':'Not saved. Try again.');b.disabled=false;return}
   toast(b.dataset.pact==='approved'?'Product is live':'Product rejected');loadSp();loadCounts();});
 $('#spFilter').addEventListener('change',loadSp);
+document.addEventListener('input',e=>{if(!e.target.closest('.pricing'))return;
+  const c={rate:$('#pr-rate').value,pct:$('#pr-pct').value,fixed:$('#pr-fixed').value};try{localStorage.setItem('sm-pricing',JSON.stringify(c))}catch{}
+  clearTimeout(window.__prT);window.__prT=setTimeout(renderSpKeep,400)});
+function renderSpKeep(){const f=document.activeElement&&document.activeElement.id;renderSp();if(f&&$('#'+f))$('#'+f).focus()}
 
 /* ---------- gift partners ---------- */
 const SUPL={livestock:'Livestock',groceries:'Groceries and essentials',holiday:'Holiday packages',bakery:'Cakes and bakery',flowers:'Flowers',phones:'Phones and electronics',clothing:'Clothing',other:'Other'};

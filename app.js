@@ -115,8 +115,8 @@ function renderMarket(){
 function marketCard(i,n){var href="#addis-"+esc(i.id);
   return '<article class="card"><a class="open" href="'+href+'"><div class="ph">'+(i.photo_url?'<img src="'+esc(i.photo_url)+'" alt="'+esc(i.name)+'" width="600" height="480" decoding="async"'+(n>3?' loading="lazy"':'')+'>':ICON)+
     '<span class="badge">'+esc(tr(I.CONDS,i.condition))+'</span>'+(i.is_sample?'<span class="stag">'+esc(t("sample"))+'</span>':'')+'</div></a><div class="bd"><a class="open" href="'+href+'"><h3>'+esc(i.name)+"</h3></a>"+
-    (i.description?'<div class="meta clamp">'+esc(i.description)+"</div>":"")+'<div class="shop">'+esc(t("fa_shop",{s:i.shop_name,a:i.shop_area}))+"</div>"+
-    '<button type="button" class="btn pri sm" data-ask="'+esc(i.id)+'" style="margin-top:8px">'+esc(t("fa_ask"))+"</button></div></article>"}
+    (i.description?'<div class="meta clamp">'+esc(i.description)+"</div>":"")+'<div class="shop">'+esc(t("fa_shop",{s:i.shop_name,a:i.shop_area}))+"</div>"+(i.price_cad!=null?'<div class="gprice">'+cad(i.price_cad)+"</div>":"")+
+    '<button type="button" class="btn pri sm" data-ask="'+esc(i.id)+'" style="margin-top:8px">'+esc(t(i.price_cad!=null?"fa_buy":"fa_ask"))+"</button></div></article>"}
 $("#fq").addEventListener("input",renderMarket);
 
 /* ---------- gifts for family (priced in CAD) ---------- */
@@ -192,9 +192,9 @@ function renderDetail(){
   if(addis)rows.push([t("d_shop"),i.shop_name+" · "+t("in_addis",{a:i.shop_area})]);else rows.push([t("d_pick"),t("in_addis",{a:i.pickup_area})]);
   rows.push([t("d_num"),"#"+i.id]);
   var info='<div class="info2"><h1>'+esc(i.name)+"</h1>"+
-    (addis?'<div class="shopline">'+esc(t("fa_shop",{s:i.shop_name,a:i.shop_area}))+"</div>":'<div class="bigprice">'+birr(i.price_etb)+"</div>")+
+    (addis?'<div class="shopline">'+esc(t("fa_shop",{s:i.shop_name,a:i.shop_area}))+"</div>"+(i.price_cad!=null?'<div class="bigprice">'+cad(i.price_cad)+"</div>":""):'<div class="bigprice">'+birr(i.price_etb)+"</div>")+
     (i.is_sample?'<p class="snote">'+esc(t("sample_note"))+"</p>":"")+
-    '<div class="actions">'+(addis?'<button type="button" class="btn pri block" data-ask="'+esc(i.id)+'">'+esc(t("fa_ask"))+"</button>":
+    '<div class="actions">'+(addis?'<button type="button" class="btn pri block" data-ask="'+esc(i.id)+'">'+esc(t(i.price_cad!=null?"fa_buy":"fa_ask"))+"</button>":
       '<button type="button" class="btn pri block" data-buy="'+esc(i.id)+'">'+esc(i.is_sample?t("sample_ask"):res?t("ask"):t("buy"))+"</button>")+
     '<button type="button" class="btn ghost block" data-share>'+esc(t("share"))+"</button></div>"+
     (i.description?"<h2>"+esc(t("desc_t"))+'</h2><p class="desc">'+esc(i.description)+"</p>":"")+
@@ -251,7 +251,7 @@ document.addEventListener("click",function(e){
   var l=up(e.target,"[data-lang]");if(l){lang=l.getAttribute("data-lang");store("sm-lang",lang);applyLang();return}
   var mc=up(e.target,"[data-mcat]");if(mc){mcat=mc.getAttribute("data-mcat");renderMarket();return}
   var ak=up(e.target,"[data-ask]");if(ak){var aid=ak.getAttribute("data-ask"),m=null;market.forEach(function(x){if(String(x.id)===aid)m=x});
-    if(m)contactSheet(t("fa_ask"),m.is_sample?t("sample_note"):m.name+" · "+m.shop_name,m.is_sample?t("sample_fa_msg",{n:m.name}):t("fa_msg",{n:m.name,i:m.id,s:m.shop_name}));return}
+    if(m){var pr=m.price_cad!=null&&!m.is_sample;contactSheet(t(pr?"fa_buy":"fa_ask"),m.is_sample?t("sample_note"):m.name+" · "+m.shop_name+(pr?" · "+cad(m.price_cad):""),m.is_sample?t("sample_fa_msg",{n:m.name}):pr?t("fa_buy_msg",{n:m.name,i:m.id,s:m.shop_name,p:cad(m.price_cad)}):t("fa_msg",{n:m.name,i:m.id,s:m.shop_name}))}return}
   var c=up(e.target,"[data-cat]");if(c){cat=c.getAttribute("data-cat");renderShop();return}
   var b=up(e.target,"[data-buy]");if(b){var id=b.getAttribute("data-buy"),i=null;
     items.forEach(function(x){if(String(x.id)===id)i=x});
